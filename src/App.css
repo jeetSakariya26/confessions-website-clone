@@ -1,0 +1,141 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* css for login page */
+.login_maincontainer{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(251, 248, 248);
+}
+
+.website_info{   
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    height:80vh;
+    background-image:linear-gradient(to left, rgb(30,212,252), rgb(117,78,231));
+    color: rgb(249, 249, 249);
+    border-radius: 12px ;
+    width:45vw;
+    position: absolute;
+    top:10vh;
+    left:45vw ;
+}
+.website_info h1{
+    font-size: 50px;
+}
+.website_info p{
+    font-size: large;
+    margin-top: 20px;
+    width:30vw;
+}
+
+.login_data{
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 35vw;
+    height: 70vh;
+    top: 15vh;
+    left: 12.5vw;
+    border-radius: 20px;
+    box-shadow:  0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 5px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.login_data h2{
+    margin-bottom: 20px;
+    font-size: 35px;
+    /* color: rgb(0, 132, 255); */
+    color: rgb(33, 28, 28);
+    border-bottom: 2px solid black;
+}
+.login_data form{
+    margin-top: 20px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    flex-direction: column  ;
+    justify-content:space-around ;
+
+}
+
+.login_data form input{
+    width: 300px;
+    height: 50px;
+    border-radius: 20px;
+    border: 2px solid black;
+    margin: 10px;
+    position: relative;
+    padding: 0px 15px;
+    transform: all 0.3s ease;
+    font-size: large;
+}
+
+.login_data form label{
+    position: absolute;
+    /* top: -100px; */
+    left: 150px;
+    background-color: white;
+    z-index: 100;
+    width:fit-content;
+    color: black; 
+    transform: translateY(-0.25rem);
+    transition: all 0.3s ease;
+}
+.login_data form input:focus ~label{
+    color: rgb(41, 96, 207);
+}
+.login_data form input:focus{
+    padding: 0px 15px;
+    font-size: large;
+    border: 2px solid rgb(41, 96, 207)  ;
+    outline: none;
+    /* border: none; */
+}
+.login_data form input::placeholder{
+    font-size: large;
+}
+
+
+
+.login_submit{
+    width: 150px;
+    height: 40px;
+    border: 2px solid black;
+    font-size: large;
+    background-color: white;
+    border-radius: 20px;
+    transition: 0.3s all ease;
+}
+
+.login_submit:hover{
+    border: 2px solid rgb(41, 96, 207);
+    background-color: rgb(41, 96, 207);
+    color: white;
+    font-size: 25px;
+}
+
+.login_account{
+    padding: 0px 10px;
+    transform: translateY(0.25rem);
+    color: rgb(41, 137, 221);
+    border: none;
+    border-bottom: 2px solid rgb(41, 137, 221);
+    background-color: white;
+    font-size: large;
+    transform: 0.5s all ease-in-out ;
+}
+.login_account:hover{
+    color: black;
+    border-bottom: 2px solid rgb(28, 26, 26);
+}
