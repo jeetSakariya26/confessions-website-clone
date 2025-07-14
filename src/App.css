@@ -6,6 +6,34 @@
 
 
 /* css for login page */
+@keyframes login_animation {
+    0%{
+        opacity: 0;
+        transform:translateX(10rem);
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes login_animation1{
+    0%{
+        opacity: 0;
+        transform:translateX(-10rem);
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
+
+
 .login_maincontainer{
     display: flex;
     height: 100vh;
@@ -26,7 +54,10 @@
     width:45vw;
     position: absolute;
     top:10vh;
-    left:45vw ;
+    left:12.5vw ;
+    animation-name: login_animation;
+    animation-duration: 1s;
+    animation-delay: 0s;
 }
 .website_info h1{
     font-size: 50px;
@@ -48,9 +79,12 @@
     width: 35vw;
     height: 70vh;
     top: 15vh;
-    left: 12.5vw;
+    left: 55vw;
     border-radius: 20px;
     box-shadow:  0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 5px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-name: login_animation1;
+    animation-duration: 1s;
+    animation-delay: 0s;
 }
 .login_data h2{
     margin-bottom: 20px;
@@ -106,8 +140,6 @@
     font-size: large;
 }
 
-
-
 .login_submit{
     width: 150px;
     height: 40px;
@@ -129,6 +161,7 @@
     padding: 0px 10px;
     transform: translateY(0.25rem);
     color: rgb(41, 137, 221);
+    text-decoration: none;
     border: none;
     border-bottom: 2px solid rgb(41, 137, 221);
     background-color: white;
@@ -138,4 +171,201 @@
 .login_account:hover{
     color: black;
     border-bottom: 2px solid rgb(28, 26, 26);
+}
+
+
+/* signup css */
+@keyframes signup_animation {
+    0%{
+        transform: translateX(10rem);
+        opacity: 0;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+} 
+@keyframes signup_animation1 {
+    0%{
+        transform: translateX(-10rem);
+        opacity: 0;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+.website_info1{   
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    height:80vh;
+    background-image:linear-gradient(to left, rgb(30,212,252), rgb(117,78,231));
+    color: rgb(249, 249, 249);
+    border-radius: 12px ;
+    width:45vw;
+    position: absolute;
+    top:10vh;
+    left:45vw ;
+    animation-name: signup_animation;
+    animation-delay: 0s;
+    animation-duration: 1s;
+}
+.website_info1 h1{
+    font-size: 50px;
+}
+.website_info1 p{
+    font-size: large;
+    margin-top: 20px;
+    width:30vw;
+}
+.signup_container{
+    display: flex;
+    background-color: rgb(251, 248, 248);
+    height: 100vh;
+    width: 100vw;
+}
+.new_account{
+    position: absolute;
+    top: 15vh;
+    left: 12.5vw;
+    height: 70vh;
+    width: 35vw;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly   ;
+    border-radius: 20px;
+    box-shadow:  0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 5px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-name: signup_animation1;
+    animation-duration: 1s;
+    animation-delay: 0ms;
+}
+.change_position{
+    border-radius: 20px;
+    background-color: white;
+    /* padding: 10px; */
+    display: flex;
+    align-items: center;
+}   
+.singup_member button{
+    font-size: large;
+    /* margin: 0px 20px; */
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 0;
+    border-radius: 20px;
+    color: white;  
+    /* background-color: transparent;  */
+    background-image:linear-gradient(to left, rgb(30,212,252), rgb(117,78,231));
+    transition: all 0.3s ease-in-out;
+
+}
+.singup_admin button{
+    font-size: large;
+    /* margin: 0px 20px; */
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: transparent;
+    border: 0;
+    border-radius: 20px;
+    color: black;
+    transition: all 0.3s ease-in-out;
+}
+
+.new_account div form{
+    height: 40vh;
+}
+
+.new_account div form input{
+    width: 25vw;
+    height: 50px;
+    border-radius: 20px;
+    border: 2px solid black;
+    margin: 10px;
+    position: relative;
+    padding: 0px 15px;
+    transform: all 0.3s ease;
+    font-size: large;
+}
+
+.new_account div form label{
+    position: absolute;
+    /* top: -100px; */
+    left: 8vw;
+    background-color: white;
+    z-index: 100;
+    width:fit-content;
+    color: black; 
+    transform: translateY(-0.25rem);
+    transition: all 0.3s ease;
+}
+.new_account div form input:focus ~label{
+    color: rgb(41, 96, 207);
+}
+.new_account div form input:focus{
+    padding: 0px 15px;
+    font-size: large;
+    border: 2px solid rgb(41, 96, 207)  ;
+    outline: none;
+    /* border: none; */
+}
+.new_account div form input::placeholder{
+    font-size: large;
+}
+.signup_submit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.signup_submit button{
+    margin: 10px;
+    padding: 10px;
+    font-size: medium;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 20px;
+    transition: 0.3s all ease;
+}
+.signup_submit button:hover{
+    background-color:rgb(41, 96, 207);
+    border: 2px solid rgb(41, 96, 207);
+    font-size: large ;
+    color: white;
+}
+.alreadyAccount{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: black; */
+}
+.account{
+    /* margin: 10px; */
+    text-decoration: none;
+    padding: 10px;
+    font-size: medium;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 20px ;
+    transition: all 0.3s ease-in-out    ;
+}
+.account:hover{
+    background-color:rgb(41, 96, 207);
+    border: 2px solid rgb(41, 96, 207);
+    font-size: large ;
+    color: white;
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { href, Link } from 'react-router-dom';
+import SignUp from './SignUp';
 
-export default function Login() {
+export default function Login(props) {
     const [Name,setName]=useState('');
     const [Email,setEmail]=useState('');
     const [Password,setPassword]=useState('');
@@ -15,7 +17,8 @@ export default function Login() {
     const handleOnUserName=(e)=>{
         setName(e.target.value);
     }
-  return (
+
+    return (
     <div className='login_maincontainer'>
         <div className='login_data'>
             <h2>User Login</h2>
@@ -24,7 +27,6 @@ export default function Login() {
                     <input className='User_name' value={Name} type='text' placeholder='User Name' onChange={handleOnUserName}/>
                     <label htmlFor='Username'>UserName:
                     </label>
-                    
                 </div>
                 <div>
                     <input className='User_name' value={Password} type='password' placeholder='Password' onChange={handleOnPassword}/>
@@ -35,7 +37,7 @@ export default function Login() {
                     <button type='submit' className='login_submit'>Submit</button>
                 </div>
                 <div>
-                    <button type='button' className='login_account'>Create an Account</button>
+                    <Link className='login_account' to={"/signup"}>Create an Account</Link>
                 </div>
             </form>
         </div>
@@ -44,5 +46,5 @@ export default function Login() {
             <p>Here you can make groups and join the groups. Your confession is anonymously and keep it private.</p>
         </div>
     </div>
-  )
+    )
 }
