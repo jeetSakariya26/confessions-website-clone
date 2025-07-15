@@ -141,9 +141,10 @@
 }
 
 .login_submit{
-    width: 150px;
-    height: 40px;
+    padding: 10px 20px;
     border: 2px solid black;
+    text-decoration: none;
+    color: black;
     font-size: large;
     background-color: white;
     border-radius: 20px;
@@ -154,7 +155,8 @@
     border: 2px solid rgb(41, 96, 207);
     background-color: rgb(41, 96, 207);
     color: white;
-    font-size: 25px;
+    font-size: large;
+    padding: 10px 20px;
 }
 
 .login_account{
@@ -331,19 +333,20 @@
     align-items: center;
     justify-content: center;
 }
-.signup_submit button{
-    margin: 10px;
-    padding: 10px;
-    font-size: medium;
-    background-color: white;
+.signup_Create_account{
+    text-decoration: none;
     border: 2px solid black;
     border-radius: 20px;
-    transition: 0.3s all ease;
+    padding: 10px 20px;
+    color: black;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
 }
-.signup_submit button:hover{
-    background-color:rgb(41, 96, 207);
+.signup_Create_account:hover{
+    /* padding: 10px 22px; */
+    font-size: large;
+    background-color: rgb(41, 96, 207);
     border: 2px solid rgb(41, 96, 207);
-    font-size: large ;
     color: white;
 }
 .alreadyAccount{
