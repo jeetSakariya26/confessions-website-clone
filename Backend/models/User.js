@@ -19,15 +19,33 @@ const userSchema = new mongoose.Schema({
 
     profilePhoto : {
         type : String,
-        default : "", // default guest photo link
+        default : "http://localhost:3000/public/default.jpg", // default guest photo link
     },
 
-    chats : {
+    groups : {
         type : [mongoose.Schema.Types.ObjectId],
         default : [],
     },
 
+    personalChat : {
+        type : [String],
+        default : [],
+    },
+
+    follower : {
+        type : [String],
+        default : [],
+    },
     
+    following : {
+        type : [String],
+        default : [],
+    },
+    
+    friends : {
+        type : [String],
+        default : [],
+    },
 });
 
 export const User = mongoose.model("User", userSchema);

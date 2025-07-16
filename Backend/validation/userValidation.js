@@ -21,5 +21,6 @@ export const userValidation = joi.object({
         "Password must contain at least one uppercase letter, one number, and one special character.",
       "any.required": "Password is required.",
     }),
-  name: joi.string().required(),
+    
+  nickName: joi.string().required(),
 });
