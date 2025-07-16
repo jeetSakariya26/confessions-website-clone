@@ -13,6 +13,8 @@ function App() {
       <Routes>
         <Route path='/' index element={<Login setmode={setmode} mode={mode}></Login>}></Route>
         <Route path='/signup' element={<SignUp mode={mode} setmode={setmode}></SignUp>}></Route>
+        <Route path='/HOmepage' index element={<Navbar></Navbar>}></Route>
+
       </Routes>
     </div>
     </BrowserRouter>

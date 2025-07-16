@@ -77,7 +77,7 @@ export default function SignUp(props) {
                     </label>
                 </div>
                 <div className='signup_submit'>
-                    <Link to={"/"} onClick={account_create} className='signup_Create_account'>Create An Account</Link>
+                    <Link to={"/"} onClick={account_create} className='signup_Create_account'>SignUp</Link>
                 </div>
                 <div className='alreadyAccount'> 
                     <Link to={"/"} className='account' >I have an already account</Link>
