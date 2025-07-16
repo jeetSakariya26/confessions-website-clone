@@ -1,45 +1,58 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'bodyParser';
+import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import path from 'path';
+import mongoose from 'mongoose';
+import { fileURLToPath } from 'url';
+import {signupUser, loginUser, findUser,followUser,unfollowUser, logoutUser, getUser } from './controller/user.js'
+import { userAuthMiddleware } from './service/userAuth.js';
+import { loginDeveloper, signupDeveloper,deleteUser, logoutDeveloper} from './controller/developer.js';
+import { devAuthMiddleware } from './service/devAuth.js';
 
-
-import { MongoClient, ServerApiVersion } from 'mongodb';
-const uri = process.env.MONGO_URL;
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+dotenv.config();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname,'/public')));
 
 app.listen(process.env.PORT, ()=>{
-    console.log("App is lisitening...");
+    console.log("App is listening...");
 });
-
-run().catch(console.dir);
 
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
-    console.log("Database connected");
+  console.log("Database connected");
 })
 .catch(()=>{
-        console.log("Some error occured while connecting database");
+  console.log("Some error occured while connecting database");
 })
+
+app.post('/dev/login', loginDeveloper);
+
+app.post('/dev/signup', signupDeveloper);
+
+app.get('/dev/logout', logoutDeveloper);
+
+app.post('/dev/:username/delete',devAuthMiddleware, deleteUser);
+
+app.post('/user/signup',signupUser);
+
+app.post('/user/login', loginUser);
+
+app.get('/user/logout',logoutUser);
+
+app.post('/user/find', findUser);
+
+app.get('/user/:username/profile',userAuthMiddleware,getUser);
+
+app.post('/user/:username/follow',userAuthMiddleware,followUser);
+
+app.post('/user/:username/unfollow',userAuthMiddleware,unfollowUser);
+
+app.get('/{*any}',(req,res)=>{
+  res.status(200).json({message : "This is global page"});
+});
