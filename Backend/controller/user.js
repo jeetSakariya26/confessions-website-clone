@@ -1,14 +1,15 @@
+import { Group } from "../models/Group.js";
 import { createToken } from "../service/userAuth.js";
 import { User } from "./../models/User.js";
 import { userValidation } from "./../validation/userValidation.js";
 
 // tasks : add comments to the code  ~
-//         check working of functions
+//         check working of functions ~
 //         think about other functions
 
 // function which adds new User to database (sign Up)
 export const signupUser = async (req, res) => {
-  let { error } = await userValidation.validate(req.body);
+  let { error } = userValidation.validate(req.body);
   if (error) {
     return res.status(404).json({ message: error.details[0].message });
   }
@@ -35,11 +36,11 @@ export const loginUser = async (req, res) => {
   try {
     await User.findOne({ username: req.body.username })
       .then((user) => {
-        if(user.password == req.body.password){
+        if (user.password == req.body.password) {
           req.header.token = createToken(user);
-          return res.status(200).json({ message: "Login Successful"});
+          return res.status(200).json({ message: "Login Successful" });
         }
-        return res.status(404).json({message : "password is incorrect"});
+        return res.status(404).json({ message: "password is incorrect" });
       })
       .catch((err) => {
         return res.status(404).json({ message: "Username is Incorrect" });
@@ -53,13 +54,17 @@ export const loginUser = async (req, res) => {
 export const findUser = async (req, res) => {
   let data = req.body.nickName; // suppose given data has key = nickname
   try {
-    const usersViaNickName = await User.find({
+    const users = await User.find({
       nickName: { $regex: data, $options: "i" },
+      username: { $ne: data },
     });
 
-    const usersViaUsername = await User.find({ username: data });
+    const userViaUsername = await User.findOne({ username: data });
 
-    const users = usersViaUsername.concat(usersViaNickName);
+    if (userViaUsername) {
+      users.splice(0, 0, userViaUsername);
+    }
+
     if (users.length) {
       res.status(200).json({ message: "Users found.", users });
     } else {
@@ -68,29 +73,20 @@ export const findUser = async (req, res) => {
   } catch (err) {
     console.error("Something went wrong.");
   }
-}; // problem where repetion occures in username and nickname ( username = nickname )
+};
 
-// function which finds all Users from database
-// export const getAllUsers = async (req, res) => {
-//   try {
-//     let users = await User.find();
-//     return res.status(200).json({ message: "Success", users });
-//   } catch (err) {
-//     return res.status(404).json({ message: "Error Occured !!" });
-//   }
-// };
+// function which finds user by username and returns it ( Profile )
+export const getUser = async (req, res) => {
+  let { username } = req.body.params;
 
-export const getUser = async(req,res)=>{
-  let {username} = req.body.params;
-
-  await User.findOne({username})
-  .then((user)=>{
-    return res.status(200).json(user);
-  })
-  .catch((err)=>{
-    return res.status(404).json("User not found");
-  })
-}
+  await User.findOne({ username })
+    .then((user) => {
+      return res.status(200).json(user);
+    })
+    .catch((err) => {
+      return res.status(404).json("User not found");
+    });
+};
 
 // follow user
 export const followUser = async (req, res) => {
@@ -99,92 +95,109 @@ export const followUser = async (req, res) => {
   const targetUsername = req.params.username;
 
   if (currentUsername == targetUsername)
-    return res.status(400).send("You can't follow yourself");
+    res.status(400).json({ message: "You can't unfollow yourself" });
 
-  // adding required stuff for currentUsername
-  await User.findOne({ username: currentUsername })
-    .then((user) => {
-      console.log("Found User :", user.username);
-      if(user.follower.indexOf(targetUsername) != -1) {
-        user.friends.push(targetUsername);
+  try {
+    const currUser = await User.findOne({ username: currentUsername });
+    const targetUser = await User.findOne({ username: targetUsername });
+
+    if (currUser && targetUser) {
+      let idx = currUser.followers.indexOf(targetUsername);
+      if (idx != -1) {
+        currUser.friends.push(targetUsername);
+        targetUser.friends.push(currentUsername);
       }
-      user.following.push(targetUsername);
 
-      user.save().then(()=>console.log("changes saved..."))
-      .catch(()=>console.log("Error !!!"))
-    })
-    .catch((err) => {
-      res.status(404).json({ message: "Something went wrong" });
-    });
-    
-  // adding 
-  await User.findOne({ username: targetUsername })
-    .then((user) => {
-      console.log("Found user ", user.username);
-      if (user.following.indexOf(currentUsername) != -1) {
-        user.friends.splice(user.friends.length, 0, currentUsername);
-        console.log(user.friends);
-      }
-      user.follower.splice(user.following.length,0,currentUsername);
-      console.log(user.follower);
+      currUser.followings.push(targetUsername);
 
-      user.save().then(()=>console.log("changes saved..."))
-      .catch(()=>console.log("Error !!!"))
-    })
-    .catch((err) => {
-      res.status(404).json({ message: "Something went wrong" });
-    });
+      targetUser.followers.push(currentUsername);
 
-
-  res.send("Followed successfully");
+      await currUser.save();
+      await targetUser.save();
+    } else {
+      return res.status(400).json({ message: "User not found" });
+    }
+    return res.status(200).json({ message: "Followed Successfully" });
+  } catch (err) {
+    return res.status(404).json({ message: "Something went wrong" });
+  }
 };
 
-// unfollow user - not working properly
+// unfollow user
 export const unfollowUser = async (req, res) => {
   const currentUsername = req.username;
   const targetUsername = req.params.username;
 
-  if(currentUsername == targetUsername)
+  if (currentUsername == targetUsername)
     res.status(400).json({ message: "You can't unfollow yourself" });
 
-  // removing from friend list if present
-  await User.findOne({ username: currentUsername })
-    .then((user) => {
-      let idx = user.friend.indexOf(targetUsername);
+  try {
+    const currUser = await User.findOne({ username: currentUsername });
+    const targetUser = await User.findOne({ username: targetUsername });
+
+    if (currUser && targetUser) {
+      let idx = currUser.friends.indexOf(targetUsername);
       if (idx != -1) {
-        user.friends.splice(idx, 1);
+        currUser.friends.splice(idx, 1);
+        idx = targetUser.friends.indexOf(currentUsername);
+        targetUser.friends.splice(idx, 1);
       }
-      
-      idx = user.following.indexOf(targetUsername);
-      if (idx != -1) {
-        user.following.splice(idx, 1);
-      }
-    })
-    .catch((err) => {
-      res.status(404).json({ message: "Something went wrong" });
-    });
-    
-    await User.findOne({ username: targetUsername })
-      .then((user) => {
-        let idx = user.friend.indexOf(currentUsername);
-        if (idx != -1) {
-          user.friends.splice(idx, 1);
-        }
-        idx = user.follower.indexOf(currentUsername);
-        if (idx != -1) {
-          user.follower.splice(idx, 1);
-        }
-        user.save().then(()=>console.log("changes saved..."))
-          .catch(()=>console.log("Error !!!"))
-      })
-      .catch((err) => {
-        res.status(404).json({ message: "Something went wrong" });
-      });
+      idx = currUser.followings.indexOf(targetUsername);
+      currUser.followings.splice(idx, 1);
+
+      idx = targetUser.followers.indexOf(currentUsername);
+      targetUser.followers.splice(idx, 1);
+
+      await currUser.save();
+      await targetUser.save();
+    } else {
+      return res.status(400).json({ message: "User not found" });
+    }
+    return res.status(200).json({ message: "Unfollowed Successfully" });
+  } catch (err) {
+    return res.status(404).json({ message: "Something went wrong" });
+  }
 };
 
-export const logoutUser = async(req,res)=>{
-  if(req.header.token){
+// removes the user with specific username
+export const deleteUser = async (req, res) => {
+  try {
+    await User.deleteOne({ username: req.params.username });
+    return res.status(200).json({ message: "User deleted Successfully" });
+  } catch (err) {
+    return res.status(400).json({ message: "User not Found" });
+  }
+};
+
+export const logoutUser = async (req, res) => {
+  if (req.header.token) {
     delete req.headers.token;
   }
-  return res.status(200).json({message : "Logged out Successfully"});
-}
+  return res.status(200).json({ message: "Logged out Successfully" });
+};
+
+
+// url : /user/group/:inviteCode/invite
+export const joinGroup = async (req, res) => {
+  const inviteCode = req.body.inviteCode;
+  const username = req.username;
+
+  try {
+    const group = await Group.findOne({ inviteCode });
+
+    if (!group) return res.status(404).json({ message: "Invalid Invite code" });
+
+    if (group.inviteExpiry && Date.now() > group.inviteExpiry)
+      return res.status(400).send("Invite code expired");
+
+    if (!group.members.includes(username)) {
+      group.members.push(username);
+      await group.save();
+      return res.status(200).json({ message: "Joined group successfully" });
+    } else {
+      return res.status(400).json({ message: "Already In Group" });
+    }
+  } catch (err) {
+    return res.status(404).json({ message: "Error!!", error: err });
+  }
+};
