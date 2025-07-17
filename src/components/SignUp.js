@@ -105,7 +105,11 @@ export default function SignUp(props) {
                     </label>
                 </div>
                 <div className='signup_submit'>
+<<<<<<< HEAD
                   <button type="submit" className='signup_Create_account'>Create An Account</button>
+=======
+                    <Link to={"/"} onClick={account_create} className='signup_Create_account'>SignUp</Link>
+>>>>>>> 9ece1e7dafe91f6ba81787fd19c5d21e3b9dcb94
                 </div>
                 <div className='alreadyAccount'> 
                     <Link to={"/"} className='account' >I have an already account</Link>

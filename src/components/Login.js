@@ -34,7 +34,7 @@ export default function Login(props) {
                     </label>
                 </div>
                 <div>
-                    <Link type='submit' className='login_submit'>Login</Link>
+                    <Link to={"/Homepage"} className='login_submit'>Login</Link>
                 </div>
                 <div>
                     <Link className='login_account' to={"/signup"}>Create an Account</Link>
