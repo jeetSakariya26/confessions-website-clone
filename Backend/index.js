@@ -5,9 +5,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 import mongoose from 'mongoose';
 import { fileURLToPath } from 'url';
-import {signupUser, loginUser, findUser,followUser,unfollowUser, logoutUser, getUser } from './controller/user.js'
+import {signupUser, loginUser, findUser,followUser,unfollowUser, logoutUser, getUser,deleteUser} from './controller/user.js'
 import { userAuthMiddleware } from './service/userAuth.js';
-import { loginDeveloper, signupDeveloper,deleteUser, logoutDeveloper} from './controller/developer.js';
+import { loginDeveloper, signupDeveloper, logoutDeveloper} from './controller/developer.js';
 import { devAuthMiddleware } from './service/devAuth.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname,'/public')));
 
 app.listen(process.env.PORT, ()=>{
-    console.log("App is listening...");
+    console.log("Server is listening on port : ", process.env.PORT);
 });
 
 mongoose.connect(process.env.MONGO_URL)
@@ -54,5 +54,9 @@ app.post('/user/:username/follow',userAuthMiddleware,followUser);
 app.post('/user/:username/unfollow',userAuthMiddleware,unfollowUser);
 
 app.get('/{*any}',(req,res)=>{
-  res.status(200).json({message : "This is global page"});
+  res.status(200).json({message : "This is global get page"});
+});
+
+app.post('/{*any}',(req,res)=>{
+  res.status(200).json({message : "This is global post page"});
 });

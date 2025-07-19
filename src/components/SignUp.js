@@ -11,13 +11,41 @@ export default function SignUp(props) {
     console.log(event);
     setPassword(event.target.value);
   }
-  const handleOnSubmit=(event)=>{
-    console.log(event.target);
-  }
+  
+  const handleOnSubmit = async (event) => {
+    event.preventDefault(); // prevent default form submit behavior
+    try {
+      const res = await fetch("http://localhost:3000/user/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: Name,
+          nickName: Nickname,
+          password: Password,
+        }),
+      });
+
+      const data = await res.json();
+      console.log("Response:", data);
+
+      if (res.ok) {
+        alert("Account created successfully!");
+        // optionally redirect or clear form
+      } else {
+        alert(data.message || "Error creating account");
+      }
+
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to create account");
+    }
+};
+
   const handleOnUserName=(event)=>{
     console.log(event.target);
     setName(event.target.value)
-
   }
   const handleOnName=(event)=>{
     console.log(event.target)
@@ -67,7 +95,7 @@ export default function SignUp(props) {
           <h1>User SignUp</h1>
         </div>
         <div>
-          <form action={handleOnSubmit}>
+          <form onSubmit={handleOnSubmit}>
                 <div>
                     <input className='User_name' value={Name} type='text' placeholder='User Name' onChange={handleOnUserName}/>
                     <label htmlFor='Username'>UserName:

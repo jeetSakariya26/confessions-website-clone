@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    
+    isPrivateAccount : {
+        type : Boolean,
+        default : false,
+    },
 
     profilePhoto : {
         type : String,
@@ -32,12 +37,12 @@ const userSchema = new mongoose.Schema({
         default : [],
     },
 
-    follower : {
+    followers : {
         type : [String],
         default : [],
     },
     
-    following : {
+    followings : {
         type : [String],
         default : [],
     },

@@ -1,10 +1,9 @@
 import { Developer } from "../models/Developer.js";
 import { createToken } from "../service/devAuth.js";
 import { devValidation } from "../validation/devValidation.js";
-import { User } from "../models/User.js";
 
 export const signupDeveloper = async (req, res) => {
-  let { error } = await devValidation.validate(req.body);
+  let { error } = devValidation.validate(req.body);
   if (error) {
     return res.status(404).json({ message: error.details[0].message });
   }
@@ -44,21 +43,13 @@ export const loginDeveloper = async (req,res)=>{
   }
 }
 
-export const deleteUser = async (req, res) => {
-
-  await User.findOne({ username: req.params.username })
-    .then(async (user) => {
-        await User.deleteOne({ username: req.params.username });
-        res.status(200).json({ message: "User removed from database." });
-    })
-    .catch((err) => {
-      res.status(404).json({ message: "User doesnot exist" });
-    });
-};
-
 export const logoutDeveloper = async (req,res)=>{
   if(req.header.token){
     delete req.header.token;
   }
   return res.status(200).json({message : "Logged out successfully"});
+}
+
+export const removeDeveloper = async (req,res)=>{
+  Developer.deleteOne({username : req.body.username});
 }
