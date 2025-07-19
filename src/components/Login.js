@@ -6,6 +6,8 @@ export default function Login(props) {
     const [Name,setName]=useState('');
     const [Email,setEmail]=useState('');
     const [Password,setPassword]=useState('');
+    const [user,setuser]=useState('member');
+    
     const handleOnSubmit=(event)=>{
         // event.append(Name)
         console.log(event)
@@ -17,11 +19,36 @@ export default function Login(props) {
     const handleOnUserName=(e)=>{
         setName(e.target.value);
     }
+    const changePositontoadmin=()=>{
+    setuser("admin");
+    document.querySelector(".singup_admin button").style.backgroundImage="linear-gradient(to left, rgb(30,212,252), rgb(117,78,231))";
+    document.querySelector(".singup_member button").style.backgroundImage="none";
+    document.querySelector(".singup_member button").style.backgroundColor="white"
+    document.querySelector(".singup_member button").style.color="black";
+    document.querySelector(".singup_admin  button").style.color="white";
 
+  }
+  const changePositontomember=()=>{
+    setuser("member");
+    document.querySelector(".singup_member button").style.backgroundImage="linear-gradient(to left, rgb(30,212,252), rgb(117,78,231))";
+    document.querySelector(".singup_member button").style.color="white";
+
+    document.querySelector(".singup_admin button").style.backgroundImage="none";
+    document.querySelector(".singup_admin button").style.backgroundColor="white"
+    document.querySelector(".singup_admin  button").style.color="black";
+  }
     return (
     <div className='login_maincontainer'>
         <div className='login_data'>
             <h2>User Login</h2>
+            <div className='change_position'>
+                <div className='singup_member'>
+                    <button onClick={changePositontomember}>Member</button>
+                </div>
+                <div className='singup_admin'>
+                    <button onClick={changePositontoadmin}>Devloper</button>
+                </div>
+            </div>
             <form action={handleOnSubmit}>
                 <div>
                     <input className='User_name' value={Name} type='text' placeholder='User Name' onChange={handleOnUserName}/>

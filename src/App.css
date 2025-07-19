@@ -177,7 +177,37 @@ body{
     color: black;
     border-bottom: 2px solid rgb(28, 26, 26);
 }
+.change_position{
+    border-radius: 20px;
+    background-color: white;
+    /* padding: 10px; */
+    display: flex;
+    align-items: center;
+}   
+.singup_member button{
+    font-size: large;
+    /* margin: 0px 20px; */
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 0;
+    border-radius: 20px;
+    color: white;  
+    /* background-color: transparent;  */
+    background-image:linear-gradient(to left, rgb(30,212,252), rgb(117,78,231));
+    transition: all 0.3s ease-in-out;
 
+}
+.singup_admin button{
+    font-size: large;
+    /* margin: 0px 20px; */
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: transparent;
+    border: 0;
+    border-radius: 20px;
+    color: black;
+    transition: all 0.3s ease-in-out;
+}
 
 /* signup css */
 @keyframes signup_animation {
@@ -252,43 +282,12 @@ body{
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-evenly   ;
+    justify-content: center;
     border-radius: 20px;
     box-shadow:  0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 5px 20px 0 rgba(0, 0, 0, 0.19);
     animation-name: signup_animation1;
     animation-duration: 1s;
     animation-delay: 0ms;
-}
-.change_position{
-    border-radius: 20px;
-    background-color: white;
-    /* padding: 10px; */
-    display: flex;
-    align-items: center;
-}   
-.singup_member button{
-    font-size: large;
-    /* margin: 0px 20px; */
-    padding: 10px 20px;
-    text-decoration: none;
-    border: 0;
-    border-radius: 20px;
-    color: white;  
-    /* background-color: transparent;  */
-    background-image:linear-gradient(to left, rgb(30,212,252), rgb(117,78,231));
-    transition: all 0.3s ease-in-out;
-
-}
-.singup_admin button{
-    font-size: large;
-    /* margin: 0px 20px; */
-    padding: 10px 20px;
-    text-decoration: none;
-    background-color: transparent;
-    border: 0;
-    border-radius: 20px;
-    color: black;
-    transition: all 0.3s ease-in-out;
 }
 
 .new_account div form{
@@ -330,6 +329,12 @@ body{
 }
 .new_account div form input::placeholder{
     font-size: large;
+}
+.signup_heading{
+    margin-bottom: 40px;
+    font-size: 25px;
+    padding: 0px 10px;
+    /* border-bottom: 2px solid black; */
 }
 .signup_submit{
     display: flex;
@@ -382,12 +387,37 @@ body{
 
 
 /* css for navbar */
+@keyframes menuSliderAnimation {
+    0%{
+        opacity: 0;
+        transform: translateY(-80px);
+    }
+    50%{
+
+        opacity: 0.5;
+        /* transform: translateX(-5px); */
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
 
 .navbar_container{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 100;
+    position: fixed;
+    top: 0  ;
+    width: 100vw;
     background-color: white;
+    height: 70px;
+    animation-name: menuSliderAnimation;
+    animation-duration: 1s;
+    animation-delay: 0ms;
 }
 .navbar_container div{
     display: flex;
@@ -399,18 +429,334 @@ body{
 }
 .menu_container button{
     border: none;
+    height: 50px;
     outline:none;
     margin-right: 20px;
+    text-align: center;
+    background-color: transparent;
 }
-
+.menu_container button img{
+    background-size: contain;
+    margin-top: 5px;
+    height: 50px;   
+    transition: all 0.5s;
+}
+.heading_container h1{
+    font-size: 40px;
+}
 
 
 .account_container img{
-    width: 60px;
+    width: 50px;
     border-radius: 20px;
 }
 .Profilephoto{
-    /* width:; */
+    width:60px;
     margin-left: 20px;
 }
+.menu_slider{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 70px;
+    justify-content: space-between;
+    height: 82vh;
+    width:0vw;
+    background-color: white;
+    overflow: scroll;
+    padding-top:20px;
+    padding-bottom:40px ;
+    transition: 0.5s ease;    
+}
+.menu_slider div{
+    font-size: large;
+}
+.menu_slider div ul li{
+    list-style: none;
+    padding: 10px 0px;
+    text-align: center;
+    width: 15vw;
+    height: 30px;
+    transition: all 0.3s ease-in-out;
+    font-size: large;
+}
+.menu_slider div ul li a{
+    width: 15vw;
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+.menu_slider div ul li:hover{
+    background-color: whitesmoke;
+}
+.cross_menu{
+    display: none;
+}
+/* .groupNames{
+    text-decoration: none;
+    height: 40px;
+    background-color: aqua;
+    color: black;
+} */
 
+
+.Logout_btn{
+    text-decoration: none;
+    text-align: center;
+}
+.Logout_btn p{
+    color: black;
+    width: 10vw;
+    padding: 5px 0px;
+    border-radius: 12px;
+    font-size: 20px;
+    color: white;
+    height: 30px;
+    background-color: rgb(66, 148, 235);
+    border: 2px solid rgb(66, 148, 235);
+    transition: all 0.3s ease-in;
+}
+.Logout_btn p:hover{
+    background-color: whitesmoke;
+    color: black;
+    border: 2px solid black;
+}
+
+.group_creation{
+    width: 150px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    position: fixed;
+    display: none;
+    top:70px;
+    right: 30px;
+    transition: 0.3s;
+}
+.groupCreateAndJoin{
+    height: 30px;
+    width: 150px;
+    padding: 5px 0px;
+    text-align: center;
+    text-decoration: none;
+    background-color: transparent;
+    border: 0px;
+    font-size: large;
+    color: rgb(43, 39, 39);
+    transition: 0.3s ease-in;
+}
+.groupCreateAndJoin:hover{
+    background-color: aliceblue;
+    color: black;
+    font-size: large;
+}   
+
+
+
+
+@keyframes menuSliderAnimation1 {
+    0%{
+        opacity: 0;
+        transform:translateX(-100px);
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
+.homepage_groupContainer{
+    margin-top: 100px;
+    margin-left: 30px;
+    transition: all 0.5s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    flex-wrap: wrap;
+
+    animation-name: menuSliderAnimation1;
+    animation-duration: 0.5s;
+    animation-delay: 0ms;
+}
+
+.GroupContainer{
+    height:30vh;
+    background-color: white;
+    width: 15vw;
+    margin: 0.5vw;
+    border-radius: 12px;
+    box-shadow:  0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.5s;
+    color: black;
+    text-decoration: none;
+}
+.GroupContainer div img{
+    height: 18vh;
+    width: 15vw;
+
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.GroupContainer div h2{
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 600;
+}
+.GroupContainer div p{
+    margin-left: 20px;
+}
+.GroupContainer:hover{
+    transform:scale(1.04);
+}
+
+
+
+
+
+/* css for account page  */
+@keyframes AccountPage_animation {
+    0%{
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.Account_maincontainer{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    justify-content: center;
+    align-items: center ;
+    margin-top: 100px;
+    animation-name: AccountPage_animation;
+    animation-duration: 1s;
+    animation-delay: 0ms;
+}
+.Account_container{
+    width: 50vw;
+    height: 75vh;
+    padding: 20px;  
+    /* overflow: scroll; */
+    background-color:white;
+    box-shadow:  0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 5px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+    transition: all 0.5s;
+    
+}.AccountDetails{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    margin: 10px;
+}
+.AccountDetails div img{
+    border-radius: 20px;
+}
+.AccountDetails div div h2{
+    font-size: 30px;
+    margin: 20px 0px;
+}
+.AccountDetails div div p{
+    font-size: larger;
+    font-weight: 600;
+    margin: 10px 0px;
+}
+.AccountDetails div div ul li{
+    display: inline;
+    margin: 10px;
+}
+.Joined_groups{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* margin:20px; */
+    padding: 10px 0px;
+    height: 40vh;
+    width: 50vw;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+.created_groupsbyUser{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 20vw;
+    height: 40vh;
+    padding: 5px;
+    border-radius: 12px ;
+    border: 2px solid rgb(66, 59, 59);
+}
+.created_groupsbyUser div p{
+    font-size: 23px;
+    font-weight: 600;
+    text-align: center;
+    padding: 5px ;
+    width: 20vw;
+    border-bottom: 2px solid rgb(66, 59, 59);
+}
+.list_of_createdGroup{
+    overflow-y: scroll;
+    width: 20vw;
+}
+.list_of_createdGroup ul{
+    margin: 10px 0px;
+    list-style: none;    
+}
+.list_of_createdGroup ul li{
+    padding: 10px 5px   ;
+}
+.list_of_createdGroup ul li:hover{
+    background-color: whitesmoke
+}
+
+
+.joined_groupsbyUser{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 5px;
+    width: 20vw;
+    height: 40vh;
+    border-radius: 12px;
+    border: 2px solid rgb(66, 59, 59);
+}
+.joined_groupsbyUser div p{
+    font-size: 23px;
+    width: 20vw;
+    text-align: center;
+    padding: 5px;
+    border-bottom:2px solid rgb(66, 59, 59) ;
+    font-weight: 600;
+}
+.list_of_joinedGroup{
+    overflow-y: scroll;
+    width: 20vw;
+}
+.list_of_joinedGroup ul{
+    margin: 10px 0px;
+}
+.list_of_joinedGroup ul li{
+    padding: 10px 5px;
+}
+.list_of_joinedGroup ul li:hover{
+    background-color: whitesmoke;
+}

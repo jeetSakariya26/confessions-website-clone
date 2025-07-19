@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { Link } from 'react-router-dom';
 
 export default function SignUp(props) {
+  const [userData,setuserData]=useState();
   const [Name,setName]=useState('');
   const [Nickname,setNickname]=useState('');
   const [Password,setPassword]=useState('');
@@ -23,25 +24,30 @@ export default function SignUp(props) {
     setNickname(event.target.value)
 
   }
-  const changePositontoadmin=()=>{
-    setuser("admin");
-    document.querySelector(".singup_admin button").style.backgroundImage="linear-gradient(to left, rgb(30,212,252), rgb(117,78,231))";
-    document.querySelector(".singup_member button").style.backgroundImage="none";
-    document.querySelector(".singup_member button").style.backgroundColor="white"
-    document.querySelector(".singup_member button").style.color="black";
-    document.querySelector(".singup_admin  button").style.color="white";
+  // const changePositontoadmin=()=>{
+  //   setuser("admin");
+  //   document.querySelector(".singup_admin button").style.backgroundImage="linear-gradient(to left, rgb(30,212,252), rgb(117,78,231))";
+  //   document.querySelector(".singup_member button").style.backgroundImage="none";
+  //   document.querySelector(".singup_member button").style.backgroundColor="white"
+  //   document.querySelector(".singup_member button").style.color="black";
+  //   document.querySelector(".singup_admin  button").style.color="white";
 
-  }
-  const changePositontomember=()=>{
-    setuser("member");
-    document.querySelector(".singup_member button").style.backgroundImage="linear-gradient(to left, rgb(30,212,252), rgb(117,78,231))";
-    document.querySelector(".singup_member button").style.color="white";
+  // }
+  // const changePositontomember=()=>{
+  //   setuser("member");
+  //   document.querySelector(".singup_member button").style.backgroundImage="linear-gradient(to left, rgb(30,212,252), rgb(117,78,231))";
+  //   document.querySelector(".singup_member button").style.color="white";
 
-    document.querySelector(".singup_admin button").style.backgroundImage="none";
-    document.querySelector(".singup_admin button").style.backgroundColor="white"
-    document.querySelector(".singup_admin  button").style.color="black";
-  }
+  //   document.querySelector(".singup_admin button").style.backgroundImage="none";
+  //   document.querySelector(".singup_admin button").style.backgroundColor="white"
+  //   document.querySelector(".singup_admin  button").style.color="black";
+  // }
   const account_create=()=>{
+    setuserData({
+      username:Name,
+      password:Password,
+      nickname:Nickname
+    })
     
   }
   return (
@@ -51,13 +57,14 @@ export default function SignUp(props) {
         <p>Here you can make groups and join the groups. Your confession is anonymously and keep it private.</p>
       </div>
       <div className='new_account'>
-        <div className='change_position'>
-          <div className='singup_member'>
+        <div className='signup_heading'>
+          {/* <div className='singup_member'>
             <button onClick={changePositontomember}>Member</button>
-          </div>
-          <div className='singup_admin'>
+          </div> */}
+          {/* <div className='singup_admin'>
             <button onClick={changePositontoadmin}>Admin</button>
-          </div>
+          </div> */}
+          <h1>User SignUp</h1>
         </div>
         <div>
           <form action={handleOnSubmit}>
