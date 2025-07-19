@@ -45,7 +45,7 @@ export default function Login(props) {
         setName(e.target.value);
     }
     const changePositontoadmin=()=>{
-    setuser("admin");
+    setuser("devloper");
     document.querySelector(".singup_admin button").style.backgroundImage="linear-gradient(to left, rgb(30,212,252), rgb(117,78,231))";
     document.querySelector(".singup_member button").style.backgroundImage="none";
     document.querySelector(".singup_member button").style.backgroundColor="white"
