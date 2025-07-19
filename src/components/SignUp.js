@@ -36,7 +36,7 @@ export default function SignUp(props) {
       if (res.ok) {
         alert("Account created successfully!");
         // optionally redirect or clear form
-        window.location.href="http://localhost:3001/";
+        window.location.href="http://localhost:3000/";
       } else {
         alert(data.message || "Error creating account");
       }

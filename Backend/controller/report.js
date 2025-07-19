@@ -1,3 +1,4 @@
+import { Chat } from "../models/Chat";
 import { Report } from "../models/Report";
 import { deleteChat } from "./chat";
 
@@ -25,13 +26,14 @@ export const actionReport = async (req, res) => {
     let chatId = report.chatId;
     let devUsername = req.username;
 
-    await deleteChat(chatId, "developer");
+    let responce = await deleteChat(chatId, "developer");
 
     await Report.updateMany(
       { chatId: chatId },
       { $set: { status: "action_taken", reviewedBy: devUsername } }
     );
 
+    return res.status(200).json(responce);
 
   } catch (err) {
     res.status(400).json({ message: "report doesnot exists" });
@@ -76,4 +78,24 @@ export const getActionTakenReports = async(req,res)=>{
     } catch (err) {
         return res.status(404).json({message : "No reports found"});
     }
+}
+
+// url : /dev/report/:reportId/view
+export const viewReport = async(req,res)=>{
+  let reportId = req.params.reportId;
+  try {
+    let report = await Report.findOne({ _id : reportId });
+    let chatContent = await Chat.findOne({ _id :report.chatId }).content;
+    let responce = {
+      reportedUser : report.reportedUser,
+      reporter : report.reporter,
+      reason : report.reason,
+      description : report.description,
+      createdAt : report.createdAt,
+      chatContent : chatContent
+    }
+    return res.status(200).json({message : "Report Content...", responce});
+  } catch(error) {
+    return res.status(404).json({message : "Error!!", error} );
+  }
 }

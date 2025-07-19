@@ -1,11 +1,9 @@
+import { Chat } from "../models/Chat.js";
 import { Group } from "../models/Group.js";
 import { createToken } from "../service/userAuth.js";
 import { User } from "./../models/User.js";
 import { userValidation } from "./../validation/userValidation.js";
-
-// tasks : add comments to the code  ~
-//         check working of functions ~
-//         think about other functions
+import { userExitFromGroup } from "./group.js";
 
 // function which adds new User to database (sign Up)
 export const signupUser = async (req, res) => {
@@ -176,28 +174,35 @@ export const logoutUser = async (req, res) => {
   return res.status(200).json({ message: "Logged out Successfully" });
 };
 
-
-// url : /user/group/:inviteCode/invite
-export const joinGroup = async (req, res) => {
-  const inviteCode = req.body.inviteCode;
-  const username = req.username;
-
+// url : /user/group/:groupId/chat/:chatId/delete
+export const deleteChatBySender = async (req,res)=>{
+  let username = req.username;
+  let chatId = req.params.chatId;
   try {
-    const group = await Group.findOne({ inviteCode });
-
-    if (!group) return res.status(404).json({ message: "Invalid Invite code" });
-
-    if (group.inviteExpiry && Date.now() > group.inviteExpiry)
-      return res.status(400).send("Invite code expired");
-
-    if (!group.members.includes(username)) {
-      group.members.push(username);
-      await group.save();
-      return res.status(200).json({ message: "Joined group successfully" });
+    let chat = await Chat.findOne({_id : chatId});
+    if(chat.from == username){
+      return res.status(200).json(await deleteChat(chatId, username));
     } else {
-      return res.status(400).json({ message: "Already In Group" });
+      return res.status(400).json({message : "You can't delete other's chat"});
     }
-  } catch (err) {
-    return res.status(404).json({ message: "Error!!", error: err });
+  } catch(error) {
+    return res.status(404).json({message : "Error !!", error})
   }
-};
+}
+
+// url : /user/group/:groupId/:targetUsername/remove
+export const removeUserFromGroup = async(req,res)=>{
+  let username = req.username;
+  let groupId = req.params.groupId;
+  let targetUsername = req.params.targetUsername;
+  try {
+    let group = Group.findOne({_id : groupId});
+    if(group.admin == username){
+      return res.status(200).json({message : await userExitFromGroup(targetUsername,groupId)});
+    } else {
+      return res.status(400).json({message : "Only admin is supposed to remove the members"});
+    }
+  } catch(error) {
+    return res.status(404).json({message : "Error!!", error});
+  }
+}

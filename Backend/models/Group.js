@@ -28,6 +28,7 @@ const groupSchema = new mongoose.Schema({
 
     inviteExpiry : {
         type : Date,
+        default : Date.now,
     }
 
 });

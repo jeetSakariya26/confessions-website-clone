@@ -1,5 +1,23 @@
+import {Group} from '../models/Group.js';
+import {User} from '../models/User.js';
+import mongoose from 'mongoose';
 
+// url : /user/group/:name/create
+export const createGroup = async(req,res)=>{
+  let admin = req.username;
+  let name = req.params.name;
+  let members = [admin];
 
+  let group = new Group({admin, name, members});
+  await group.save().then(()=>{
+    return res.status(200).json({message : "New Group created successfully"});
+  })
+  .catch((err)=>{
+    return res.status(404).json({message : "Error!!", error});
+  });
+}
+
+// creates 6 length invite code with 1 hour 
 const generateInviteCode = ()=>{
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let code = '';
@@ -9,7 +27,7 @@ const generateInviteCode = ()=>{
     return code;
 }
 
-const setInviteCode = async (req, res) => {
+export const setInviteCode = async (req, res) => {
     const group = await Group.findById(req.params.groupId);
     if (!group) return res.status(404).send("Group not found");
 
@@ -21,3 +39,80 @@ const setInviteCode = async (req, res) => {
     res.json({ inviteCode: code });
 };
 
+// url : /user/group/:inviteCode/invite
+export const joinGroup = async (req, res) => {
+  const inviteCode = req.body.inviteCode;
+  const username = req.username;
+
+  try {
+    const group = await Group.findOne({ inviteCode });
+
+    if (!group) return res.status(404).json({ message: "Invalid Invite code" });
+    
+    if (group.inviteExpiry && Date.now() > group.inviteExpiry)
+      return res.status(400).send("Invite code expired");
+
+    if (!group.members.includes(username)) {
+      group.members.push(username);
+      await group.save();
+      return res.status(200).json({ message: "Joined group successfully" });
+    } else {
+      return res.status(400).json({ message: "Already In Group" });
+    }
+  } catch (err) {
+    return res.status(404).json({ message: "Error!!", error: err });
+  }
+};
+
+
+// url : /user/search/group/:name
+export const searchGroupsByName= async(req,res)=>{
+  let name = req.params.name;
+  let username = req.username;
+  try {
+    const user = await User.findOne({username});
+    if (!user || user.groups.length === 0) {
+      return res.status(400).json({ message : "Groups not found" , groups : []});
+    }
+
+    const groups = await Group.find({
+      _id: { $in: user.groups },
+      name: { $regex: `^${name}`, $options: "i" }, 
+    });
+
+    return res.status(200).json({message : "Groups found", groups});
+  } catch (error) {
+    return res.status(404).json({message : "Error !!", error });
+  }
+};
+
+// url : /user/group/:groupId/exit
+export const exitGroup = async (req,res)=>{
+  let username = req.username;
+  let groupId = rep.params.groupId;
+  
+  try {
+    return res.status(200).json({message : await userExitFromGroup(username,groupId)});
+  } catch (error) {
+    return res.status(404).json({message : "Error !!", error});
+  }
+};
+
+// function which removes user from group
+export const userExitFromGroup = async(username,groupId)=>{
+    let user = await User.findOne({username});
+    let idx = user.groups.indexOf(new mongoose.Types.ObjectId(groupId));
+    if(idx == -1){
+      return "User is not in the group"; 
+    }
+    user.groups.splice(idx,1);
+    let group = await Group.findOne({_id : groupId});
+    if(group.admin == username && group.members.length > 1) {
+      throw new Error("Remove all the members before leaving the group!!");
+    }
+    idx = group.members.indexOf(username);
+    group.members.splice(idx,1);
+    await group.save();
+    await user.save();
+    return "Exited the group successfully...";
+}
