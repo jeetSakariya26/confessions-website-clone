@@ -11,7 +11,7 @@ export default function Login(props) {
     const handleOnSubmit=async(event)=>{
         event.preventDefault(); // prevent default form submit behavior
         try {
-            if(user==="memeber"){
+            if(user =="member"){
                 const res = await fetch("http://localhost:3001/user/login", {
                     method: "POST",
                     headers: {
@@ -24,7 +24,17 @@ export default function Login(props) {
                 });
                 const data = await res.json();
                 console.log("Response:", data);
-            }else if(user==="devloper"){
+
+                if (res.ok) {
+                    alert("Logged In");
+                    window.location.href="http://localhost:3000/user/Homepage"; // change URL
+                } else {
+                    alert(data.message);
+                }
+                
+                // redirect
+
+            }else if(user =="devloper"){
                 const res = await fetch("http://localhost:3001/dev/login", {
                     method: "POST",
                     headers: {
@@ -37,18 +47,16 @@ export default function Login(props) {
                 });
                 const data = await res.json();
                 console.log("Response:", data);
+                
+                if (res.ok) {
+                    alert("Logged In");
+                    window.location.href="http://localhost:3000/dev/"; // change the url
+                } else {
+                    alert(data.message);
+                }
             }
-
-
-        if (res.ok) {
-            alert("Logged In");
-            window.location.href="http://localhost:3000/Homepage";
-        } else {
-            alert(data.message);
-        }
-
         } catch (error) {
-            alert("Failed logIn");
+            alert("Failed login");
         }
     }
 
