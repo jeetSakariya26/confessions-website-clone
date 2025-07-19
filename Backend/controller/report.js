@@ -2,13 +2,14 @@ import { Chat } from "../models/Chat";
 import { Report } from "../models/Report";
 import { deleteChat } from "./chat";
 
+// url : /user/group/:groupId/chat/:chatId/report
 export const createReport = async (req, res) => {
+  req.body.chatId = req.params.chatId;
   let { error } = await reportValidation.validate(req.body);
   if (error) {
     res.status(404).json({ message: error.details[0].message });
   }
-  let report = new Report(req.body);
-
+  let report = new Report(req.body); // make it manually;
   await report
     .save()
     .then(() => {
@@ -19,8 +20,9 @@ export const createReport = async (req, res) => {
     });
 };
 
+// url : /dev/reports/:reportId/actionaken
 export const actionReport = async (req, res) => {
-  let reportId = req.body.reportId;
+  let reportId = req.params.reportId;
   try {
     let report = await Report.findOne({ _id: reportId });
     let chatId = report.chatId;
@@ -40,6 +42,7 @@ export const actionReport = async (req, res) => {
   }
 };
 
+// url : /dev/reports/:reportId/dismiss
 export const dismissReport = async (req, res) => {
   let reportId = req.body.reportId;
   let devUsername = req.username;
@@ -53,6 +56,7 @@ export const dismissReport = async (req, res) => {
   }
 };
 
+// url : /dev/reports/pending
 export const getPendingReports = async(req,res)=>{
     try {
         let reports = await Report.find({ status : "pending" });
@@ -62,6 +66,7 @@ export const getPendingReports = async(req,res)=>{
     }
 }
 
+// url : /dev/reports/dismissed
 export const getDismissedReports = async(req,res)=>{
     try {
         let reports = await Report.find({ status : "dismissed" });
@@ -71,6 +76,7 @@ export const getDismissedReports = async(req,res)=>{
     }
 }
 
+// url : /dev/reports/actionTaken
 export const getActionTakenReports = async(req,res)=>{
     try {
         let reports = await Report.find({ status : "action_taken" });

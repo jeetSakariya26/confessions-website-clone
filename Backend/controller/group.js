@@ -12,12 +12,12 @@ export const createGroup = async(req,res)=>{
   await group.save().then(()=>{
     return res.status(200).json({message : "New Group created successfully"});
   })
-  .catch((err)=>{
+  .catch((error)=>{
     return res.status(404).json({message : "Error!!", error});
   });
 }
 
-// creates 6 length invite code with 1 hour 
+// creates 6 length invite code with 1 hour duration
 const generateInviteCode = ()=>{
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let code = '';
@@ -27,21 +27,26 @@ const generateInviteCode = ()=>{
     return code;
 }
 
-export const setInviteCode = async (req, res) => {
+// url : /user/group/:groupId/inviteCode/generate
+export const getInviteCode = async (req,res)=>{
+  try{
     const group = await Group.findById(req.params.groupId);
     if (!group) return res.status(404).send("Group not found");
-
+  
     const code = generateInviteCode();
     group.inviteCode = code;
     group.inviteExpiry = Date.now() + 1000 * 60 * 60; // 1 hour validity
-
+  
     await group.save();
     res.json({ inviteCode: code });
+  } catch(error) {
+    return res.status(404).json({message : "Error", error});
+  }
 };
 
-// url : /user/group/:inviteCode/invite
+// url : /user/group/:inviteCode/join
 export const joinGroup = async (req, res) => {
-  const inviteCode = req.body.inviteCode;
+  const inviteCode = req.params.inviteCode;
   const username = req.username;
 
   try {
@@ -63,7 +68,6 @@ export const joinGroup = async (req, res) => {
     return res.status(404).json({ message: "Error!!", error: err });
   }
 };
-
 
 // url : /user/search/group/:name
 export const searchGroupsByName= async(req,res)=>{

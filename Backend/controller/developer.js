@@ -26,6 +26,7 @@ export const signupDeveloper = async (req, res) => {
     });
 };
 
+// url : /dev/login
 export const loginDeveloper = async (req,res)=>{
   try {
     let developer = await Developer.findOne({username : req.body.username});
@@ -43,6 +44,7 @@ export const loginDeveloper = async (req,res)=>{
   }
 }
 
+// url : /dev/logout
 export const logoutDeveloper = async (req,res)=>{
   if(req.header.token){
     delete req.header.token;
@@ -51,5 +53,11 @@ export const logoutDeveloper = async (req,res)=>{
 }
 
 export const removeDeveloper = async (req,res)=>{
-  Developer.deleteOne({username : req.body.username});
+  try{
+    await Developer.deleteOne({username : req.params.username});
+    return res.status(200).json({message : "dev removed"});
+  }
+  catch(error) {
+    return res.stauts(404).json({message : "Error !!", error});
+  }
 }
