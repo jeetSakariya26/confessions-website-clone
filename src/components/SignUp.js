@@ -11,11 +11,14 @@ export default function SignUp(props) {
     console.log(event);
     setPassword(event.target.value);
   }
+  const handleOnSubmit=()=>{
+    console.log("jeet")
+  }
   
   const account_create = async (event) => {
     event.preventDefault(); // prevent default form submit behavior
     try {
-      const res = await fetch("http://localhost:3000/user/signup", {
+      const res = await fetch("http://localhost:3001/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,6 +36,7 @@ export default function SignUp(props) {
       if (res.ok) {
         alert("Account created successfully!");
         // optionally redirect or clear form
+        window.location.href="http://localhost:3001/";
       } else {
         alert(data.message || "Error creating account");
       }
