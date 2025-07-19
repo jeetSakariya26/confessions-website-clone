@@ -8,10 +8,35 @@ export default function Login(props) {
     const [Password,setPassword]=useState('');
     const [user,setuser]=useState('member');
     
-    const handleOnSubmit=(event)=>{
-        // event.append(Name)
-        console.log(event)
+    const handleOnSubmit=async(event)=>{
+        event.preventDefault(); // prevent default form submit behavior
+        try {
+        const res = await fetch("http://localhost:3001/user/login", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            username: Name,
+            password: Password,
+            }),
+        });
+
+        const data = await res.json();
+        console.log("Response:", data);
+
+        if (res.ok) {
+            alert("Logged In");
+            window.location.href="http://localhost:3000/Homepage";
+        } else {
+            alert(data.message);
+        }
+
+        } catch (error) {
+            alert("Failed logIn");
+        }
     }
+
     const handleOnPassword=(e)=>{
         // console.log(e.target.value);
         setPassword(e.target.value);
@@ -61,7 +86,7 @@ export default function Login(props) {
                     </label>
                 </div>
                 <div>
-                    <Link to={"/Homepage"} className='login_submit'>Login</Link>
+                    <Link to={"/"} onClick={handleOnSubmit} className='login_submit'>Login</Link>
                 </div>
                 <div>
                     <Link className='login_account' to={"/signup"}>Create an Account</Link>
