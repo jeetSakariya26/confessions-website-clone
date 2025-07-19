@@ -3,7 +3,7 @@
     padding: 0;
 }
 body{
-    background-color: rgb(251, 248, 248);
+    background-color:rgb(45, 41, 41);
 }
 
 
@@ -413,7 +413,8 @@ body{
     position: fixed;
     top: 0  ;
     width: 100vw;
-    background-color: white;
+    background-color:rgb(0, 49, 123);
+    color: white;
     height: 70px;
     animation-name: menuSliderAnimation;
     animation-duration: 1s;
@@ -432,15 +433,13 @@ body{
     height: 50px;
     outline:none;
     margin-right: 20px;
+    margin-left: 10px;
     text-align: center;
     background-color: transparent;
-}
-.menu_container button img{
-    background-size: contain;
-    margin-top: 5px;
-    height: 50px;   
     transition: all 0.5s;
 }
+
+
 .heading_container h1{
     font-size: 40px;
 }
@@ -536,9 +535,11 @@ body{
     top:70px;
     right: 30px;
     transition: 0.3s;
+    border-radius: 12px;
+    z-index: 10;
 }
-.groupCreateAndJoin{
-    height: 30px;
+.group_creation button{
+    height: 40px;
     width: 150px;
     padding: 5px 0px;
     text-align: center;
@@ -547,11 +548,13 @@ body{
     border: 0px;
     font-size: large;
     color: rgb(43, 39, 39);
+    border-radius: 12px;
     transition: 0.3s ease-in;
 }
-.groupCreateAndJoin:hover{
+.group_creation button:hover{
     background-color: aliceblue;
     color: black;
+    border-radius: 12px;
     font-size: large;
 }   
 
@@ -589,7 +592,7 @@ body{
 
 .GroupContainer{
     height:30vh;
-    background-color: white;
+    background-color:white;
     width: 15vw;
     margin: 0.5vw;
     border-radius: 12px;
@@ -641,122 +644,385 @@ body{
 .Account_maincontainer{
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
-    justify-content: center;
-    align-items: center ;
-    margin-top: 100px;
-    animation-name: AccountPage_animation;
-    animation-duration: 1s;
-    animation-delay: 0ms;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    width: 40vw;
+    height:50vh;
+    margin-top: 25vh;
+    margin-left: 30vw;
+    position: relative;
+    border-radius: 20px;
+}
+.close_accountpage{
+    position: absolute;
+    top: 10px;
+    right: 15px;
 }
 .Account_container{
-    width: 50vw;
-    height: 75vh;
-    padding: 20px;  
-    /* overflow: scroll; */
-    background-color:white;
-    box-shadow:  0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 5px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 20px;
-    transition: all 0.5s;
-    
-}.AccountDetails{
+    width: 40vw;
+    height: 50vh;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    text-align: center;
-    margin: 10px;
+    flex-direction: column;
+    justify-content: space-around;
 }
-.AccountDetails div img{
-    border-radius: 20px;
-}
-.AccountDetails div div h2{
-    font-size: 30px;
-    margin: 20px 0px;
-}
-.AccountDetails div div p{
-    font-size: larger;
-    font-weight: 600;
-    margin: 10px 0px;
-}
-.AccountDetails div div ul li{
-    display: inline;
-    margin: 10px;
-}
-.Joined_groups{
+.AccountDetails{
     display: flex;
     align-items: center;
     justify-content: space-around;
-    /* margin:20px; */
-    padding: 10px 0px;
-    height: 40vh;
-    width: 50vw;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+    width: 40vw;
 }
-.created_groupsbyUser{
+.AccountDetails div{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
     width: 20vw;
-    height: 40vh;
-    padding: 5px;
-    border-radius: 12px ;
-    border: 2px solid rgb(66, 59, 59);
 }
-.created_groupsbyUser div p{
-    font-size: 23px;
-    font-weight: 600;
+.AccountDetails div div h2{
     text-align: center;
-    padding: 5px ;
-    width: 20vw;
-    border-bottom: 2px solid rgb(66, 59, 59);
+    font-size: 30px;
 }
-.list_of_createdGroup{
-    overflow-y: scroll;
-    width: 20vw;
+.AccountDetails div div p{
+    font-size: larger;
+    margin-left: 15px;
+    font-weight: 600;
 }
-.list_of_createdGroup ul{
-    margin: 10px 0px;
-    list-style: none;    
+.AccountDetails div div ul{
+    display: flex;
 }
-.list_of_createdGroup ul li{
-    padding: 10px 5px   ;
-}
-.list_of_createdGroup ul li:hover{
-    background-color: whitesmoke
-}
-
-
-.joined_groupsbyUser{
+.Account_container div div ul li{
+    list-style: none;
+    margin: 10px;
+    width: 5vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
-    padding: 5px;
-    width: 20vw;
-    height: 40vh;
+    /* padding: 10px; */
+}
+.Account_container div div ul li div p{
+    border-bottom: 2px solid black;
+    font-weight: 500;
+}
+.Account_container div div button{
+    width: 10vw;
+    height: 40px;
+    font-size: larger;
+    background-color:rgb(41, 96, 207);
+    border: 2px solid rgb(41, 96, 207);
+    color: white;
     border-radius: 12px;
-    border: 2px solid rgb(66, 59, 59);
 }
-.joined_groupsbyUser div p{
-    font-size: 23px;
-    width: 20vw;
-    text-align: center;
-    padding: 5px;
-    border-bottom:2px solid rgb(66, 59, 59) ;
-    font-weight: 600;
+.AccountLogout{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;  
 }
-.list_of_joinedGroup{
+.AccountLogout button{
+    width: 40vw;
+    border: 0px;
+    margin: 10px 0px ;
+    height: 40px;
+    font-size: larger;
+    color: rgb(247, 2, 59);
+}
+
+
+
+/* css for group chat */
+.GroupChating_maincontainer{
+    margin-top: 70px;
+    padding: 20px;
+    display: flex;
+    /* align-items: center; */
+    height: 85vh;
+    transition: all 0.5s;
+}
+.GroupChating_info{
+    margin-right: 10px;
+    padding-bottom: 20px;
+    padding: 10px;
+    background-color: #34699A;
     overflow-y: scroll;
+    color: black;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    /* justify-content: center; */
+}
+.GroupChating_info div img{
+    width: 20vw;
+    border-radius: 20px;
+}
+.Group_descripation{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.GroupChating_info div h1{
+    text-align: center;
+    font-size: 35px;
+}
+.GroupChating_info div button{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 15px 0px;
+    padding: 10px;
+    background-color: rgb(0, 153, 255);
+    color: rgb(34, 32, 32);
+    font-size: large;
+    border: 2px solid rgb(0, 153, 255);
+    border-radius: 20px;
+    transition: all 0.5s;
+    margin-bottom: 10px;
+}
+.GroupChating_info div button:hover{
+    border: 2px solid black;
+    color: black;
+    background-color: white;
+}
+.Group_memberDetails{
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 20vw;
 }
-.list_of_joinedGroup ul{
-    margin: 10px 0px;
+.Group_memberDetails div{
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.list_of_joinedGroup ul li{
-    padding: 10px 5px;
+.ListOfMember{
+    font-size: large;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
-.list_of_joinedGroup ul li:hover{
-    background-color: whitesmoke;
+.Group_memberDetails div ul li{
+    width: 18vw;
+    padding: 10px;
+    border-radius: 20px;
+    margin: 3px 0px;
+    height: 30px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid white;
+    color: rgb(231, 217, 217);
+    transition: all 0.5s;
+}
+.Group_memberDetails div ul li:hover{
+    background-color: rgba(8, 193, 225, 0.753);
+}
+
+
+
+.GroupChat_container{
+    width: 70vw;
+    background-color: #34699A;
+    color: black;
+    border-radius: 20px;
+    /* padding: 10px; */
+    overflow: scroll;
+}
+.GroupChats ul{
+    display: flex;
+    flex-direction: column;
+}
+.GroupChats ul li{
+    width: 40vw;
+    list-style: none;
+    background-color: aliceblue;
+    margin: 5px;
+    border-radius: 12px;
+    padding: 5px;
+}
+.SendChats{
+    position: sticky;
+    bottom: 0px;
+    padding-left: 5px; 
+    padding: 5px;  
+    left: -5px; 
+    background-color: white;
+    z-index: 10;
+    margin-top: 20px;
+    width:66vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.SendChats_option button{
+    width: 40px;
+    height: 40px;
+    border: 2px solid;
+    margin: 5px;
+    background-color: white;
+    border-radius: 20px;
+}
+.SendChats_area textarea{    
+    resize: none;
+    padding: 5px 10px;
+    width: 50vw;
+    border-radius: 20px;
+    /* padding-left: 10px; */
+    height: 40px;
+    border: 2px solid black;
+    font-size: large;
+    max-height: 60px;
+}
+.SendChats_area input:focus{
+    outline: none;
+}
+.SendChats_btn button{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid white;
+}
+
+
+
+
+/* css for join group  */
+.join_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    width: 30vw;
+    height:40vh;
+    border-radius: 20px;
+    background-color: white;
+    display: none;
+    top: 30vh;
+    left:35vw;
+    z-index: 1000;
+    position: relative;
+}
+.join_closeicon{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+.join_container div h1{
+    font-size: 35px;
+}
+.join_container div input{
+    width: 25vw;
+    height: 50px;
+    border-radius: 20px;
+    border: 2px solid black;
+    margin: 10px;
+    position: relative;
+    padding: 0px 15px;
+    transform: all 0.3s ease;
+    font-size: large;
+}
+.join_container div label{
+    position: absolute;
+    /* top: -100px; */
+    left: 4vw;
+    background-color: white;
+    z-index: 100;
+    width:fit-content;
+    color: black; 
+    transform: translateY(-0.25rem);
+    transition: all 0.3s ease;
+}
+.join_container div input:focus{
+    outline: none;
+    border:2px solid rgb(41, 96, 207);;
+}
+.join_container div input:focus ~label{
+    color: rgb(41, 96, 207);
+}
+.join_container div button{
+    padding: 10px;
+    font-size: larger;
+    background-color:rgb(41, 96, 207) ;
+    border: 2px solid rgb(41, 96, 207);
+    color: white;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+.join_container div button:hover{
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+
+.Create_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    width: 30vw;
+    height:40vh;
+    border-radius: 20px;
+    background-color: white;
+    display: none;
+    top: 30vh;
+    left:35vw;
+    z-index: 1000;
+    position: relative;
+}
+.join_closeicon{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+.Create_container div h1{
+    font-size: 35px;
+}
+.Create_container div input{
+    width: 25vw;
+    height: 50px;
+    border-radius: 20px;
+    border: 2px solid black;
+    margin: 10px;
+    position: relative;
+    padding: 0px 15px;
+    transform: all 0.3s ease;
+    font-size: large;
+}
+.Create_container div label{
+    position: absolute;
+    /* top: -100px; */
+    left: 4vw;
+    background-color: white;
+    z-index: 100;
+    width:fit-content;
+    color: black; 
+    transform: translateY(-0.25rem);
+    transition: all 0.3s ease;
+}
+.Create_container div input:focus{
+    outline: none;
+    border:2px solid rgb(41, 96, 207);;
+}
+.Create_container div input:focus ~label{
+    color: rgb(41, 96, 207);
+}
+.Create_container div button{
+    padding: 10px;
+    font-size: larger;
+    background-color:rgb(41, 96, 207) ;
+    border: 2px solid rgb(41, 96, 207);
+    color: white;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+.Create_container div button:hover{
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 20px;
 }

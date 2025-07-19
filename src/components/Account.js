@@ -1,27 +1,25 @@
 import React from 'react'
-import Profilephoto from './profile_photo.jpeg'
+import Profilephoto from './profile.png'
 import Navbar from './Navbar'
 import { Link } from 'react-router-dom';
+import { ImCross } from 'react-icons/im';
 
 export default function Account() {
     const handleOnMenu=(menuSlider)=>{
-    if(menuSlider){
-      document.querySelector(".Account_container").style.marginLeft="30px";
-    }else{
-      document.querySelector(".Account_container").style.marginLeft="17vw";
-    }
-  }
-  const userDetails=[];
-  for(let i=1;i<101;i++){
-    userDetails.push({
-        group:`group ${i}`,
-    })
+    // if(menuSlider){
+    //   document.querySelector(".Account_container").style.marginLeft="30px";
+    // }else{
+    //   document.querySelector(".Account_container").style.marginLeft="17vw";
+    // }
+    console.log(menuSlider)
   }
   return (
     <>
     <Navbar menuOnclick={handleOnMenu}></Navbar>
     <div className='Account_maincontainer'>
-        
+        <div>
+            <ImCross size={25} className='close_accountpage'/>
+        </div>
         <div className='Account_container'>
             <div className='AccountDetails'>
                 <div>
@@ -34,47 +32,20 @@ export default function Account() {
                     </div>
                     <div>
                         <ul>
-                            <li>100 followers</li>
-                            <li>100 following</li>
-                            <li>100 freind</li>
+                            <li><div><p>followers</p></div><div>100</div></li>
+                            <li><div><p>following</p></div><div>100</div></li>
+                            <li><div><p>freind</p></div> <div>100</div></li>
                         </ul>
+                    </div>
+                    <div>
+                        <button>Follow</button>
                     </div>
                 </div>
             </div>
-            <div className='Joined_groups'>
-                <div className='created_groupsbyUser'>
-                    <div>
-                        <p>Created Group</p>
-                    </div>
-                    <div className='list_of_createdGroup'>
-                        <ul>
-                        {
-                            userDetails.map((elem)=>{
-                                return <li>{elem.group}</li>
-                            })
-                        }
-                        </ul>
-                    </div>
-                </div>
-                <div className='joined_groupsbyUser'>
-                    <div>
-                        <p>Joined Group</p>
-                    </div>
-                    <div className='list_of_joinedGroup'>
-                        <ul>
-                        {
-                            userDetails.map((elem)=>{
-                                return <li>{elem.group}</li>
-                            })
-                        }
-                        </ul>
-                    </div>
-                </div>
+            <div className='AccountLogout'>
+                <button>Edit Profile</button>
+                <button>Logout</button>
             </div>
-        </div>
-        <div>
-            <Link to={"/Edit"}>Edit Profile</Link>
-            <Link to={"/"}>Logout</Link>
         </div>
     </div>
     </>

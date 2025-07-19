@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
 import Profilephoto from './profile_photo.jpeg'
-import { Link } from 'react-router-dom'
+import { BrowserRouter, Link } from 'react-router-dom'
 
 export default function Homepage() {
   const userDetails=[]
@@ -19,10 +19,29 @@ export default function Homepage() {
       document.querySelector(".homepage_groupContainer").style.marginLeft="17vw";
     }
   }
+  const HandleOnCreate=(CreateGroup)=>{
+    if(CreateGroup){
+      document.querySelector(".homepage_maincontainer").style.display="flex";
+
+    }else{
+      document.querySelector(".homepage_maincontainer").style.display="none";
+
+    }
+  }
+  const HandleOnJoin=(joingroup)=>{
+    if(joingroup){
+      document.querySelector(".homepage_maincontainer").style.display="flex";
+      console.log("hii");
+    }else{
+      document.querySelector(".homepage_maincontainer").style.display="none";
+      console.log("hii");
+
+    }
+  }
   return (
     <div>
-        <Navbar menuOnclick={handleOnMenu}></Navbar>
-        <div>
+        <Navbar menuOnclick={handleOnMenu} createGroup={HandleOnCreate} joinGroup={HandleOnJoin}></Navbar>
+        <div className='homepage_maincontainer'>
           <div className='homepage_groupContainer'>
             {
               userDetails.map((elem)=>{

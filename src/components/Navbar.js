@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
-import search from './searchIcon.jpeg'
-import cross from './cross1.jpg'
-import profile_photo from './profile_photo.jpeg'
-import menu from './menu.png'
-import add from './addicon.png'
 import { Link } from 'react-router-dom'
+import {CgAddR,CgProfile} from 'react-icons/cg'
+import {FiList} from 'react-icons/fi'
+import {ImCross} from 'react-icons/im'
+import Joingroup from './Joingroup'
+import CreateGroup from './Creategroup'
+
+
+
+
 export default function Navbar(props){
   const [menuSlider,setmenuSlider]=useState(false);
   const [addSlider,setaddSlider]=useState(false);
+  const [joingroup,setjoingroup]=useState(false);
+  const [creategroup,setcreategroup]=useState(false);
 
   const userDetails=[];
   for(let i=1;i<101;i++){
@@ -16,7 +22,46 @@ export default function Navbar(props){
       groupname:`group ${i}`,
     })
   }
+  const HandleOnCreate=()=>{
+    console.log("hii");
+     if(!creategroup && joingroup){
+      // props.createGroup(creategroup);
+      console.log(creategroup);
+      setjoingroup(false);
+      setcreategroup(true);
+      document.querySelector(".Create_container").style.display="flex";
+      document.querySelector(".join_container").style.display="none";
 
+    }else if(creategroup){
+      props.createGroup(creategroup);
+      setcreategroup(false);
+      document.querySelector(".Create_container").style.display="none";
+    }else{
+      props.createGroup(creategroup);
+      setcreategroup(true);
+      document.querySelector(".Create_container").style.display="flex";
+      
+    }
+  }
+  const HandleOnJoin=()=>{
+    console.log("hii")
+    if(!joingroup && creategroup){
+      console.log(creategroup);
+      // props.joinGroup(joingroup);
+      setjoingroup(true);
+      setcreategroup(false);
+      document.querySelector(".join_container").style.display="flex";
+      document.querySelector(".Create_container").style.display="none";
+    }else if(joingroup){
+      props.joinGroup(joingroup);
+      setjoingroup(false);
+      document.querySelector(".join_container").style.display="none";
+    }else{
+      props.joinGroup(joingroup);
+      setjoingroup(true);
+      document.querySelector(".join_container").style.display="flex";
+    }
+  }
   const handleOnMenu=()=>{
     if(menuSlider){
       document.querySelector(".menu_slider").style.width="0vw";
@@ -42,13 +87,25 @@ export default function Navbar(props){
       setaddSlider(true);
     }
   }
+  const JoinClickOnCross=()=>{
+    document.querySelector(".join_container").style.display="none";
+    props.joinGroup(joingroup);
+    setjoingroup(false)
+
+  }
+  const CreateClickOnCross=()=>{
+    document.querySelector(".Create_container").style.display="none";
+    props.createGroup(creategroup);
+    setcreategroup(false);
+
+  }
   return (
     <>
     <div className='navbar_container'>
       <div>
         <div className='menu_container'>
           <button onClick={handleOnMenu}>
-            <img src={menuSlider?cross:menu} className='show_menu'></img>  
+            {menuSlider?<ImCross size={30} color='white'/>:<FiList size={30} color='white'/>}  
           </button>
         </div>
         <div className='heading_container'>
@@ -62,11 +119,11 @@ export default function Navbar(props){
           <div></div>
         </div>
         <div onClick={handleOnAdd}>
-          <img src={add}></img>
+          <CgAddR size={40}></CgAddR>
         </div>
         <div className='Profilephoto'>
           <Link to={"/account"}>
-            <img src={profile_photo}></img>
+            <CgProfile size={50} color='white'></CgProfile>
           </Link>
         </div>
       </div>
@@ -74,7 +131,7 @@ export default function Navbar(props){
     <div className='menu_slider'>
       <div>
         <ul>
-          <li><Link to={"/Homepage"} className='groupNames'>Home</Link></li>
+          <li><Link to={"/user/Homepage"} className='groupNames'>Home</Link></li>
           {
             userDetails.map((elem)=>{
               return <li><Link to={`/group`} className='groupNames'>{elem.groupname}</Link></li>
@@ -87,9 +144,11 @@ export default function Navbar(props){
       </div>
     </div>
     <div className='group_creation'>
-      <Link className='groupCreateAndJoin'>Create Group</Link>
-      <Link className='groupCreateAndJoin'>Join Group</Link>
+      <button onClick={HandleOnCreate}>Create Group</button>
+      <button onClick={HandleOnJoin}>Join Group</button>
     </div>
+    <Joingroup ClickOnCross={JoinClickOnCross}></Joingroup>
+    <CreateGroup ClickOnCross={CreateClickOnCross}></CreateGroup>
     </>
   )
 }
