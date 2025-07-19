@@ -12,7 +12,7 @@ export default function SignUp(props) {
     setPassword(event.target.value);
   }
   
-  const handleOnSubmit = async (event) => {
+  const account_create = async (event) => {
     event.preventDefault(); // prevent default form submit behavior
     try {
       const res = await fetch("http://localhost:3000/user/signup", {
@@ -70,14 +70,7 @@ export default function SignUp(props) {
   //   document.querySelector(".singup_admin button").style.backgroundColor="white"
   //   document.querySelector(".singup_admin  button").style.color="black";
   // }
-  const account_create=()=>{
-    setuserData({
-      username:Name,
-      password:Password,
-      nickname:Nickname
-    })
-    
-  }
+  
   return (
     <div className='signup_container'>
       <div className='website_info1'>
