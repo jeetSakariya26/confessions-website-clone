@@ -11,19 +11,34 @@ export default function Login(props) {
     const handleOnSubmit=async(event)=>{
         event.preventDefault(); // prevent default form submit behavior
         try {
-        const res = await fetch("http://localhost:3001/user/login", {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-            username: Name,
-            password: Password,
-            }),
-        });
+            if(user==="memeber"){
+                const res = await fetch("http://localhost:3001/user/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: Name,
+                        password: Password,
+                    }),
+                });
+                const data = await res.json();
+                console.log("Response:", data);
+            }else if(user==="devloper"){
+                const res = await fetch("http://localhost:3001/dev/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: Name,
+                        password: Password,
+                    }),
+                });
+                const data = await res.json();
+                console.log("Response:", data);
+            }
 
-        const data = await res.json();
-        console.log("Response:", data);
 
         if (res.ok) {
             alert("Logged In");
