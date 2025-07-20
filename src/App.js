@@ -4,7 +4,7 @@ import Navbar from './components/Navbar.js';
 import {BrowserRouter,Route,Routes,Router} from 'react-router-dom'
 import SignUp from './components/SignUp.js';
 import { useState } from 'react';
-import Homepage from './components/Homepage.js';
+import Homepage from './components/Homepage.js'; 
 import Group from './components/Group.js';
 import Account from './components/Account.js';
 import CreateGroup from './components/Creategroup.js';
