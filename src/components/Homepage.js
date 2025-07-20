@@ -3,15 +3,23 @@ import Navbar from './Navbar'
 import Profilephoto from './profile_photo.jpeg'
 import { BrowserRouter, Link } from 'react-router-dom'
 
-export default function Homepage() {
-  const userDetails=[]
-  for(let i=1;i<10;i++){
-    userDetails.push({
-      username:`user ${i}`,
-      groupname:`group ${i}`,
-    })
-  }
-  
+export default function Homepage(props) {
+  let userDetails=[];
+  // let res = await fetch('http://localhost:3001/user/group', {
+  //   method: "get",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "token" : `${localStorage.getItem('token')}`
+  //   },
+  // });
+  // if(res.ok){
+  //   console.log("Found Groups");
+  // } else {
+  //   console.log("Error");
+  // }
+  // let data = await res.json();
+  // userDetails = data.groups;
+
   const handleOnMenu=(menuSlider)=>{
     if(menuSlider){
       document.querySelector(".homepage_groupContainer").style.marginLeft="30px";
@@ -31,11 +39,8 @@ export default function Homepage() {
   const HandleOnJoin=(joingroup)=>{
     if(joingroup){
       document.querySelector(".homepage_maincontainer").style.display="flex";
-      console.log("hii");
-    }else{
+    } else{
       document.querySelector(".homepage_maincontainer").style.display="none";
-      console.log("hii");
-
     }
   }
   return (

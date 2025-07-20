@@ -38,8 +38,9 @@ export const loginUser = async (req, res) => {
     await User.findOne({ username: req.body.username })
       .then((user) => {
         if (user.password == req.body.password) {
-          req.header.token = createToken(user);
-          return res.status(200).json({ message: "Login Successful" });
+          let token = createToken(user);
+          req.header.token = token;
+          return res.status(200).json({ message: "Login Successful", token : token});
         }
         return res.status(404).json({ message: "password is incorrect" });
       })

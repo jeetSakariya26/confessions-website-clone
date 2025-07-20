@@ -101,6 +101,20 @@ export const searchGroupsByName= async(req,res)=>{
   }
 };
 
+export const getGroups = async(req,res)=>{
+  let username = req.username;
+  try{
+    let user = await User.findOne({username});
+    let groups = user.groups;
+    groups = await Promise.all(
+      groups.map(id => Group.findOne({_id : id}))
+    );
+    return res.status(200).json({message : "Found Groups", groups});
+  } catch(error) {
+    return res.status(404).json({message : "Error", error : error.message});
+  }
+}
+
 // url : /user/group/:groupId/exit
 export const exitGroup = async (req,res)=>{
   let username = req.username;

@@ -9,7 +9,7 @@ import {signupUser, loginUser, findUser,followUser,unfollowUser, logoutUser, get
 import { userAuthMiddleware } from './service/userAuth.js';
 import { loginDeveloper, signupDeveloper, logoutDeveloper} from './controller/developer.js';
 import { devAuthMiddleware } from './service/devAuth.js';
-import { createGroup, exitGroup, getInviteCode, joinGroup, searchGroupsByName } from './controller/group.js';
+import { createGroup, exitGroup, getGroups, getInviteCode, joinGroup, searchGroupsByName } from './controller/group.js';
 import { actionReport, dismissReport, getActionTakenReports,getPendingReports, getDismissedReports, viewReport, createReport } from './controller/report.js';
 import { createNewChat, getChatsOfGroup } from './controller/chat.js';
 
@@ -64,6 +64,7 @@ app.get('/user/group/:name/create',userAuthMiddleware,createGroup);
 app.get('/user/group/:groupId/inviteCode/generate',userAuthMiddleware,getInviteCode);
 app.get('/user/group/:inviteCode/join',userAuthMiddleware,joinGroup);
 app.get('/user/search/group/:name',userAuthMiddleware,searchGroupsByName);
+app.get('/user/group',userAuthMiddleware,getGroups);
 app.get('/user/group/:groupId/exit',userAuthMiddleware,exitGroup);
 
 // action on chat

@@ -25,7 +25,7 @@ export default function Login(props) {
                 const data = await res.json();
                 console.log("Response:", data);
                 if (res.ok) {
-                    alert("Logged In");
+                    localStorage.setItem('token', data.token);
                     window.location.href="http://localhost:3000/user/Homepage";
                 } else {
                     alert(data.message);
@@ -44,11 +44,11 @@ export default function Login(props) {
                 const data = await res.json();
                 console.log("Response:", data);
                 if (res.ok) {
-                    alert("Logged In");
+                    localStorage.setItem('token', data.token);
                     window.location.href="http://localhost:3000/dev/Homepage";
                 } else {
                     alert(data.message);
-        }
+                }
         }
 
         } catch (error) {

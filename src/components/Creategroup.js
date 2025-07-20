@@ -8,13 +8,12 @@ export default function CreateGroup(props) {
         setGroupName(event.target.value);
     }
     const HandleOnCreate=async(event)=>{
-      alert("creating account");
       let res = await fetch(`http://localhost:3001/user/group/${GroupName}/create`,
         {
         method: "get",
         headers: {
           "Content-Type": "application/json",
-          "token" : `${header.token}`
+          "token" : `${localStorage.getItem('token')}`
         },
       }
       

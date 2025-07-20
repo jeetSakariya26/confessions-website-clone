@@ -2,14 +2,28 @@ import React, { useState } from 'react'
 import {ImCross} from 'react-icons/im'
 import { Link } from 'react-router-dom';
 
-
-
-
 export default function Joingroup(props) {
     const  [GroupCode,setGroupCode]=useState("");
     const HandleOnChange=(event)=>{
         setGroupCode(event.target.value);
     }
+
+    const joinGroup = async()=>{
+      let res = await fetch(`http://localhost:3001/user/group/${GroupCode}/join`, {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          "token" : `${localStorage.getItem('token')}`
+        },
+      });
+      let data = await res.json();
+      if(res.ok){
+        alert("Joined Group");
+      } else {
+        alert(data.message || "Error joining group");
+      }
+    }
+
     return (
     <div className='join_container'>
       <div>
@@ -23,7 +37,7 @@ export default function Joingroup(props) {
         <label htmlFor='groupcode'>Group Code:</label>
       </div>
       <div>
-        <button>Join Group</button>
+        <button onClick={joinGroup}>Join Group</button>
       </div>
     </div>
   )
