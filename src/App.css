@@ -911,7 +911,7 @@ body{
 .group_chat_option{
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: -100px;
     display: flex;
     flex-direction: column;
     border-radius: 12px;
