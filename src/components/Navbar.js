@@ -5,6 +5,7 @@ import {FiList} from 'react-icons/fi'
 import {ImCross} from 'react-icons/im'
 import Joingroup from './Joingroup'
 import CreateGroup from './Creategroup'
+import SearchUser from './SearchUser'
 
 
 
@@ -14,7 +15,7 @@ export default function Navbar(props){
   const [addSlider,setaddSlider]=useState(false);
   const [joingroup,setjoingroup]=useState(false);
   const [creategroup,setcreategroup]=useState(false);
-
+  const [SearchUser,setSearchUser]=useState("");
   const userDetails=[];
   for(let i=1;i<101;i++){
     userDetails.push({
@@ -97,7 +98,12 @@ export default function Navbar(props){
     document.querySelector(".Create_container").style.display="none";
     props.createGroup(creategroup);
     setcreategroup(false);
-
+  }
+  const HandleOnSearch=()=>{
+    console.log(SearchUser);
+  }
+  const HandleOnSearchUser=(event)=>{
+    setSearchUser(event.target.value);
   }
   return (
     <>
@@ -114,10 +120,11 @@ export default function Navbar(props){
           </div>
         </div>
       </div>
+      <div className='navbar_search'>
+        <input type='search' value={SearchUser} onChange={HandleOnSearchUser}></input>
+        <button onClick={HandleOnSearch}>Search</button>
+      </div>
       <div className='account_container'>
-        <div className='DarkMode'>
-          <div></div>
-        </div>
         <div onClick={handleOnAdd}>
           <CgAddR size={40}></CgAddR>
         </div>
@@ -149,6 +156,7 @@ export default function Navbar(props){
     </div>
     <Joingroup ClickOnCross={JoinClickOnCross}></Joingroup>
     <CreateGroup ClickOnCross={CreateClickOnCross}></CreateGroup>
+    {/* <SearchUser></SearchUser> */}
     </>
   )
 }

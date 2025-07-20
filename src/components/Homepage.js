@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
-import Profilephoto from './profile_photo.jpeg'
+import Profilephoto from './profile.png'
 import { BrowserRouter, Link } from 'react-router-dom'
 
 export default function Homepage() {
@@ -58,8 +58,6 @@ export default function Homepage() {
                 </Link>
               })  
             }
-            
-
           </div>
         </div>
     </div>
