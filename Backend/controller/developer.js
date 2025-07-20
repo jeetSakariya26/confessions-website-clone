@@ -32,7 +32,7 @@ export const loginDeveloper = async (req,res)=>{
     let developer = await Developer.findOne({username : req.body.username});
     if(developer){
       if(developer.password == req.body.password){
-        let token = createToken(user);
+        let token = createToken(developer);
         req.header.token = token;
         return res.status(200).json({message : "Login Successful", token });
       }
@@ -41,7 +41,7 @@ export const loginDeveloper = async (req,res)=>{
       return res.status(404).json({ message: "Username is incorrect"});
     }
   } catch(err){
-    return res.status(404).json({ message: "Some error occured!!!" });
+    return res.status(404).json({ message: "Some error occured!!!" , error : err.message});
   }
 }
 
