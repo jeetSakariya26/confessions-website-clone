@@ -4,25 +4,25 @@ import mongoose from 'mongoose';
 
 // url : /user/group/:name/create
 export const createGroup = async(req,res)=>{
+  console.log("got here");
   let admin = req.username;
   let name = req.params.name;
   let members = [admin];
 
-  let group = new Group({admin, name, members});
-
   try {
+      let group = new Group({admin, name, members});
       let user = await User.findOne({username : admin});
       user.groups.push(group._id);
       await user.save();
+      await group.save().then(()=>{
+        return res.status(200).json({message : "New Group created successfully"});
+      })
+      .catch((error)=>{
+        return res.status(404).json({message : "Error!!", error: error.message});
+      });
     } catch (error) {
       res.status(404).json({message : "Error!!", error});
     }
-  await group.save().then(()=>{
-    return res.status(200).json({message : "New Group created successfully"});
-  })
-  .catch((error)=>{
-    return res.status(404).json({message : "Error!!", error});
-  });
 }
 
 // creates 6 length invite code with 1 hour duration
@@ -48,7 +48,7 @@ export const getInviteCode = async (req,res)=>{
     await group.save();
     res.json({ inviteCode: code });
   } catch(error) {
-    return res.status(404).json({message : "Error", error});
+    return res.status(404).json({message : "Error", error: error.message});
   }
 };
 
@@ -76,7 +76,7 @@ export const joinGroup = async (req, res) => {
       return res.status(400).json({ message: "Already In Group" });
     }
   } catch (err) {
-    return res.status(404).json({ message: "Error!!", error: err });
+    return res.status(404).json({ message: "Error!!", error: err.message });
   }
 };
 
@@ -97,9 +97,23 @@ export const searchGroupsByName= async(req,res)=>{
 
     return res.status(200).json({message : "Groups found", groups});
   } catch (error) {
-    return res.status(404).json({message : "Error !!", error });
+    return res.status(404).json({message : "Error !!", error :error.message});
   }
 };
+
+export const getGroups = async(req,res)=>{
+  let username = req.username;
+  try{
+    let user = await User.findOne({username});
+    let groups = user.groups;
+    groups = await Promise.all(
+      groups.map(id => Group.findOne({_id : id}))
+    );
+    return res.status(200).json({message : "Found Groups", groups});
+  } catch(error) {
+    return res.status(404).json({message : "Error", error : error.message});
+  }
+}
 
 // url : /user/group/:groupId/exit
 export const exitGroup = async (req,res)=>{
@@ -109,7 +123,7 @@ export const exitGroup = async (req,res)=>{
   try {
     return res.status(200).json({message : await userExitFromGroup(username,groupId)});
   } catch (error) {
-    return res.status(404).json({message : "Error !!", error});
+    return res.status(404).json({message : "Error !!", error: error.message});
   }
 };
 

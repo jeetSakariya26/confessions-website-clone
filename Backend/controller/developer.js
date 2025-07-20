@@ -32,8 +32,9 @@ export const loginDeveloper = async (req,res)=>{
     let developer = await Developer.findOne({username : req.body.username});
     if(developer){
       if(developer.password == req.body.password){
-        req.header.token = createToken(developer);
-        return res.status(200).json({message : "Login Successful"});
+        let token = createToken(user);
+        req.header.token = token;
+        return res.status(200).json({message : "Login Successful", token });
       }
       return res.status(404).json({message : "Password is incorrect"});
     } else {
@@ -58,6 +59,6 @@ export const removeDeveloper = async (req,res)=>{
     return res.status(200).json({message : "dev removed"});
   }
   catch(error) {
-    return res.stauts(404).json({message : "Error !!", error});
+    return res.stauts(404).json({message : "Error !!", error: error.message});
   }
 }

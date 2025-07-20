@@ -38,8 +38,9 @@ export const loginUser = async (req, res) => {
     await User.findOne({ username: req.body.username })
       .then((user) => {
         if (user.password == req.body.password) {
-          req.header.token = createToken(user);
-          return res.status(200).json({ message: "Login Successful" });
+          let token = createToken(user);
+          req.header.token = token;
+          return res.status(200).json({ message: "Login Successful", token : token});
         }
         return res.status(404).json({ message: "password is incorrect" });
       })
@@ -206,6 +207,19 @@ export const removeUserFromGroup = async(req,res)=>{
   } catch(error) {
     return res.status(404).json({message : "Error!!", error});
   }
+}
+
+// url : /user/:username/:profile/edit
+export const editProfile = async(req,res)=>{
+  if(req.params.username != req.username){
+    return res.status(400).json({message : "You can't change someone's profile"});
+  }
+  let nickName = req.body.nickName;
+  await User.updateOne(
+    {username : req.username},
+    {$set : {nickName : nickName}}
+  );
+  return res.status(200).json({message : "Nickname changed successfully"});
 }
 
 // url : /dev/user/:username/ban

@@ -5,11 +5,11 @@ import dotenv from 'dotenv';
 import path from 'path';
 import mongoose from 'mongoose';
 import { fileURLToPath } from 'url';
-import {signupUser, loginUser, findUser,followUser,unfollowUser, logoutUser, getUser, banUser, deleteChatBySender, removeUserFromGroup} from './controller/user.js'
+import {signupUser, loginUser, findUser,followUser,unfollowUser, logoutUser, getUser, banUser, deleteChatBySender, removeUserFromGroup, editProfile} from './controller/user.js'
 import { userAuthMiddleware } from './service/userAuth.js';
 import { loginDeveloper, signupDeveloper, logoutDeveloper} from './controller/developer.js';
 import { devAuthMiddleware } from './service/devAuth.js';
-import { createGroup, exitGroup, getInviteCode, joinGroup, searchGroupsByName } from './controller/group.js';
+import { createGroup, exitGroup, getGroups, getInviteCode, joinGroup, searchGroupsByName } from './controller/group.js';
 import { actionReport, dismissReport, getActionTakenReports,getPendingReports, getDismissedReports, viewReport, createReport } from './controller/report.js';
 import { createNewChat, getChatsOfGroup } from './controller/chat.js';
 
@@ -53,6 +53,7 @@ app.post('/user/signup',signupUser);
 app.post('/user/login', loginUser);
 app.get('/user/:input/find', findUser);
 app.get('/user/:username/profile',userAuthMiddleware,getUser);
+app.post('/user/:username/profile/edit',userAuthMiddleware,editProfile);
 app.get('/user/:username/follow',userAuthMiddleware,followUser);
 app.get('/user/:username/unfollow',userAuthMiddleware,unfollowUser);
 app.get('/user/logout',userAuthMiddleware,logoutUser); 
@@ -63,6 +64,7 @@ app.get('/user/group/:name/create',userAuthMiddleware,createGroup);
 app.get('/user/group/:groupId/inviteCode/generate',userAuthMiddleware,getInviteCode);
 app.get('/user/group/:inviteCode/join',userAuthMiddleware,joinGroup);
 app.get('/user/search/group/:name',userAuthMiddleware,searchGroupsByName);
+app.get('/user/group',userAuthMiddleware,getGroups);
 app.get('/user/group/:groupId/exit',userAuthMiddleware,exitGroup);
 
 // action on chat

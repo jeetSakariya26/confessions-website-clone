@@ -7,6 +7,26 @@ export default function CreateGroup(props) {
     const HandleOnGroupname=(event)=>{
         setGroupName(event.target.value);
     }
+    const HandleOnCreate=async(event)=>{
+      let res = await fetch(`http://localhost:3001/user/group/${GroupName}/create`,
+        {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          "token" : `${localStorage.getItem('token')}`
+        },
+      }
+      
+    )
+    const data = await res.json();
+    if (res.ok) {
+        alert("Group created successfully!");
+      } else {
+        alert(data.message || "Error creating group");
+      }
+    window.location.href="http://localhost:3000/user/Homepage";
+    }
+
   return (
     <div className='Create_container'>
       <div>
@@ -20,7 +40,7 @@ export default function CreateGroup(props) {
         <label htmlFor='groupname'>Group Name: </label>
       </div>
       <div>
-        <button>Create Group</button>
+        <button onClick={HandleOnCreate}>Create Group</button>
       </div>
     </div>
   )

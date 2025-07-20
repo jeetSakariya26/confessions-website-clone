@@ -19,13 +19,12 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' index element={<Login setmode={setmode} mode={mode}></Login>}></Route>
-        <Route path='/signup' element={<SignUp mode={mode} setmode={setmode} token={token} ></SignUp>}></Route>
+        <Route path='/signup' element={<SignUp mode={mode} setmode={setmode} token={token}></SignUp>}></Route>
         <Route path='/user/Homepage' index element={<Homepage token={token}></Homepage>}></Route>
         <Route path='/group' element={<Group token={token}></Group>}></Route>
         <Route path='/account' element={<Account token={token}></Account>}></Route>
         <Route path='/user/creategroup' element={<CreateGroup token={token}></CreateGroup>}></Route>
         <Route path='/user/joingroup' element={<Joingroup token={token}></Joingroup>}></Route>
-        <Route path='/dev' element={<Devloper token={token}></Devloper>}></Route>
       </Routes>
     </div>
     </BrowserRouter>
