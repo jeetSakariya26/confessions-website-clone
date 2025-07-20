@@ -22,7 +22,7 @@ export default function Homepage(props) {
       });
       let data = await res.json();
       setUserDetails(data.groups);
-      localStorage.setItem('userDetails',JSON.stringify(data.groups));
+      localStorage.setItem('userDetails',data.groups.map((ele)=>JSON.stringify(data.groups)));
       setLoading(false);
     } catch(error){
       console.error(error);

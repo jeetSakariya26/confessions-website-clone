@@ -16,7 +16,11 @@ export default function Navbar(props){
   const [joingroup,setjoingroup]=useState(false);
   const [creategroup,setcreategroup]=useState(false);
   const [SearchUser,setSearchUser]=useState("");
-  let userDetails= props.userDetails;
+  let userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  // let userDetails= localStorage.getItem('userDetails');
+  // for(let i=0;i<userDetails.length;i++){
+  //   userDetails[i] = JSON.parse(userDetails[i]);
+  // }
 
   const HandleOnCreate=()=>{
      if(!creategroup && joingroup){
@@ -137,9 +141,9 @@ export default function Navbar(props){
         <ul>
           <li><Link to={"/user/Homepage"} className='groupNames'>Home</Link></li>
           {
-            // userDetails.map((elem)=>{
-            //   return <li><Link to={`/group`} className='groupNames'>{elem.name}</Link></li>
-            // })
+            userDetails.map((elem)=>{
+              return <li><Link to={`/group`} className='groupNames'>{elem.name}</Link></li>
+            })
           }
         </ul>
       </div>
