@@ -16,17 +16,10 @@ export default function Navbar(props){
   const [joingroup,setjoingroup]=useState(false);
   const [creategroup,setcreategroup]=useState(false);
   const [SearchUser,setSearchUser]=useState("");
-  const userDetails=[];
-  for(let i=1;i<101;i++){
-    userDetails.push({
-      username:`user ${i}`,
-      groupname:`group ${i}`,
-    })
-  }
+  let userDetails=localStorage.getItem('userDetails');
+
   const HandleOnCreate=()=>{
-    console.log("hii");
      if(!creategroup && joingroup){
-      // props.createGroup(creategroup);
       console.log(creategroup);
       setjoingroup(false);
       setcreategroup(true);
@@ -100,10 +93,14 @@ export default function Navbar(props){
     setcreategroup(false);
   }
   const HandleOnSearch=()=>{
-    console.log(SearchUser);
   }
+
   const HandleOnSearchUser=(event)=>{
     setSearchUser(event.target.value);
+  }
+
+  const logoutUser = ()=>{
+    localStorage.setItem('token',"");
   }
   return (
     <>
@@ -141,13 +138,13 @@ export default function Navbar(props){
           <li><Link to={"/user/Homepage"} className='groupNames'>Home</Link></li>
           {
             userDetails.map((elem)=>{
-              return <li><Link to={`/group`} className='groupNames'>{elem.groupname}</Link></li>
+              return <li><Link to={`/group`} className='groupNames'>{elem.name}</Link></li>
             })
           }
         </ul>
       </div>
       <div>
-        <Link to={"/"} className='Logout_btn'><p>Logout</p></Link>
+        <Link to={"/"} className='Logout_btn' onClick={logoutUser}><p>Logout</p></Link>
       </div>
     </div>
     <div className='group_creation'>

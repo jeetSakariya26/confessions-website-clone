@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 import { ImCross } from 'react-icons/im';
 
 export default function Account() {
-    const [Username,setUsername]=useState("");
     const [Nickname,setNickname]=useState("");
-    const [Password,setPassword]=useState("");
     const [editMenu,seteditMenu]=useState(false);
     const [Follow,setFollow]=useState(false);
     const handleOnMenu=(menuSlider)=>{
@@ -16,10 +14,8 @@ export default function Account() {
     // }else{
     //   document.querySelector(".Account_container").style.marginLeft="17vw";
     // }
-    console.log(menuSlider)
   }
   const HandleOnEditprofile=()=>{
-    console.log("hii");
     if(editMenu){
         document.querySelector(".Edit_container").style.display="none";
         document.querySelector(".Account_maincontainer").style.display="flex";
@@ -30,14 +26,8 @@ export default function Account() {
         seteditMenu(true);
     }
   }
-  const HandleOnUsername=(event)=>{
-    setUsername(event.target.value);
-  }
   const HandleOnNickname=(event)=>{
     setNickname(event.target.value);
-  }
-  const HandleOnPassword=(event)=>{
-    setPassword(event.target.value);
   }
   const HandleOnSave=()=>{
 
@@ -109,16 +99,8 @@ export default function Account() {
             </div>
             <div>
                 <div>
-                    <input name='username' value={Username} onChange={HandleOnUsername}></input>
-                    <label htmlFor='username'>Username:</label>
-                </div>
-                <div>
                     <input name='Nickname' value={Nickname} onChange={HandleOnNickname}></input>
                     <label htmlFor='Nickname'>Nickname:</label>
-                </div>
-                <div>
-                    <input name='Password' value={Password} onChange={HandleOnPassword}></input>
-                    <label htmlFor='Password'>Password:</label>
                 </div>
             </div>
             <div>

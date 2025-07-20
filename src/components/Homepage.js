@@ -1,24 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import Navbar from './Navbar'
 import Profilephoto from './profile.png'
 import { BrowserRouter, Link } from 'react-router-dom'
 
+
 export default function Homepage(props) {
-  let userDetails=[];
-  // let res = await fetch('http://localhost:3001/user/group', {
-  //   method: "get",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "token" : `${localStorage.getItem('token')}`
-  //   },
-  // });
-  // if(res.ok){
-  //   console.log("Found Groups");
-  // } else {
-  //   console.log("Error");
-  // }
-  // let data = await res.json();
-  // userDetails = data.groups;
+  const [userDetails, setUserDetails] = useState([]);     
+  const [loading, setLoading] = useState(true); // Show loading state
+  // let mainGroups = [];
+  
+  async function getGroups(){
+    try{
+      let res = await fetch('http://localhost:3001/user/group', {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          "token" : `${localStorage.getItem('token')}`
+        },
+      });
+      let data = await res.json();
+      setUserDetails(data.groups);
+      localStorage.setItem('userDetails',data.groups);
+      setLoading(false);
+    } catch(error){
+      console.error(error);
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getGroups();
+  }, []);
 
   const handleOnMenu=(menuSlider)=>{
     if(menuSlider){
@@ -36,6 +48,11 @@ export default function Homepage(props) {
 
     }
   }
+
+  // const filterGroupByName = (input)=>{
+  //   setUserDetails(mainGroups.filter((ele)=>ele.name.startsWith(input)));
+  // }
+
   const HandleOnJoin=(joingroup)=>{
     if(joingroup){
       document.querySelector(".homepage_maincontainer").style.display="flex";
@@ -45,8 +62,8 @@ export default function Homepage(props) {
   }
   return (
     <div>
-        <Navbar menuOnclick={handleOnMenu} createGroup={HandleOnCreate} joinGroup={HandleOnJoin}></Navbar>
-        <div className='homepage_maincontainer'>
+        <Navbar menuOnclick={handleOnMenu} createGroup={HandleOnCreate} joinGroup={HandleOnJoin} elem={userDetails}></Navbar>
+        {loading || <div className='homepage_maincontainer'>
           <div className='homepage_groupContainer'>
             {
               userDetails.map((elem)=>{
@@ -56,15 +73,15 @@ export default function Homepage(props) {
                     <img src={Profilephoto}></img>
                   </div>
                   <div>
-                    <h2>{elem.groupname}</h2>
-                    <p>created by {elem.username}</p>
+                    <h2>{elem.name}</h2>
+                    <p>created by {elem.admin}</p>
                   </div>
                 </div>
                 </Link>
               })  
             }
           </div>
-        </div>
+        </div>}
     </div>
   )
 }
