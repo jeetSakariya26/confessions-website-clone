@@ -11,18 +11,19 @@ import CreateGroup from './components/Creategroup.js';
 import Joingroup from './components/Joingroup.js';
 
 function App() {
-  const [mode,setmode]=useState("login")
+  const [mode,setmode]=useState("login");
+  const [token,settoken]=useState("");
   return (
     <BrowserRouter>
     <div className="App">
       <Routes>
         <Route path='/' index element={<Login setmode={setmode} mode={mode}></Login>}></Route>
-        <Route path='/signup' element={<SignUp mode={mode} setmode={setmode}></SignUp>}></Route>
-        <Route path='/user/Homepage' index element={<Homepage></Homepage>}></Route>
-        <Route path='/group' element={<Group></Group>}></Route>
-        <Route path='/account' element={<Account></Account>}></Route>
-        <Route path='/user/creategroup' element={<CreateGroup></CreateGroup>}></Route>
-        <Route path='/user/joingroup' element={<Joingroup></Joingroup>}></Route>
+        <Route path='/signup' element={<SignUp mode={mode} setmode={setmode} token={token}></SignUp>}></Route>
+        <Route path='/user/Homepage' index element={<Homepage token={token}></Homepage>}></Route>
+        <Route path='/group' element={<Group token={token}></Group>}></Route>
+        <Route path='/account' element={<Account token={token}></Account>}></Route>
+        <Route path='/user/creategroup' element={<CreateGroup token={token}></CreateGroup>}></Route>
+        <Route path='/user/joingroup' element={<Joingroup token={token}></Joingroup>}></Route>
       </Routes>
     </div>
     </BrowserRouter>
