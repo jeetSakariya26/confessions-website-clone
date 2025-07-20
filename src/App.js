@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path='/' index element={<Login setmode={setmode} mode={mode}></Login>}></Route>
         <Route path='/signup' element={<SignUp mode={mode} setmode={setmode}></SignUp>}></Route>
-        <Route path='/Homepage' index element={<Homepage></Homepage>}></Route>
+        <Route path='/user/Homepage' index element={<Homepage></Homepage>}></Route>
         <Route path='/group' element={<Group></Group>}></Route>
         <Route path='/account' element={<Account></Account>}></Route>
         <Route path='/user/creategroup' element={<CreateGroup></CreateGroup>}></Route>

@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Profilephoto from './profile.png'
 import Navbar from './Navbar'
 import { Link } from 'react-router-dom';
 import { ImCross } from 'react-icons/im';
 
 export default function Account() {
+    const [Username,setUsername]=useState("");
+    const [Nickname,setNickname]=useState("");
+    const [Password,setPassword]=useState("");
+    const [editMenu,seteditMenu]=useState(false);
+
     const handleOnMenu=(menuSlider)=>{
     // if(menuSlider){
     //   document.querySelector(".Account_container").style.marginLeft="30px";
@@ -12,6 +17,27 @@ export default function Account() {
     //   document.querySelector(".Account_container").style.marginLeft="17vw";
     // }
     console.log(menuSlider)
+  }
+  const HandleOnEditprofile=()=>{
+    console.log("hii");
+    if(editMenu){
+        document.querySelector(".Edit_container").style.display="flex";
+    }else{
+        document.querySelector(".Edit_container").style.display="flex";
+
+    }
+  }
+  const HandleOnUsername=(event)=>{
+    setUsername(event.target.value);
+  }
+  const HandleOnNickname=(event)=>{
+    setNickname(event.target.value);
+  }
+  const HandleOnPassword=(event)=>{
+    setPassword(event.target.value);
+  }
+  const HandleOnSave=()=>{
+
   }
   return (
     <>
@@ -43,8 +69,30 @@ export default function Account() {
                 </div>
             </div>
             <div className='AccountLogout'>
-                <button>Edit Profile</button>
+                <button onClick={HandleOnEditprofile}>Edit Profile</button>
                 <button>Logout</button>
+            </div>
+        </div>
+        <div className='Edit_container'>
+            <div>
+                <h1>Edit user Details</h1>
+            </div>
+            <div>
+                <div>
+                    <input name='username' value={Username} onChange={HandleOnUsername}></input>
+                    <label htmlFor='username'></label>
+                </div>
+                <div>
+                    <input name='Nickname' value={Nickname} onChange={HandleOnNickname}></input>
+                    <label htmlFor='Nickname'></label>
+                </div>
+                <div>
+                    <input name='Password' value={Password} onChange={HandleOnPassword}></input>
+                    <label htmlFor='Password'></label>
+                </div>
+            </div>
+            <div>
+                <button onClick={HandleOnSave}>Save Changes</button>
             </div>
         </div>
     </div>

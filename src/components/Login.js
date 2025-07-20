@@ -24,6 +24,12 @@ export default function Login(props) {
                 });
                 const data = await res.json();
                 console.log("Response:", data);
+                if (res.ok) {
+                    alert("Logged In");
+                    window.location.href="http://localhost:3000/user/Homepage";
+                } else {
+                    alert(data.message);
+                }
             }else if(user==="devloper"){
                 const res = await fetch("http://localhost:3001/dev/login", {
                     method: "POST",
@@ -37,14 +43,12 @@ export default function Login(props) {
                 });
                 const data = await res.json();
                 console.log("Response:", data);
-            }
-
-
-        if (res.ok) {
-            alert("Logged In");
-            window.location.href="http://localhost:3000/Homepage";
-        } else {
-            alert(data.message);
+                if (res.ok) {
+                    alert("Logged In");
+                    window.location.href="http://localhost:3000/dev/Homepage";
+                } else {
+                    alert(data.message);
+        }
         }
 
         } catch (error) {
