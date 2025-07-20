@@ -55,7 +55,7 @@ app.get('/user/:input/find', findUser);
 app.get('/user/:username/profile',userAuthMiddleware,getUser);
 app.get('/user/:username/follow',userAuthMiddleware,followUser);
 app.get('/user/:username/unfollow',userAuthMiddleware,unfollowUser);
-app.get('/user/logout',userAuthMiddleware,logoutUser);
+app.get('/user/logout',userAuthMiddleware,logoutUser); 
 app.get('/user/group/:groupId/:targetUsername/remove',userAuthMiddleware,removeUserFromGroup);
 
 // action on groups
@@ -66,17 +66,17 @@ app.get('/user/search/group/:name',userAuthMiddleware,searchGroupsByName);
 app.get('/user/group/:groupId/exit',userAuthMiddleware,exitGroup);
 
 // action on chat
-app.post('/user/group/:groupId/chat/new',userAuthMiddleware,createNewChat);
+app.post('/user/group/:groupId/chat/new',userAuthMiddleware,createNewChat); // working till here
 app.get('/user/group/:groupId/chat/:chatId/delete',userAuthMiddleware,deleteChatBySender);
-app.get('user/group/:groupId/chat',userAuthMiddleware,getChatsOfGroup);
+app.get('/user/group/:groupId/chat',userAuthMiddleware,getChatsOfGroup);
 
 // action on report
 app.post('/user/group/:groupId/chat/:chatId/report',userAuthMiddleware,createReport);
 
-app.get('*',(req,res)=>{
+app.get('/{*any}',(req,res)=>{
   res.status(200).json({message : "This is global get page"});
 });
 
-app.post('*',(req,res)=>{
+app.post('/{*any}',(req,res)=>{
   res.status(200).json({message : "This is global post page"});
 });
