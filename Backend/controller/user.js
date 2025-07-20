@@ -208,6 +208,19 @@ export const removeUserFromGroup = async(req,res)=>{
   }
 }
 
+// url : /user/:username/:profile/edit
+export const editProfile = async(req,res)=>{
+  if(req.params.username != req.username){
+    return res.status(400).json({message : "You can't change someone's profile"});
+  }
+  let nickName = req.body.nickName;
+  await User.updateOne(
+    {username : req.username},
+    {$set : {nickName : nickName}}
+  );
+  return res.status(200).json({message : "Nickname changed successfully"});
+}
+
 // url : /dev/user/:username/ban
 export const banUser = async(req,res)=>{
   let username = req.params.username;

@@ -58,6 +58,6 @@ export const removeDeveloper = async (req,res)=>{
     return res.status(200).json({message : "dev removed"});
   }
   catch(error) {
-    return res.stauts(404).json({message : "Error !!", error});
+    return res.stauts(404).json({message : "Error !!", error: error.message});
   }
 }

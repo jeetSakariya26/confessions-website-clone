@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import mongoose from 'mongoose';
 import { fileURLToPath } from 'url';
-import {signupUser, loginUser, findUser,followUser,unfollowUser, logoutUser, getUser, banUser, deleteChatBySender, removeUserFromGroup} from './controller/user.js'
+import {signupUser, loginUser, findUser,followUser,unfollowUser, logoutUser, getUser, banUser, deleteChatBySender, removeUserFromGroup, editProfile} from './controller/user.js'
 import { userAuthMiddleware } from './service/userAuth.js';
 import { loginDeveloper, signupDeveloper, logoutDeveloper} from './controller/developer.js';
 import { devAuthMiddleware } from './service/devAuth.js';
@@ -53,6 +53,7 @@ app.post('/user/signup',signupUser);
 app.post('/user/login', loginUser);
 app.get('/user/:input/find', findUser);
 app.get('/user/:username/profile',userAuthMiddleware,getUser);
+app.post('/user/:username/profile/edit',userAuthMiddleware,editProfile);
 app.get('/user/:username/follow',userAuthMiddleware,followUser);
 app.get('/user/:username/unfollow',userAuthMiddleware,unfollowUser);
 app.get('/user/logout',userAuthMiddleware,logoutUser); 

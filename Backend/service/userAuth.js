@@ -6,6 +6,7 @@ export const createToken = (user)=>{
 }
 
 export const userAuthMiddleware = async (req,res,next)=>{
+    console.log("checking user token");
     let token = req.header.token;
     if(!token){
         return res.status(404).json({message : "Token not found"});
