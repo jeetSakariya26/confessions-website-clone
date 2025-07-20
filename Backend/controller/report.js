@@ -1,10 +1,12 @@
-import { Chat } from "../models/Chat";
-import { Report } from "../models/Report";
-import { deleteChat } from "./chat";
+import { Chat } from "../models/Chat.js";
+import { Report } from "../models/Report.js";
+import { deleteChat } from "./chat.js";
+import { reportValidation} from "../validation/reportValidation.js"
 
 // url : /user/group/:groupId/chat/:chatId/report
 export const createReport = async (req, res) => {
   req.body.chatId = req.params.chatId;
+  req.body.reporter = req.username;
   let { error } = await reportValidation.validate(req.body);
   if (error) {
     res.status(404).json({ message: error.details[0].message });
@@ -44,13 +46,14 @@ export const actionReport = async (req, res) => {
 
 // url : /dev/reports/:reportId/dismiss
 export const dismissReport = async (req, res) => {
-  let reportId = req.body.reportId;
+  let reportId = req.params.reportId;
   let devUsername = req.username;
   try {
     await Report.updateOne(
       { _id: reportId },
       { $set: { status: "dismissed", reviewedBy : devUsername } }
     );
+    res.status(200).json({message : "report dismissed"});
   } catch (err) {
     res.status(400).json({ message: "report doesnot exists" });
   }
@@ -91,17 +94,17 @@ export const viewReport = async(req,res)=>{
   let reportId = req.params.reportId;
   try {
     let report = await Report.findOne({ _id : reportId });
-    let chatContent = await Chat.findOne({ _id :report.chatId }).content;
+    let chat = await Chat.findOne({ _id :report.chatId });
     let responce = {
-      reportedUser : report.reportedUser,
+      reportedUser : chat.from,
       reporter : report.reporter,
+      chatContent : chat.content,
       reason : report.reason,
       description : report.description,
-      createdAt : report.createdAt,
-      chatContent : chatContent
+      createdAt : report.createdAt
     }
     return res.status(200).json({message : "Report Content...", responce});
   } catch(error) {
-    return res.status(404).json({message : "Error!!", error} );
+    return res.status(404).json({message : "Error!!", error : error.message} );
   }
 }

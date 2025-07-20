@@ -9,6 +9,14 @@ export const createGroup = async(req,res)=>{
   let members = [admin];
 
   let group = new Group({admin, name, members});
+
+  try {
+      let user = await User.findOne({username : admin});
+      user.groups.push(group._id);
+      await user.save();
+    } catch (error) {
+      res.status(404).json({message : "Error!!", error});
+    }
   await group.save().then(()=>{
     return res.status(200).json({message : "New Group created successfully"});
   })
@@ -59,6 +67,9 @@ export const joinGroup = async (req, res) => {
 
     if (!group.members.includes(username)) {
       group.members.push(username);
+      let user = await User.findOne({username});
+      user.groups.push(group._id);
+      await user.save();
       await group.save();
       return res.status(200).json({ message: "Joined group successfully" });
     } else {
@@ -93,7 +104,7 @@ export const searchGroupsByName= async(req,res)=>{
 // url : /user/group/:groupId/exit
 export const exitGroup = async (req,res)=>{
   let username = req.username;
-  let groupId = rep.params.groupId;
+  let groupId = req.params.groupId;
   
   try {
     return res.status(200).json({message : await userExitFromGroup(username,groupId)});
@@ -105,7 +116,7 @@ export const exitGroup = async (req,res)=>{
 // function which removes user from group
 export const userExitFromGroup = async(username,groupId)=>{
     let user = await User.findOne({username});
-    let idx = user.groups.indexOf(new mongoose.Types.ObjectId(groupId));
+    let idx = user.groups.findIndex(id => id.toString() == groupId);
     if(idx == -1){
       return "User is not in the group"; 
     }
@@ -116,7 +127,10 @@ export const userExitFromGroup = async(username,groupId)=>{
     }
     idx = group.members.indexOf(username);
     group.members.splice(idx,1);
+    if(group.admin == username){
+      await group.deleteOne();
+    }
     await group.save();
     await user.save();
-    return "Exited the group successfully...";
+    return "removed from the group successfully...";
 }

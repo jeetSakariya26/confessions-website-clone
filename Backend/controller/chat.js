@@ -1,11 +1,12 @@
-import { Chat } from "../models/Chat";
-import { Group } from "../models/Group";
-import { chatValidation } from "../validation/chatValidation";
+import { Chat } from "../models/Chat.js";
+import { Group } from "../models/Group.js";
+import { chatValidation } from "../validation/chatValidation.js";
 
 // post request 
 // url : /user/group/:groupId/chat/new
 export const createNewChat = async (req, res) => {
-  let { content, isConfession, groupId } = req.body;
+  let groupId = req.params.groupId;
+  let { content, isConfession} = req.body;
   let sender = req.username;
   let newChat = { content, isConfession, group: groupId, from: sender };
 
@@ -13,10 +14,13 @@ export const createNewChat = async (req, res) => {
   if (error) {
     return res.status(404).json({ message: error.details[0].message });
   }
-
-  new Chat(newChat)
-    .save()
-    .then(() => {
+  let group = await Group.findOne({_id: groupId});
+  
+  let chat = new Chat(newChat);
+  group.chats.push(chat._id);
+  await group.save();
+  await chat.save()
+  .then(() => {
       return res.status(200).json({ message: "New Chat Added" });
     })
     .catch((err) => {
@@ -28,7 +32,7 @@ export const createNewChat = async (req, res) => {
 // export const editChat = async (req,res)=>{
   // }
   
-export const deleteChat = async (chatId, byWhom = "") => {
+export const deleteChat = async (chatId, byWhom = "") => { // seems problem in this function
   try {
     await Chat.updateOne(
       { _id: chatId },
@@ -38,9 +42,9 @@ export const deleteChat = async (chatId, byWhom = "") => {
         },
       }
     );
-    return { message: "deleted successfully" };
+    return { message : "deleted successfully"};
   } catch (err) {
-    return { message: "Something went wrong...", error: err };
+    return {message : "Something went wrong..."};
   }
 }; // returns object of responce
 
@@ -48,19 +52,21 @@ export const deleteChat = async (chatId, byWhom = "") => {
 export const getChatsOfGroup = async (req, res) => {
   let groupId = req.params.groupId;
   try {
-    let group = await Group.find({ _id: groupId });
+    let group = await Group.findOne({ _id: groupId });
     if (!group) {
       return res.status(400).json({ message: "Group doesnot exists" });
     }
-    let chats = group.chats.map(async (chatId)=> await getChatById(chatId));
+    const chats = await Promise.all(
+      group.chats.map((chatId) => getChatById(chatId))
+    );
     return res.status(200).json({ message: "Chat found", chats });
   } catch (error) {
-    return res.status(404).json({ message: "Error!!", error });
+    return res.status(404).json({ message: "Error!!", error: error.message});
   }
 }; // return list of chats
 
 // function which finds chat by Id
 export const getChatById = async(chatId)=>{
-  let chat =await Chat.findOne({_id : chatId});
+  let chat = await Chat.findOne({_id : chatId});
   return chat;
 }

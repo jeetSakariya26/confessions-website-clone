@@ -3,6 +3,7 @@ import { Group } from "../models/Group.js";
 import { createToken } from "../service/userAuth.js";
 import { User } from "./../models/User.js";
 import { userValidation } from "./../validation/userValidation.js";
+import { deleteChat } from "./chat.js";
 import { userExitFromGroup } from "./group.js";
 
 // function which adds new User to database (sign Up)
@@ -83,10 +84,13 @@ export const getUser = async (req, res) => {
 
   await User.findOne({ username })
     .then((user) => {
-      return res.status(200).json(user);
+      if(user){
+        return res.status(200).json(user);
+      }
+      return res.status(400).json({message : "User not found."});
     })
     .catch((err) => {
-      return res.status(404).json("User not found");
+      return res.status(404).json({message : "Error!!",error : err});
     });
 };
 
@@ -98,8 +102,7 @@ export const followUser = async (req, res) => {
   const targetUsername = req.params.username;
 
   if (currentUsername == targetUsername)
-    res.status(400).json({ message: "You can't unfollow yourself" });
-
+    return res.status(400).json({ message: "You can't unfollow yourself" });
   try {
     const currUser = await User.findOne({ username: currentUsername });
     const targetUser = await User.findOne({ username: targetUsername });
@@ -133,7 +136,7 @@ export const unfollowUser = async (req, res) => {
   const targetUsername = req.params.username;
 
   if (currentUsername == targetUsername)
-    res.status(400).json({ message: "You can't unfollow yourself" });
+    return res.status(400).json({ message: "You can't unfollow yourself" });
 
   try {
     const currUser = await User.findOne({ username: currentUsername });
@@ -177,13 +180,14 @@ export const deleteChatBySender = async (req,res)=>{
   let chatId = req.params.chatId;
   try {
     let chat = await Chat.findOne({_id : chatId});
+    if(!chat) return res.status(400).json({message : "Chat not found."});
     if(chat.from == username){
-      return res.status(200).json(await deleteChat(chatId, username));
+      return res.status(200).json({message : await deleteChat(chat._id,username)});
     } else {
       return res.status(400).json({message : "You can't delete other's chat"});
     }
   } catch(error) {
-    return res.status(404).json({message : "Error !!", error})
+      return res.status(404).json({message : "Error !!", error})
   }
 }
 
@@ -193,7 +197,7 @@ export const removeUserFromGroup = async(req,res)=>{
   let groupId = req.params.groupId;
   let targetUsername = req.params.targetUsername;
   try {
-    let group = Group.findOne({_id : groupId});
+    let group = await Group.findOne({_id : groupId});
     if(group.admin == username){
       return res.status(200).json({message : await userExitFromGroup(targetUsername,groupId)});
     } else {
