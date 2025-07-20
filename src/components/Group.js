@@ -1,9 +1,9 @@
-import React, { use, useState } from 'react'
+import React, { use, useState,useEffect} from 'react'
 import Navbar from './Navbar'
 import Profilephoto from './profile.png'
 import {FaBold,FaItalic,FaUnderline} from 'react-icons/fa'
 import { MdSend } from 'react-icons/md';
-export default function Group() {
+export default function Group(props) {
     const [inputText,setinputText]=useState("");
     const [bold,setbold]=useState(false);
     const [italic,setitalic]=useState(false);
@@ -26,7 +26,32 @@ export default function Group() {
     const HandleOnLeaveGroup=()=>{
       
     }
-
+    const [groupChat, setgroupChat] = useState([]);     
+    const [loading, setLoading] = useState(true); // Show loading state
+        // let mainGroups = [];
+        
+        async function getGroups(){
+          try{
+            let res = await fetch('http://localhost:3001/user/group/:groupId/chat', {
+              method: "get",
+              headers: {
+                "Content-Type": "application/json",
+                "token" : `${localStorage.getItem('token')}`
+              },
+            });
+            let data = await res.json();
+            setgroupChat(data.groups);
+            localStorage.setItem('userDetails',data.groups);
+            setLoading(false);
+          } catch(error){
+            console.error(error);
+            setLoading(false);
+          }
+        }
+      
+        useEffect(() => {
+          getGroups();
+        }, []);
 
 
 
@@ -37,33 +62,9 @@ export default function Group() {
           document.querySelector(".GroupChating_maincontainer").style.marginLeft="15vw"
         }
     }
-    const userDetials=[]
-    for(let i=0;i<10;i++){
-      userDetials.push({
-        username:`user ${i}`,
-        position:"admin"
-      })
-    }
-    for(let i=0;i<10;i++){
-      userDetials.push({
-        username:`user 1${i}`,
-        position:"member"
-      })
-    }
-    const groupChat=[]
-    for(let i=0;i<10;i++){
-      groupChat.push({
-        content:"Each child in a list should have a unique propCheck the render method of `ul`. It was passed a child from Navbar. See https://react.dev/link/warning-keys for more information."
-      })
-    }
-    for(let i=0;i<10;i++){
-      groupChat.push({
-        content:"Each child in a list should have a unique propCheck the render method of `ul`. It was passed a child from Navbar. See https://react.dev/link/warning-keys for more information.Each child in a list should have a unique propCheck the render method of `ul`. It was passed a child from Navbar. See https://react.dev/link/warning-keys for more information.Each child in a list should have a unique propCheck the render method of `ul`. It was passed a child from Navbar. See https://react.dev/link/warning-keys for more information."
-      })
-    }
   return (
     <div>
-      <Navbar menuOnclick={handleOnMenu}></Navbar>
+      <Navbar menuOnclick={handleOnMenu} userDetials={props.userDetials}></Navbar>
       <div className='GroupChating_maincontainer'>
         <div className='GroupChating_info'>
           <div>
@@ -80,7 +81,7 @@ export default function Group() {
             <div>
               <ul>
               {
-                userDetials.map((elem)=>{
+                props.userDetials.map((elem)=>{
                   if(elem.position==="admin"){
                     return <li className={elem.position}><p>{elem.username}</p><span>{elem.position}</span></li>  
                   }else{

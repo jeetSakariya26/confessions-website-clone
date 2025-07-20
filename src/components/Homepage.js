@@ -5,32 +5,32 @@ import { BrowserRouter, Link } from 'react-router-dom'
 
 
 export default function Homepage(props) {
-  const [userDetails, setUserDetails] = useState([]);     
-  const [loading, setLoading] = useState(true); // Show loading state
-  // let mainGroups = [];
+  // const [userDetails, setUserDetails] = useState([]);     
+  // const [loading, setLoading] = useState(true); // Show loading state
+  // // let mainGroups = [];
   
-  async function getGroups(){
-    try{
-      let res = await fetch('http://localhost:3001/user/group', {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          "token" : `${localStorage.getItem('token')}`
-        },
-      });
-      let data = await res.json();
-      setUserDetails(data.groups);
-      localStorage.setItem('userDetails',data.groups);
-      setLoading(false);
-    } catch(error){
-      console.error(error);
-      setLoading(false);
-    }
-  }
+  // async function getGroups(){
+  //   try{
+  //     let res = await fetch('http://localhost:3001/user/group', {
+  //       method: "get",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "token" : `${localStorage.getItem('token')}`
+  //       },
+  //     });
+  //     let data = await res.json();
+  //     setUserDetails(data.groups);
+  //     localStorage.setItem('userDetails',data.groups);
+  //     setLoading(false);
+  //   } catch(error){
+  //     console.error(error);
+  //     setLoading(false);
+  //   }
+  // }
 
-  useEffect(() => {
-    getGroups();
-  }, []);
+  // useEffect(() => {
+  //   getGroups();
+  // }, []);
 
   const handleOnMenu=(menuSlider)=>{
     if(menuSlider){
@@ -60,15 +60,19 @@ export default function Homepage(props) {
       document.querySelector(".homepage_maincontainer").style.display="none";
     }
   }
+  const groupDetails=(event,elem)=>{
+    console.log(elem);
+    
+  }
   return (
     <div>
-        <Navbar menuOnclick={handleOnMenu} createGroup={HandleOnCreate} joinGroup={HandleOnJoin} elem={userDetails}></Navbar>
-        {loading || <div className='homepage_maincontainer'>
+        <Navbar menuOnclick={handleOnMenu} createGroup={HandleOnCreate} joinGroup={HandleOnJoin} userDetails={props.userDetails}></Navbar>
+        {props.loading || <div className='homepage_maincontainer'>
           <div className='homepage_groupContainer'>
             {
-              userDetails.map((elem)=>{
+              props.userDetails.map((elem)=>{
                 
-                return <Link to={"/group"} className='GroupContainer'><div>
+                return <Link to={"/group"} className='GroupContainer' onClick={groupDetails(elem)}><div>
                   <div>
                     <img src={Profilephoto}></img>
                   </div>

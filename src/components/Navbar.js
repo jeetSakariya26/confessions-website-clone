@@ -16,7 +16,7 @@ export default function Navbar(props){
   const [joingroup,setjoingroup]=useState(false);
   const [creategroup,setcreategroup]=useState(false);
   const [SearchUser,setSearchUser]=useState("");
-  let userDetails=localStorage.getItem('userDetails');
+  let userDetails=props.userDetails;
 
   const HandleOnCreate=()=>{
      if(!creategroup && joingroup){

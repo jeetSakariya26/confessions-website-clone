@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import { Link } from 'react-router-dom';
 import { ImCross } from 'react-icons/im';
 
-export default function Account() {
+export default function Account(props) {
     const [Nickname,setNickname]=useState("");
     const [editMenu,seteditMenu]=useState(false);
     const [Follow,setFollow]=useState(false);
@@ -57,7 +57,7 @@ export default function Account() {
   }
   return (
     <>
-    <Navbar menuOnclick={handleOnMenu}></Navbar>
+    <Navbar menuOnclick={handleOnMenu} userDetails={props.userDetails}></Navbar>
     <div className='Account_maincontainer'>
         <div>
             <ImCross size={25} className='close_accountpage'/>
