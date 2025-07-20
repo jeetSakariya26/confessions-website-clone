@@ -10,50 +10,46 @@ export default function Login(props) {
     
     const handleOnSubmit=async(event)=>{
         event.preventDefault(); // prevent default form submit behavior
-        // try {
-        //     if(user==="memeber"){
-        //         const res = await fetch("http://localhost:3001/user/login", {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //             },
-        //             body: JSON.stringify({
-        //                 username: Name,
-        //                 password: Password,
-        //             }),
-        //         });
-        //         const data = await res.json();
-        //         console.log("Response:", data);
-        //         if (res.ok) {
-        //             alert("Logged In");
-        //             window.location.href="http://localhost:3000/user/Homepage";
-        //         } else {
-        //             alert(data.message);
-        //         }
-        //     }else if(user==="devloper"){
-        //         const res = await fetch("http://localhost:3001/dev/login", {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //             },
-        //             body: JSON.stringify({
-        //                 username: Name,
-        //                 password: Password,
-        //             }),
-        //         });
-        //         const data = await res.json();
-        //         console.log("Response:", data);
-        //         if (res.ok) {
-        //             alert("Logged In");
-        //             window.location.href="http://localhost:3000/dev/Homepage";
-        //         } else {
-        //             alert(data.message);
-        //         }
+        try {
+            if(user==="memeber"){
+                const res = await fetch("http://localhost:3001/user/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: Name,
+                        password: Password,
+                    }),
+                });
+                const data = await res.json();
+                console.log("Response:", data);
+            }else if(user==="devloper"){
+                const res = await fetch("http://localhost:3001/dev/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: Name,
+                        password: Password,
+                    }),
+                });
+                const data = await res.json();
+                console.log("Response:", data);
+            }
 
-        //     }
-        // } catch (error) {
-        //     alert("Failed logIn");
-        // }
+
+        if (res.ok) {
+            alert("Logged In");
+            window.location.href="http://localhost:3000/Homepage";
+        } else {
+            alert(data.message);
+        }
+
+        } catch (error) {
+            alert("Failed logIn");
+        }
     }
 
     const handleOnPassword=(e)=>{

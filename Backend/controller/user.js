@@ -6,6 +6,7 @@ import { userValidation } from "./../validation/userValidation.js";
 import { userExitFromGroup } from "./group.js";
 
 // function which adds new User to database (sign Up)
+// url : /user/signup
 export const signupUser = async (req, res) => {
   let { error } = userValidation.validate(req.body);
   if (error) {
@@ -29,7 +30,8 @@ export const signupUser = async (req, res) => {
     });
 };
 
-// function to login with username & password ( Log In )
+// function to login with username & password 
+// url : /user/login
 export const loginUser = async (req, res) => {
   try {
     await User.findOne({ username: req.body.username })
@@ -49,8 +51,9 @@ export const loginUser = async (req, res) => {
 };
 
 // function which finds users from database ( Search ) ( Priority to username then nickName )
+// url : /user/:input/find
 export const findUser = async (req, res) => {
-  let data = req.body.nickName; // suppose given data has key = nickname
+  let data = req.params.input;
   try {
     const users = await User.find({
       nickName: { $regex: data, $options: "i" },
@@ -74,8 +77,9 @@ export const findUser = async (req, res) => {
 };
 
 // function which finds user by username and returns it ( Profile )
+// url : /user/:username/profile
 export const getUser = async (req, res) => {
-  let { username } = req.body.params;
+  let username = req.params.username;
 
   await User.findOne({ username })
     .then((user) => {
@@ -87,6 +91,7 @@ export const getUser = async (req, res) => {
 };
 
 // follow user
+// url : /user/:username/follow
 export const followUser = async (req, res) => {
   // const currentUsername = req.user.username;
   const currentUsername = req.username;
@@ -122,6 +127,7 @@ export const followUser = async (req, res) => {
 };
 
 // unfollow user
+// url : /user/:username/unfollow
 export const unfollowUser = async (req, res) => {
   const currentUsername = req.username;
   const targetUsername = req.params.username;
@@ -157,16 +163,7 @@ export const unfollowUser = async (req, res) => {
   }
 };
 
-// removes the user with specific username
-export const deleteUser = async (req, res) => {
-  try {
-    await User.deleteOne({ username: req.params.username });
-    return res.status(200).json({ message: "User deleted Successfully" });
-  } catch (err) {
-    return res.status(400).json({ message: "User not Found" });
-  }
-};
-
+// url : /user/logout
 export const logoutUser = async (req, res) => {
   if (req.header.token) {
     delete req.headers.token;
@@ -202,6 +199,21 @@ export const removeUserFromGroup = async(req,res)=>{
     } else {
       return res.status(400).json({message : "Only admin is supposed to remove the members"});
     }
+  } catch(error) {
+    return res.status(404).json({message : "Error!!", error});
+  }
+}
+
+// url : /dev/user/:username/ban
+export const banUser = async(req,res)=>{
+  let username = req.params.username;
+  try {
+    let user = await User.findOne({username});
+    for(let groupId of user.groups){
+      await userExitFromGroup(user.username,groupId);
+    }
+    await user.deleteOne();
+    return res.status(200).json({message : "User banned"});
   } catch(error) {
     return res.status(404).json({message : "Error!!", error});
   }

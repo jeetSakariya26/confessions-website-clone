@@ -3,6 +3,7 @@ import { Group } from "../models/Group";
 import { chatValidation } from "../validation/chatValidation";
 
 // post request 
+// url : /user/group/:groupId/chat/new
 export const createNewChat = async (req, res) => {
   let { content, isConfession, groupId } = req.body;
   let sender = req.username;
@@ -25,8 +26,8 @@ export const createNewChat = async (req, res) => {
 
 // // url : /user/group/:groupId/chat/:chatId/edit
 // export const editChat = async (req,res)=>{
-// }
-
+  // }
+  
 export const deleteChat = async (chatId, byWhom = "") => {
   try {
     await Chat.updateOne(
