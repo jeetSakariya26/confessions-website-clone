@@ -1,5 +1,1 @@
-eval get and post request in index.js routes
-
-add find reports by chatId
-
-search user has problem with starting substring
+check admin exit group 

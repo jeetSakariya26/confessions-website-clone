@@ -38,7 +38,11 @@ const generateInviteCode = ()=>{
 // url : /user/group/:groupId/inviteCode/generate
 export const getInviteCode = async (req,res)=>{
   try{
+
     const group = await Group.findById(req.params.groupId);
+    if(group.admin != req.username){
+      return res.status(400).json({message : "only admin is allowed to generate this code"});
+    }
     if (!group) return res.status(404).send("Group not found");
   
     const code = generateInviteCode();

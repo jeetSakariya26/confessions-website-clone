@@ -45,6 +45,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' index element={<Login setmode={setmode} mode={mode}></Login>}></Route>
+        <Route path='/dev' index element={<Devloper setmode={setmode} mode={mode}></Devloper>}></Route>
         <Route path='/signup' element={<SignUp mode={mode} setmode={setmode} token={token}></SignUp>}></Route>
         <Route path='/user/Homepage' index element={<Homepage token={token} userDetails={userDetails} loading={loading}></Homepage>}></Route>
         <Route path='/group' element={<Group token={token} userDetails={userDetails} loading={loading}></Group>}></Route>

@@ -30,7 +30,7 @@ export default function Login(props) {
                 } else {
                     alert(data.message);
                 }
-            }else if(user=="devloper"){
+            }else if(user == "devloper"){
                 const res = await fetch("http://localhost:3001/dev/login", {
                     method: "POST",
                     headers: {
@@ -45,7 +45,7 @@ export default function Login(props) {
                 console.log("Response:", data);
                 if (res.ok) {
                     localStorage.setItem('token', data.token);
-                    window.location.href="http://localhost:3000/dev/Homepage";
+                    window.location.href="http://localhost:3000/dev";
                 } else {
                     alert(data.message);
                 }

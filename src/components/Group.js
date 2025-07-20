@@ -8,6 +8,7 @@ export default function Group(props) {
     const [bold,setbold]=useState(false);
     const [italic,setitalic]=useState(false);
     const [underline,setunderline]=useState(false)
+    const currGroup = localStorage.getItem('currGroup');
     const handleOnTextChange=(event)=>{
       setinputText(event.target.value)
     }
@@ -20,28 +21,74 @@ export default function Group(props) {
     const HandleOnUnderline=()=>{
 
     }
-    const HandleOnSendChat=()=>{
+    const HandleOnSendChat=async()=>{
+      try{
+        let res = await fetch(`http://localhost:3001/user/group/${group._id}/chat/new`, {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              header : {
+                "token" : `${localStorage.getItem('token')}`
+              },
+              body: JSON.stringify({
+                content : inputText,
+                isConfession : true,
+              }),
+          });
+
+          let data = await res.json();
+          if(res.ok){
+            alert(data.message);
+          } else {
+            alert("Something went wrong");
+          }
+          await getChatsOfGroup();
+      } catch(error){
+
+      }
       
-    }
-    const HandleOnLeaveGroup=()=>{
-      
-    }
-    const [groupChat, setgroupChat] = useState([]);     
-    const [loading, setLoading] = useState(true); // Show loading state
-        // let mainGroups = [];
-        
-        async function getGroups(){
-          try{
-            let res = await fetch('http://localhost:3001/user/group/:groupId/chat', {
+    } 
+    const HandleOnLeaveGroup= async()=>{
+      try{
+            let res = await fetch(`http://localhost:3001/user/group/${group._id}/exit`, {
               method: "get",
               headers: {
                 "Content-Type": "application/json",
-                "token" : `${localStorage.getItem('token')}`
               },
+              header : {
+                "token" : `${localStorage.getItem('token')}`
+              }
             });
             let data = await res.json();
-            setgroupChat(data.groups);
-            localStorage.setItem('userDetails',data.groups);
+            if(res.ok){
+              alert(data.message);
+            } else {
+              alert("something went wrong");
+            }
+        } catch(error) {
+
+        }
+    }
+
+    const [groupChat, setgroupChat] = useState([]);     
+    const [loading, setLoading] = useState(true); // Show loading state
+    let group = JSON.parse(localStorage.getItem('currGroup'));
+        
+        async function getChatsOfGroup(){
+          try{
+            let res = await fetch(`http://localhost:3001/user/group/${group._id}/chat`, {
+              method: "get",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              header : {
+                  "token" : `${localStorage.getItem('token')}`
+              }
+            });
+            let data = await res.json();
+            console.log(data);
+            setgroupChat(data.chats);
             setLoading(false);
           } catch(error){
             console.error(error);
@@ -50,7 +97,7 @@ export default function Group(props) {
         }
       
         useEffect(() => {
-          getGroups();
+          getChatsOfGroup();
         }, []);
 
 
@@ -62,17 +109,41 @@ export default function Group(props) {
           document.querySelector(".GroupChating_maincontainer").style.marginLeft="15vw"
         }
     }
+
+    const handleOnGenerateCode = async()=>{
+      try{
+            let res = await fetch(`http://localhost:3001/user/group/${group._id}/inviteCode/generate`, {
+              method: "get",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              header : {
+                "token" : `${localStorage.getItem('token')}`
+              }
+            });
+            if(res.ok){
+              let data = await res.json();
+              let inviteCode = data.inviteCode;
+              document.querySelector('.Group_descripation button').innerText=inviteCode;
+            } else {
+              alert("Error");
+            }
+        } catch(error) {
+
+        }
+    }
+
   return (
     <div>
-      <Navbar menuOnclick={handleOnMenu} userDetials={props.userDetials}></Navbar>
+      <Navbar menuOnclick={handleOnMenu} userDetails="[]"></Navbar>
       <div className='GroupChating_maincontainer'>
         <div className='GroupChating_info'>
           <div>
             <img src={Profilephoto}></img>
           </div>
           <div className='Group_descripation'>
-            <h1>Group Name</h1>
-            <button type='button'>Genrate code</button>
+            <h1>{group.name}</h1>
+            <button type='button' onClick={handleOnGenerateCode}>Genrate code</button>
           </div>
           <div className='Group_memberDetails'>
             <div>
@@ -81,12 +152,9 @@ export default function Group(props) {
             <div>
               <ul>
               {
-                props.userDetials.map((elem)=>{
-                  if(elem.position==="admin"){
-                    return <li className={elem.position}><p>{elem.username}</p><span>{elem.position}</span></li>  
-                  }else{
-                    return <li>{elem.username}</li>
-                  }
+                group.members.map((elem)=>{
+                  if(elem == group.admin) return <li>{elem +"- admin"}</li>
+                  return <li>{elem}</li>
                 })
               }
               </ul>
