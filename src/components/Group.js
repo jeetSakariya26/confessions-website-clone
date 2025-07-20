@@ -6,6 +6,7 @@ import { MdSend } from 'react-icons/md';
 export default function Group(props) {
     const [inputText,setinputText]=useState("");
     const [bold,setbold]=useState(false);
+    const [displayreport,setdisplayreport]=useState(false);
     const [italic,setitalic]=useState(false);
     const [underline,setunderline]=useState(false)
     const currGroup = localStorage.getItem('currGroup');
@@ -132,8 +133,17 @@ export default function Group(props) {
 
         }
     }
-
+    const HadleOnReport=()=>{
+      if(displayreport){
+        document.querySelector(".group_chat_option").style.display="none"
+        setdisplayreport(false);
+      }else{
+        document.querySelector(".group_chat_option").style.display="flex"
+        setdisplayreport(true);
+      }
+    }
   return (
+    <>
     <div>
       <Navbar menuOnclick={handleOnMenu} userDetails="[]"></Navbar>
       <div className='GroupChating_maincontainer'>
@@ -167,7 +177,7 @@ export default function Group(props) {
                 <ul>
               {
                 groupChat.map((elem)=>{
-                  return <li>{elem.content}</li>
+                  return <li onClick={HadleOnReport}>{elem.content}<span className='group_chat_option'><button className='report'>report</button><button className='delete'>delete</button></span></li>
                 })
               }
               </ul>
@@ -185,26 +195,9 @@ export default function Group(props) {
                   <button type='button' onClick={HandleOnSendChat}><MdSend size={25}></MdSend></button>
                 </div>
               </div>
-
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
+    </>
   )
 }

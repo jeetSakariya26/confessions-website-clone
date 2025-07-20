@@ -864,6 +864,7 @@ body{
     margin: 5px;
     border-radius: 12px;
     padding: 5px;
+    position: relative; 
 }
 .SendChats{
     position: sticky;
@@ -907,7 +908,26 @@ body{
     border-radius: 25px;
     border: 2px solid white;
 }
-
+.group_chat_option{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    width: 100px;
+    display: none;
+    background-color: aliceblue;
+}
+.group_chat_option button{
+    height: 30px;
+    background-color: white;
+    border: 0px;
+    font-size: large;
+}
+.group_chat_option button:hover{
+    background-color: aliceblue;
+}
 
 
 
