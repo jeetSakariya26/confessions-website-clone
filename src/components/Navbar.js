@@ -16,11 +16,6 @@ export default function Navbar(props){
   const [joingroup,setjoingroup]=useState(false);
   const [creategroup,setcreategroup]=useState(false);
   const [SearchUser,setSearchUser]=useState("");
-  let userDetails = JSON.parse(localStorage.getItem('userDetails'));
-  // let userDetails= localStorage.getItem('userDetails');
-  // for(let i=0;i<userDetails.length;i++){
-  //   userDetails[i] = JSON.parse(userDetails[i]);
-  // }
 
   const HandleOnCreate=()=>{
      if(!creategroup && joingroup){
@@ -139,12 +134,11 @@ export default function Navbar(props){
     <div className='menu_slider'>
       <div>
         <ul>
-          <li><Link to={"/user/Homepage"} className='groupNames'>Home</Link></li>
-          {
-            userDetails.map((elem)=>{
-              return <li><Link to={`/group`} className='groupNames'>{elem.name}</Link></li>
-            })
-          }
+            <li><Link to={"/user/Homepage"} className='groupNames'>Home</Link></li>
+            <li><Link to={`/user/Homepage`} className='groupNames'>Groups</Link></li>
+            <li><Link to={`/user/search`} className='groupNames'>Search User</Link></li>
+            <li><Link to={`/`} className='groupNames'>Create Group</Link></li>
+            <li><Link to={`/group`} className='groupNames'>Join Group</Link></li>
         </ul>
       </div>
       <div>

@@ -1,13 +1,55 @@
-import React, { use, useState } from 'react'
+import React, { use, useEffect, useState } from 'react';
 import Profilephoto from './profile.png'
 import Navbar from './Navbar'
 import { Link } from 'react-router-dom';
 import { ImCross } from 'react-icons/im';
 
+
 export default function Account(props) {
     const [Nickname,setNickname]=useState("");
     const [editMenu,seteditMenu]=useState(false);
     const [Follow,setFollow]=useState(false);
+    const [userDetails, setUserDetails] = useState({});
+    const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+        const fetchUserDetails = async () => {
+          try {
+            let res = await fetch("http://localhost:3001/user/profile", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+            },
+                header: {
+                  "token": localStorage.getItem("token"), // use your token key
+                }
+            });
+            let data = await res.json();
+            if(res.ok){
+              setUserDetails(data);
+            } else {
+              alert(data.message);
+            }
+          } catch (err) {
+            alert("Failed to fetch user details:");
+            setUserDetails({});
+          } finally {
+            setLoading(false);
+          }
+        }
+        
+        fetchUserDetails();
+      }, []);
+    
+      if (loading) {
+        return <div>Loading user account...</div>; // you can replace this with a spinner
+      }
+    
+      if (!userDetails) {
+        return <div>Failed to load user details.</div>; // error case
+      }
+
+
     const handleOnMenu=(menuSlider)=>{
     // if(menuSlider){
     //   document.querySelector(".Account_container").style.marginLeft="30px";
@@ -29,8 +71,22 @@ export default function Account(props) {
   const HandleOnNickname=(event)=>{
     setNickname(event.target.value);
   }
-  const HandleOnSave=()=>{
-
+  const HandleOnSave=async()=>{
+    let res = await fetch(`http://localhost:3001/user/edit/${Nickname}`,{
+        method : "get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        header : {
+          "token" : `${localStorage.getItem('token')}`
+        }
+    });
+    if(res.ok){
+        alert("NickName Changed");
+        window.location.href = "http://localhost:3000/account";
+    } else {
+        alert("Try Again!");
+    }
   }
   const HandleOnCloseEdit=()=>{
     if(editMenu){
@@ -53,6 +109,7 @@ export default function Account(props) {
     }
   }
   const HandleOnLogout=()=>{
+    localStorage.removeItem('token');
     window.location.href="http://localhost:3000/"
   }
   return (
@@ -69,14 +126,14 @@ export default function Account(props) {
                 </div>
                 <div>
                     <div>
-                        <h2>User Name</h2>
-                        <p>Nick Name</p>
+                        <h2>@{userDetails.username}</h2>
+                        <p>{userDetails.nickName}</p>
                     </div>
                     <div>
                         <ul>
-                            <li><div><p>followers</p></div><div>100</div></li>
-                            <li><div><p>following</p></div><div>100</div></li>
-                            <li><div><p>freind</p></div> <div>100</div></li>
+                            <li><div><p>followers</p></div><div>{userDetails.followers.length}</div></li>
+                            <li><div><p>following</p></div><div>{userDetails.followings.length}</div></li>
+                            <li><div><p>freind</p></div> <div>{userDetails.friends.length}</div></li>
                         </ul>
                     </div>
                     <div>
