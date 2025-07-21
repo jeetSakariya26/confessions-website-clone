@@ -1,4 +1,6 @@
 import React,{useEffect, useState} from 'react'
+import { ImCross } from 'react-icons/im';
+import { Link } from 'react-router-dom';
 
 export default function DevloperReport() {
     const [reprotDetails,setreprotDetails]=useState({});
@@ -39,16 +41,19 @@ export default function DevloperReport() {
   return (
     <div>
       {{reprotDetails}?<div className='Report_maincontainer'>
+            <span className='close_devreportdetails'><Link to={"http://localhost:3000/dev"}><ImCross size={25} color='black'></ImCross></Link></span>
+
+            <div><h1>Report Details</h1></div>
             <div>
-                <p>reporter: {reprotDetails.reporter}</p>
-                <p>reportedUser:{reprotDetails.reportedUser}</p>
-                <p>Chat:{reprotDetails.chatContent}</p>
-                <p>Reason:{reprotDetails.reason }</p>
-                <p>Description:{reprotDetails.description?reprotDetails.description : `""`}</p>
+                <p>reporter:<span> {reprotDetails.reporter}</span></p>
+                <p>reportedUser:<span>{reprotDetails.reportedUser}</span></p>
+                <p>Chat:<span>{reprotDetails.chatContent}</span></p>
+                <p>Reason:<span>{reprotDetails.reason }</span></p>
+                <p>Description:<span>{reprotDetails.description?reprotDetails.description : `""`}</span></p>
             </div>
-            <div className='report_option'>
-                <button onClick={HandleOnActiontaken} >Action Taken</button>
-                <button onClick={HandleOndismiss}>Dismissed</button>
+            <div className='devreport_option'>
+                <button onClick={HandleOnActiontaken} className='DevactionTaken' >Action Taken</button>
+                <button onClick={HandleOndismiss} className='Devdismissed'>Dismissed</button>
             </div>
         </div>:<></>}
     </div>

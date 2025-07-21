@@ -1207,7 +1207,54 @@ body{
     left: 30vw;
     width: 40vw;
     height:50vh;
+    border-radius: 20px;
 }
+.Report_maincontainer div h1{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.Report_maincontainer div{
+    width: 40vw;
+}
+.Report_maincontainer div p{
+    margin: 10px;
+    font-size: large;
+}
+.Report_maincontainer div p span{
+    margin-left: 10px ;
+}
+.devreport_option{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.devreport_option button{
+    margin-bottom: 10px;
+    height: 40px;
+    font-size: large;
+    width: 150px;
+}
+.DevactionTaken{
+    background-color: lightgreen;
+    color: rgb(74, 61, 61);
+    border: 2px solid lightgreen;
+    border-radius: 12px;
+}
+.Devdismissed{
+    background-color: rgb(241, 7, 7);
+    color: white;
+    border: 2px solid red;
+    border-radius: 12px;
+}
+.close_devreportdetails{
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
+
 
 
 .Report_container{
