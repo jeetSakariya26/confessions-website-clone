@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React 
+//customize Alert for showing details
 export default function Alert(props) {
   return (
     <div>
