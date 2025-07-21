@@ -1191,30 +1191,32 @@ body{
     padding-left: 20px;
     margin-top: 20px;
 }
+.pending{
+    background-color:lightgrey;
+    color: black;
+    width: 150px;
+}
+.action_taken{
+    width: 150px;
+    background-color: red;
+    color: white;
+}
+.dismissed{
+    width: 150px;
+    background-color: lightgreen;
+    color: white;
+}
 .report_lists button{
     position: absolute;
     top: 10px;
     right: 10px;
     /* padding: 10px; */
-    width: 100px;
+    /* width: 100px; */
     height: 40px;
     border-radius: 5px;
     border:0px;
     font-weight: 500;
     font-size: large;
-}
-.pending{
-    background-color:lightgrey;
-    color: black;
-}
-.action_taken{
-    width: 200px;
-    background-color: red;
-    color: white;
-}
-.dismissed{
-    background-color: lightgreen;
-    color: white;
 }
 .Report_maincontainer{
     display: flex;
@@ -1370,31 +1372,32 @@ body{
 
 
 .Searchmemberlist{
-    width: 40vw;
+    width: 20vw;
     height: fit-content;
-    margin-left: 30vw;
+    margin-left: 40vw;
     margin-top: 100px;
+    border-radius: 12px;
     background-color: white;
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 .Searchmemberlist div ul{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .Searchmemberlist div ul li{
     list-style: none;
-    height: 40px;
+    height: fit-content;
+    width: inherit;
     margin: 10px 0px;
     /* background-color: wheat; */
 }
 .Searchmemberlist div ul li a{
     text-decoration: none;
-    width: 38vw;
-    height: 50px;
+    width: 17vw;
+    height: fit-content;
     /* background-color: #34699A   ; */
     font-size: large;
     display: flex;
@@ -1407,10 +1410,13 @@ body{
     background-color: aliceblue;
 }
 .Searchmemberlist div ul li a span{
-    padding-left: 10px  ;
+    padding-left: 30px ;
+    padding-bottom: 10px;
     color:black;
 }
-
+.Searchmemberlist div ul li a span h2{
+    margin-bottom: 5px;
+}
 
 
 
@@ -1481,8 +1487,30 @@ body{
 
 /* Alert css  */
 .Alert{
-    width: 200px;
-    height: 40px;   
+    position: absolute;
+    top: 10px;
+    right:0px;
+    width: 250px;
+    height: fit-content; 
+    padding: 10px;  
+    display: flex;
+    align-items: center ;
+    font-size: medium;
+    border-radius: 12px;
+}
+.failed{
+    background-color: red;
+    color: white;
+    font-size: medium;
+}
+.Alert h3{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.success{
+    background-color: lightgreen;
+    color: white;
+    font-size: medium;
 }
 
 
