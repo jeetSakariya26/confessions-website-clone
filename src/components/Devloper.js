@@ -144,7 +144,7 @@ export default function Devloper() {
                             </div>
                             <div>
                                 <div><p>Chat:{}</p></div>
-                                <div><button className={`devloper_reportStatus ${reportStatus}`}>{reportStatus}</button></div>
+                                <div><button className={`devloper_reportStatus ${elem.status}`}>{elem.status}</button></div>
                             </div>
                         </div>
                     })
@@ -157,7 +157,7 @@ export default function Devloper() {
                             </div>
                             <div>
                                 <div><p>Chat:{}</p></div>
-                                <div><button className={`devloper_reportStatus ${reportStatus}`}>{reportStatus}</button></div>
+                                <div><button className={`devloper_reportStatus ${elem.status}`}>Action taken</button></div>
                             </div>
                         </div>
                     })
@@ -170,7 +170,7 @@ export default function Devloper() {
                             </div>
                             <div>
                                 <div><p>Chat:{}</p></div>
-                                <div><button className={`devloper_reportStatus ${reportStatus}`}>{reportStatus}</button></div>
+                                <div><button className={`devloper_reportStatus ${elem.status}`}>{elem.status}</button></div>
                             </div>
                         </div>
                     })
