@@ -16,7 +16,8 @@ export default function Navbar(props){
   const [joingroup,setjoingroup]=useState(false);
   const [creategroup,setcreategroup]=useState(false);
   const [SearchUser,setSearchUser]=useState("");
-  let userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  let userDetails=[];
+  // let userDetails = JSON.parse(localStorage.getItem('userDetails')); 
   // let userDetails= localStorage.getItem('userDetails');
   // for(let i=0;i<userDetails.length;i++){
   //   userDetails[i] = JSON.parse(userDetails[i]);

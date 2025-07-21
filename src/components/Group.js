@@ -147,36 +147,9 @@ export default function Group(props) {
     }
   };
 
-  const reportChat = async()=>{
-    if(!selectedChat) {
-      alert("Select chat first");
-      return;
-    } 
-    try {
-      let res = await fetch(
-        `http://localhost:3001/user/group/${group._id}/chat/${selectedChat}/report`,
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          header: {
-            token: `${localStorage.getItem("token")}`,
-          },
-          body : JSON.stringify({
-            reason : "other"
-          })
-        }
-      );
-      let data = await res.json();
-      if(res.ok){
-        alert("Chat reported");
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-
-    }
+  const reportChat = async(elem)=>{
+    localStorage.setItem("reportedChat",elem);
+    window.location.href="http://localhost:3000/user/report";
   }
   return (
     <>
@@ -218,7 +191,7 @@ export default function Group(props) {
                     <li onClick={()=>{HadleOnReport(elem);}}>
                       {elem.content}
                       <span className="group_chat_option">
-                        <button className="report" onClick={reportChat}>report</button>
+                        <button className="report" onClick={(elem)=>{reportChat(elem)}}>report</button>
                         <button className="delete">delete</button>
                       </span>
                     </li>
