@@ -32,13 +32,50 @@ export default function DevloperReport() {
         useEffect(()=>{
             getReportDetails();
         },[])
-    const HandleOnActiontaken=()=>{
-
+    const HandleOnActiontaken=async()=>{
+        try {
+            let res = await fetch(`http://localhost:3001/dev/reports/${reprotDetails._id}/actionTaken`,{
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                header : {
+                    "token" : `${localStorage.getItem('token')}`
+                }
+            });
+            let data = await res.json();
+            if(res.ok){
+                alert("Action taken successfully on the report");
+            } else {
+                alert(data.message);
+            }
+        } catch (error){
+            alert("Error occured");
+        }
+        window.location.href = "http://localhost:3000/dev";
     }
-    const HandleOndismiss=()=>{
-
+    const HandleOndismiss=async()=>{
+try {
+            let res = await fetch(`http://localhost:3001/dev/reports/${reprotDetails._id}/dismiss`,{
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                header : {
+                    "token" : `${localStorage.getItem('token')}`
+                }
+            });
+            let data = await res.json();
+            if(res.ok){
+                alert("Dismiss report successfully");
+            } else {
+                alert(data.message);
+            }
+        } catch (error){
+            alert("Error occured");
+        }
+        window.location.href = "http://localhost:3000/dev";
     }
-    console.log(reprotDetails);
   return (
     <div>
         <Navbar></Navbar>

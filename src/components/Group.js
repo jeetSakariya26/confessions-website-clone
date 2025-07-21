@@ -148,8 +148,10 @@ export default function Group(props) {
   };
 
   const reportChat = async(elem)=>{
-    console.log(elem._id);
-    localStorage.setItem("reportedChat",JSON.stringify(elem._id));
+    console.log("Storing : ")
+    console.log(elem);
+    alert();
+    localStorage.setItem("reportedChat",elem._id);
     window.location.href="http://localhost:3000/user/report";
   }
   return (
@@ -192,7 +194,7 @@ export default function Group(props) {
                     <li onClick={()=>{HadleOnReport(elem);}}>
                       {elem.content}
                       <span className="group_chat_option">
-                        <button className="report" onClick={(elem)=>{reportChat(elem)}}>report</button>
+                        <button className="report" onClick={()=>{reportChat(elem)}}>report</button>
                         <button className="delete">delete</button>
                       </span>
                     </li>

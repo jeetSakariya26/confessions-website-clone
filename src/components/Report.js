@@ -12,15 +12,15 @@ export default function Report() {
   }
   const HandleOnSubmitReport=async()=>{
     let reportReason=document.getElementsByName("reason");
+    let selectedReason=null;
     for(let i=0;i<5;i++){
       if(reportReason[i].checked){
-        var selectedReason=reportReason[i].value;
+        selectedReason=reportReason[i].value;
       }
     }
     if(!selectedReason){
       alert("please select reason");
       return null;
-
     }
     let selectedChat=localStorage.getItem("reportedChat");
     let group = JSON.parse(localStorage.getItem("currGroup"));
@@ -41,7 +41,8 @@ export default function Report() {
             token: `${localStorage.getItem("token")}`,
           },
           body : JSON.stringify({
-            reason : selectedReason.value
+            reason : selectedReason,
+            description : Reportdescription
           })
         }
       );
