@@ -85,38 +85,40 @@ export default function Devloper() {
         // }
     }
 
-    async function getReportDetails(reportId) {
-        try{
-            let res = await fetch(`http://localhost:3001/dev/reports/${reportId}/view`, {
-                method: "get",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                header : {
-                    "token" : `${localStorage.getItem('token')}`
-                },
-            });
-            let data = await res.json();
-            console.log(data);
-            setreprotDetails(data.responce);
-            if(res.ok){
-                alert(data.message);
-            } else {
-                alert("Something went wrong");
-            }
-        } catch(error){
-            console.log(error);
-        }
-    }
+    // async function getReportDetails(reportId) {
+    //     try{
+    //         let res = await fetch(`http://localhost:3001/dev/reports/${reportId}/view`, {
+    //             method: "get",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             header : {
+    //                 "token" : `${localStorage.getItem('token')}`
+    //             },
+    //         });
+    //         let data = await res.json();
+    //         console.log(data);
+    //         setreprotDetails(data.responce);
+    //         if(res.ok){
+    //             alert(data.message);
+    //         } else {
+    //             alert("Something went wrong");
+    //         }
+    //     } catch(error){
+    //         console.log(error);
+    //     }
+    // }
     const reportOpen=async(elem)=>{
-      if(report){
-        document.querySelector(".Devloper_maincontainer").style.display="flex";
-        document.querySelector(".Report_container").style.display="none";
-      }else{
-        document.querySelector(".Devloper_maincontainer").style.display="none";
-        getReportDetails(elem._id);
-        document.querySelector(".Report_container").style.display="flex";
-      }
+      // if(report){
+      //   document.querySelector(".Devloper_maincontainer").style.display="flex";
+      //   document.querySelector(".Report_container").style.display="none";
+      // }else{
+      //   document.querySelector(".Devloper_maincontainer").style.display="none";
+      //   getReportDetails(elem._id);
+      //   document.querySelector(".Report_container").style.display="flex";
+    //   }
+    localStorage.setItem("reportId",elem._id);
+    window.location.href="http://localhost:3000/dev/report"
     }
         const HandleOnActiontaken=()=>{
             
@@ -175,7 +177,7 @@ export default function Devloper() {
                 }
             </div>
         </div>
-        {{reprotDetails}?<div className='Report_container'>
+        {/* {{reprotDetails}?<div className='Report_container'>
             <div>
                 <p>reporter: {reprotDetails.reporter}</p>
                 <p>reportedUser:{reprotDetails.reportedUser}</p>
@@ -187,7 +189,7 @@ export default function Devloper() {
                 <button onClick={HandleOnActiontaken} >Action Taken</button>
                 <button onClick={HandleOndismiss}>Dismissed</button>
             </div>
-        </div>:<></>}
+        </div>:<></>} */}
     </>
   )
 }

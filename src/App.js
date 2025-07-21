@@ -11,6 +11,7 @@ import CreateGroup from './components/Creategroup.js';
 import Joingroup from './components/Joingroup.js';
 import Devloper from './components/Devloper.js';
 import Report from './components/Report.js'
+import DevloperReport from './components/DevloperReport.js';
 
 function App() {
   const [mode,setmode]=useState("login");
@@ -54,7 +55,7 @@ function App() {
         <Route path='/user/create' element={<CreateGroup token={token}></CreateGroup>}></Route>
         <Route path='/user/join' element={<Joingroup token={token}></Joingroup>}></Route>
         <Route path='/user/report' element={<Report token={token}></Report>}></Route>
-
+        <Route path='/dev/report' element={<DevloperReport token={token}></DevloperReport>}></Route>
       </Routes>
     </div>
     </BrowserRouter>
