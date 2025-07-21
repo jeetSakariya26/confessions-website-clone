@@ -864,6 +864,7 @@ body{
     width: 70vw;
     background-color: #34699A;
     color: black;
+    position: relative;
     border-radius: 20px;
     /* padding: 10px; */
     overflow: scroll;
@@ -881,8 +882,9 @@ body{
     padding: 5px;
     position: relative; 
 }
+
 .SendChats{
-    position: sticky;
+    position: absolute;
     bottom: 0px;
     padding-left: 5px; 
     padding: 5px;  
@@ -890,7 +892,7 @@ body{
     background-color: white;
     z-index: 10;
     margin-top: 20px;
-    width:66vw;
+    width:66.5vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -925,8 +927,8 @@ body{
 }
 .group_chat_option{
     position: absolute;
-    top: 0px;
-    right: -100px;
+    top: 10px;
+    right:-110px;
     display: flex;
     flex-direction: column;
     border-radius: 12px;

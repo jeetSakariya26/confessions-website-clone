@@ -192,7 +192,7 @@ export default function Group(props) {
                 {groupChat.map((elem) => {
                   return (
                     <li onClick={()=>{HadleOnReport(elem);}}>
-                      {elem.content}
+                      <p>{elem.content}</p>
                       <span className="group_chat_option">
                         <button className="report" onClick={()=>{reportChat(elem)}}>report</button>
                         <button className="delete">delete</button>
