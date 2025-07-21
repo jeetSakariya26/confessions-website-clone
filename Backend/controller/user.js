@@ -78,6 +78,20 @@ export const findUser = async (req, res) => {
   }
 };
 
+export const getSelfProfile = async(req,res)=>{
+  let username = req.username;
+  await User.findOne({ username })
+    .then((user) => {
+      if(user){
+        return res.status(200).json(user);
+      }
+      return res.status(400).json({message : "Not found."});
+    })
+    .catch((err) => {
+      return res.status(404).json({message : "Error!!",error : err});
+    });
+}
+
 // function which finds user by username and returns it ( Profile )
 // url : /user/:username/profile
 export const getUser = async (req, res) => {
@@ -234,5 +248,20 @@ export const banUser = async(req,res)=>{
     return res.status(200).json({message : "User banned"});
   } catch(error) {
     return res.status(404).json({message : "Error!!", error});
+  }
+}
+
+// url : /user/edit/:nickName
+export const changeNickName = async(req,res)=>{
+  let username = req.username;
+  let nickName = req.params.nickName;
+  try {
+    await User.updateOne(
+      {username},
+      {$set : {nickName}}
+    );
+    res.status(200).json({message : "NickName Changed Successfully"});
+  } catch (error) {
+    res.status(404).json({message : "Error !!", error : error.message});
   }
 }
