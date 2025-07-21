@@ -10,7 +10,7 @@ export default function Searchuserlist() {
     async function getUsers(){
         try{
             let input=localStorage.getItem("seachedUser");
-            let res = await fetch(`http://localhost:3001/user/:${input}/find`, {
+            let res = await fetch(`http://localhost:3001/user/${input}/find`, {
                 method: "get",
                 headers: {
                 "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export default function Searchuserlist() {
                 <ul>
                     {userList?
                         userList.map((elem)=>{
-                            return <li><Link to={"/user/Homepage/search/useraccount"}><CgProfile size={30}></CgProfile><span>{elem.name}</span></Link></li>
+                            return <li><Link to={"/user/Homepage/search/useraccount"}><CgProfile size={30}></CgProfile><h4>{elem.nickName}</h4><span>@{elem.username}</span></Link></li>
                         }):<></>
                     }
                 </ul>
