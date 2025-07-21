@@ -125,7 +125,8 @@ export const exitGroup = async (req,res)=>{
   let groupId = req.params.groupId;
   
   try {
-    return res.status(200).json({message : await userExitFromGroup(username,groupId)});
+    let message = await userExitFromGroup(username,groupId);
+    return res.status(200).json({message : message});
   } catch (error) {
     return res.status(404).json({message : "Error !!", error: error.message});
   }
@@ -138,17 +139,16 @@ export const userExitFromGroup = async(username,groupId)=>{
     if(idx == -1){
       return "User is not in the group"; 
     }
-    user.groups.splice(idx,1);
     let group = await Group.findOne({_id : groupId});
     if(group.admin == username && group.members.length > 1) {
       throw new Error("Remove all the members before leaving the group!!");
     }
+    user.groups.splice(idx,1);
     idx = group.members.indexOf(username);
     group.members.splice(idx,1);
     if(group.admin == username){
       await group.deleteOne();
     }
-    await group.save();
     await user.save();
     return "removed from the group successfully...";
 }
