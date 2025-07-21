@@ -3,14 +3,14 @@ import Navbar from './Navbar'
 import { Link } from 'react-router-dom';
 
 export default function Devloper() {
-    const [reprotDetails,setreprotDetails]=useState([]);
+    const [reprotDetails,setreprotDetails]=useState({});
     const [reportStatus,setreportStatus]=useState("pending");
     const [report,setreport]=useState(false);
     const [pendingreports, setpendingreports] = useState([]);
     const [actionTaken, setactionTaken] = useState([]);     
     const [dismissed, setdismissed] = useState([]);     
+    const [selectedReportId, setReportId] = useState('');
     const [loading, setLoading] = useState(true); // Show loading state
-      // let mainGroups = [];
       async function getPendingReport(){
         try{
           let res = await fetch('http://localhost:3001/dev/reports/pending', {
@@ -84,11 +84,10 @@ export default function Devloper() {
 
         // }
     }
-    let reportInfo=localStorage.getItem("currReport"); 
 
-    async function getReportDetails() {
+    async function getReportDetails(reportId) {
         try{
-            let res = await fetch(`http://localhost:3001/user/group/${reportInfo._id}/chat/new`, {
+            let res = await fetch(`http://localhost:3001/dev/reports/${reportId}/view`, {
                 method: "get",
                 headers: {
                     "Content-Type": "application/json",
@@ -98,6 +97,7 @@ export default function Devloper() {
                 },
             });
             let data = await res.json();
+            console.log(data);
             setreprotDetails(data.responce);
             if(res.ok){
                 alert(data.message);
@@ -108,16 +108,15 @@ export default function Devloper() {
             console.log(error);
         }
     }
-    const reportOpen=(elem)=>{
-        localStorage.setItem("currReport",elem);
-        if(report){
-            document.querySelector(".Devloper_maincontainer").style.display="flex";
-            document.querySelector(".Report_container").style.display="none";
-        }else{
-            document.querySelector(".Devloper_maincontainer").style.display="none";
-            getReportDetails();
-            document.querySelector(".Report_container").style.display="flex";
-        }
+    const reportOpen=async(elem)=>{
+      if(report){
+        document.querySelector(".Devloper_maincontainer").style.display="flex";
+        document.querySelector(".Report_container").style.display="none";
+      }else{
+        document.querySelector(".Devloper_maincontainer").style.display="none";
+        getReportDetails(elem._id);
+        document.querySelector(".Report_container").style.display="flex";
+      }
     }
         const HandleOnActiontaken=()=>{
             
@@ -125,6 +124,7 @@ export default function Devloper() {
         const HandleOndismiss=()=>{
     
         }
+
     return (
     <>
         <Navbar menuOnclick={HandleOnClick}></Navbar>
@@ -175,19 +175,19 @@ export default function Devloper() {
                 }
             </div>
         </div>
-        <div className='Report_container'>
+        {{reprotDetails}?<div className='Report_container'>
             <div>
-                <p>reporter:{reprotDetails.reporter}</p>
+                <p>reporter: {reprotDetails.reporter}</p>
                 <p>reportedUser:{reprotDetails.reportedUser}</p>
                 <p>Chat:{reprotDetails.chatContent}</p>
                 <p>Reason:{reprotDetails.reason }</p>
-                <p>Description:{reprotDetails.description}</p>
+                <p>Description:{reprotDetails.description?reprotDetails.description : `""`}</p>
             </div>
             <div className='report_option'>
                 <button onClick={HandleOnActiontaken} >Action Taken</button>
                 <button onClick={HandleOndismiss}>Dismissed</button>
             </div>
-        </div>
+        </div>:<></>}
     </>
   )
 }
