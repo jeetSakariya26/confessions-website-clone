@@ -68,3 +68,22 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# overview of Backend Folder : -
+
+it has **index.js** file which contains all the routes of backend
+**npm i** ( Install required packages ) 
+**nodemon index.js** ( command to start server if you are in backend folder )
+
+## controllers :
+this folder contains js files that exports functions responsible for handling server requests, such as fetching, updating, deleting data,etc.
+
+## models :
+this folder contains different javaScript files about schema of models.
+
+## service : 
+this folder contains user and developer authentication files which use the token stored in the header of the request. (In frontend, this token is stored in localStorage and passed in header whenever required )
+there are different tokens for user and developer to authenticate so that a user can never access developer features and vice versa.
+
+## validation :
+this folder contains js files to validate the data according to the Schema ( using Joi lib )
