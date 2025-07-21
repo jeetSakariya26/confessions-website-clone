@@ -1204,39 +1204,91 @@ body{
 .Report_container{
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
     background-color: white;
     width: 40vw;
-    height: 50vh;
+    height: 55vh;
     position: absolute;
+    overflow-y: scroll;
     top: 25vh;
     left: 30vw;
-    display: none;
+    /* display: none; */
     border-radius: 12px;
-    padding: 10px;
+    padding: 20px;
 }
-.Report_container div p{
-    font-size: large;
-    margin: 20px;
+.Report_container h1{
+    font-size: 35px;
 }
-.report_option{
-    width: inherit;
+.reason{
+    display: flex;
+    width: 30vw;
+    align-items: center;
+    flex-direction: column;
+}
+.Report_container div h2{
+    width: 30vw;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.Report_container div ul{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
-.Report_container div button{
-    padding: 10px 20px;
-    border-radius: 12px;
-    border: 2px solid black;
-    font-size: large;
-    background-color: white;
+.Report_container div ul li{
+    margin: 10px;
+    width: 150px;
+    list-style: none;
 }
-
-
-/* search account css  */
-.searchAccountDetails{
+.Report_container div ul li input{
+    margin-right: 10px;
+}
+.report_option{
     display: flex;
+    flex-direction: column;
+    height: 20vh;
+    width: 30vw;
+}
+.report_option label{
+    font-size: 20px;
+    width: 30vw;
+    text-align: left;
+    font-weight:600;
+}
+
+.report_option textarea{
+    resize: none;
+    height: 10vh;
+    width: 30vw;
+    margin-top: 10px;
+}
+.report_option textarea:focus{
+    outline: none;
+}
+.Report_container button{
+    width: 100px;
+    height: 40px;
+    font-size: large;
+    background-color: rgb(41, 96, 207);
+    border: 2px solid rgb(41, 96, 207);
+    color: white;
+    border-radius: 20px;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+.Report_container button:hover{
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+.colse_report{
+    /* width: 30vw; */
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
