@@ -4,7 +4,8 @@ export default function Alert(props) {
   return (
     <div>
       <div className='Alert'>
-        <p>{props.title}</p>
+        <h2>{props.title}</h2>
+        <p>{props.message}</p>
       </div>
     </div>
   )

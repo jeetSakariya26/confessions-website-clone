@@ -56,9 +56,9 @@ export default function Report() {
     }
   }
   return (
-    <div className='Report_maincontainer'>
+    <>
       <Navbar></Navbar>
-      <div className='Report_container'>
+    <div className='Report_container'>
             <div className='colse_report'  onClick={close_reportContainer}  >
               <ImCross size={25}></ImCross>
             </div>
@@ -81,7 +81,7 @@ export default function Report() {
               <button onClick={HandleOnSubmitReport}>Submit</button>
             </div>
         </div>
-    </div>
+    </>
   )
 }
 

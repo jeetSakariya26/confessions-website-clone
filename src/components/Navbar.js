@@ -35,6 +35,7 @@ export default function Navbar(props){
     }
   }
   const HandleOnSearch=()=>{
+    localStorage.setItem("seachedUser",SearchUser);
   }
 
   const HandleOnSearchUser=(event)=>{
@@ -61,7 +62,7 @@ export default function Navbar(props){
       </div>
       <div className='navbar_search'>
         <input type='search' value={SearchUser} onChange={HandleOnSearchUser}></input>
-        <button onClick={HandleOnSearch}>Search</button>
+        <Link to={"/user/Homepage/search"} onClick={HandleOnSearch}>Search</Link>
       </div>
       <div className='account_container'>
         <div onClick={handleOnAdd}>

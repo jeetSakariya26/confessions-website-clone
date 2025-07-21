@@ -510,11 +510,15 @@ body{
 .navbar_search input:focus{
     outline: none;
 }
-.navbar_search button{
+.navbar_search a{
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    padding: 8px 0px;
     background-color: white;
     font-size: large;
     width: 100px;
-    height: 40px;
+    /* height: 40px; */
     border: 2px solid black;
     border-radius: 12px;
 }
@@ -1215,6 +1219,7 @@ body{
     left: 30vw;
     width: 40vw;
     height:50vh;
+    padding: 10px;
     border-radius: 20px;
 }
 .Report_maincontainer div h1{
@@ -1353,4 +1358,119 @@ body{
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+
+.Searchmemberlist{
+    width: 40vw;
+    height: fit-content;
+    margin-left: 30vw;
+    margin-top: 100px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Searchmemberlist div ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.Searchmemberlist div ul li{
+    list-style: none;
+    height: 40px;
+    margin: 10px 0px;
+    /* background-color: wheat; */
+}
+.Searchmemberlist div ul li a{
+    text-decoration: none;
+    width: 38vw;
+    height: 50px;
+    /* background-color: #34699A   ; */
+    font-size: large;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left:2vw ;
+    /* margin-left: 20px; */
+}
+.Searchmemberlist div ul li a:hover{
+    background-color: aliceblue;
+}
+.Searchmemberlist div ul li a span{
+    padding-left: 10px  ;
+}
+
+
+
+
+
+
+.searchAccountDetails{
+    margin-top: 25vh;
+    border-radius: 12px;
+    background-color: white;
+    width: 40vw;
+    height: 50vh;
+    margin-left: 30vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around ;
+}
+
+.searchAccountDetails div h2{
+    font-size: 30px;
+}
+.searchAccount_heading p{
+    font-size: large;
+    margin-top: 10px;
+    font-weight: 600;
+} 
+.searchAccount_userdetails{
+    /* height: 20vh; */
+    margin-top: 10px;
+    width: 18vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.searchAccount_userdetails ul{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.searchAccount_userdetails ul li{
+    display: flex;
+    flex-direction: column;
+    align-items: center ;
+    width: 6vw;
+    list-style: none;
+}
+.searchAccount_userdetails ul li div p{
+    border-bottom: 2px solid black;
+}
+.searchAccount_userdetails div button{
+    width:120px ;
+    height: 40px;
+    background-color: rgb(46, 131, 241);
+    font-size: large;
+    color: white;
+    border: 2px solid rgb(46, 131, 241) ;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+.searchAccount_userdetails div button:hover{
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    border-radius: 12px;
+}
+
+
+
+/* Alert css  */
+.Alert{
+    width: 200px;
 }
