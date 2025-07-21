@@ -4,7 +4,6 @@ import SignUp from './SignUp';
 
 export default function Login(props) {
     const [Name,setName]=useState('');
-    const [Email,setEmail]=useState('');
     const [Password,setPassword]=useState('');
     const [user,setuser]=useState('member');
     
@@ -26,6 +25,7 @@ export default function Login(props) {
                 console.log("Response:", data);
                 if (res.ok) {
                     localStorage.setItem('token', data.token);
+                    localStorage.setItem("user",user);
                     window.location.href="http://localhost:3000/user/Homepage";
                 } else {
                     alert(data.message);
@@ -45,7 +45,9 @@ export default function Login(props) {
                 console.log("Response:", data);
                 if (res.ok) {
                     localStorage.setItem('token', data.token);
+                    localStorage.setItem("user",user);
                     window.location.href="http://localhost:3000/dev";
+
                 } else {
                     alert(data.message);
                 }

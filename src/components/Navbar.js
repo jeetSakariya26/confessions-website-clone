@@ -3,30 +3,18 @@ import { Link } from 'react-router-dom'
 import {CgAddR,CgProfile} from 'react-icons/cg'
 import {FiList} from 'react-icons/fi'
 import {ImCross} from 'react-icons/im'
-import Joingroup from './Joingroup'
-import CreateGroup from './Creategroup'
-import SearchUser from './SearchUser'
-
 
 
 
 export default function Navbar(props){
   const [menuSlider,setmenuSlider]=useState(false);
   const [addSlider,setaddSlider]=useState(false);
-  const [joingroup,setjoingroup]=useState(false);
-  const [creategroup,setcreategroup]=useState(false);
   const [SearchUser,setSearchUser]=useState("");
-  // let userDetails = JSON.parse(localStorage.getItem('userDetails'));
-  // let userDetails= localStorage.getItem('userDetails');
-  // for(let i=0;i<userDetails.length;i++){
-  //   userDetails[i] = JSON.parse(userDetails[i]);
-  // }
-
-  const HandleOnCreate=()=>{
-    window.location.href="http://localhost:3000/user/create"
-  }
-  const HandleOnJoin=()=>{
-    window.location.href="http://localhost:3000/user/join"
+  let user=localStorage.getItem("user");
+  if(user=="member"){
+    var userPoisition=true;
+  }else{
+    var userPoisition=false;
   }
   const handleOnMenu=()=>{
     if(menuSlider){
@@ -38,10 +26,10 @@ export default function Navbar(props){
     }
   }
   const handleOnAdd=()=>{
-    if(addSlider){
+    if(addSlider && userPoisition){
       document.querySelector(".group_creation").style.display="none";
       setaddSlider(false);
-    }else{
+    }else if(!addSlider && userPoisition){
       document.querySelector(".group_creation").style.display="flex";
       setaddSlider(true);
     }
@@ -77,32 +65,46 @@ export default function Navbar(props){
       </div>
       <div className='account_container'>
         <div onClick={handleOnAdd}>
-          <CgAddR size={40}></CgAddR>
+          {userPoisition?<CgAddR size={40}></CgAddR>:<></>}
         </div>
         <div className='Profilephoto'>
           <Link to={"/account"}>
-            <CgProfile size={50} color='white'></CgProfile>
+            {userPoisition?<CgProfile size={50} color='white'></CgProfile>:<></>}
           </Link>
         </div>
       </div>
     </div>
     <div className='menu_slider'>
       <div>
-        <ul>
+        {
+          userPoisition?
+          (<ul>
             <li><Link to={`/user/Homepage`} className='groupNames'>Groups</Link></li>
             <li><Link to={`/user/search`} className='groupNames'>Search User</Link></li>
             <li><Link to={`/user/create`} className='groupNames'>Create Group</Link></li>
             <li><Link to={`/user/join`} className='groupNames'>Join Group</Link></li>
-        </ul>
+          </ul>):
+          (
+            <ul>
+              <li><Link to={`/dev`} className='groupNames'>Reports</Link></li>
+          </ul>
+          )
+        }
       </div>
       <div>
         <Link to={"/"} className='Logout_btn' onClick={logoutUser}><p>Logout</p></Link>
       </div>
     </div>
-    <div className='group_creation'>
-      <Link to={"/user/create"}>Create Group</Link>
-      <Link to={"/user/join"}>Join Group</Link>
-    </div>
+      {
+        userPoisition?(
+        <div className='group_creation'>
+          <div>
+            <Link to={"/user/create"}>Create Group</Link>
+            <Link to={"/user/join"}>Join Group</Link>
+          </div>
+        </div>
+        ):(<></>)
+      }
     {/* <SearchUser></SearchUser> */}
     </>
   )

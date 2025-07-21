@@ -544,9 +544,6 @@ body{
 .group_creation{
     width: 150px;
     height: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: white;
     position: fixed;
     display: none;
@@ -556,7 +553,14 @@ body{
     border-radius: 12px;
     z-index: 10;
 }
-.group_creation a{
+.group_creation div{
+    width: 150px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.group_creation div a{
     height: 40px;
     width: 150px;
     padding: 5px 0px;
@@ -569,7 +573,7 @@ body{
     border-radius: 12px;
     transition: 0.3s ease-in;
 }
-.group_creation a:hover{
+.group_creation div a:hover{
     background-color: aliceblue;
     color: black;
     border-radius: 12px;
@@ -950,6 +954,7 @@ body{
 .join_closeicon{
     position: absolute;
     top: 10px;
+    background-color: white;
     right: 15px;
 }
 .join_container div h1{
@@ -984,7 +989,8 @@ body{
 .join_container div input:focus ~label{
     color: rgb(41, 96, 207);
 }
-.join_container div button{
+.user_joingroup{
+    text-decoration: none;
     padding: 10px;
     font-size: larger;
     background-color:rgb(41, 96, 207) ;
@@ -993,7 +999,7 @@ body{
     border-radius: 20px;
     transition: all 0.3s;
 }
-.join_container div button:hover{
+.user_joingroup:hover{
     color: black;
     background-color: white;
     border: 2px solid black;
@@ -1016,10 +1022,11 @@ body{
     z-index: 1000;
     position: relative;
 }
-.join_closeicon{
+.create_closeicon{
     position: absolute;
     top: 10px;
     right: 15px;
+    background-color: white;
 }
 .Create_container div h1{
     font-size: 35px;
@@ -1053,7 +1060,8 @@ body{
 .Create_container div input:focus ~label{
     color: rgb(41, 96, 207);
 }
-.Create_container div button{
+.user_CreateGroup{
+    text-decoration: none;
     padding: 10px;
     font-size: larger;
     background-color:rgb(41, 96, 207) ;
@@ -1062,7 +1070,7 @@ body{
     border-radius: 20px;
     transition: all 0.3s;
 }
-.Create_container div button:hover{
+.user_CreateGroup:hover{
     color: black;
     background-color: white;
     border: 2px solid black;

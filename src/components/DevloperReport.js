@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import { ImCross } from 'react-icons/im';
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 
 export default function DevloperReport() {
     const [reprotDetails,setreprotDetails]=useState({});
@@ -40,6 +41,7 @@ export default function DevloperReport() {
     console.log(reprotDetails);
   return (
     <div>
+        <Navbar></Navbar>
       {{reprotDetails}?<div className='Report_maincontainer'>
             <span className='close_devreportdetails'><Link to={"http://localhost:3000/dev"}><ImCross size={25} color='black'></ImCross></Link></span>
 

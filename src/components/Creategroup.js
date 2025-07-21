@@ -35,8 +35,8 @@ export default function CreateGroup(props) {
     <Navbar></Navbar>
     <div className='Create_container'>
       <div>
-        <Link to={"/user/Homepage"}>
-        <ImCross size={25} color='black' className='join_closeicon'></ImCross>
+        <Link to={"/user/Homepage"} className='create_closeicon'>
+          <ImCross size={25} color='black' ></ImCross>
         </Link>
       </div>
       <div>
@@ -47,7 +47,7 @@ export default function CreateGroup(props) {
         <label htmlFor='groupname'>Group Name: </label>
       </div>
       <div>
-        <button onClick={HandleOnCreate}>Create Group</button>
+        <Link to={"/user/Homepage"} onClick={HandleOnCreate} className='user_CreateGroup'>Create Group</Link>
       </div>
     </div>
     </>

@@ -32,8 +32,8 @@ export default function Joingroup(props) {
       <Navbar></Navbar>
     <div className='join_container'>
       <div>
-        <Link>
-          <ImCross size={25} color='black' className='join_closeicon'></ImCross>
+        <Link to={"/user/Homepage"} className='join_closeicon'>
+          <ImCross size={25} color='black' ></ImCross>
         </Link>
       </div>
       <div>
@@ -44,7 +44,7 @@ export default function Joingroup(props) {
         <label htmlFor='groupcode'>Group Code:</label>
       </div>
       <div>
-        <button onClick={joinGroup}>Join Group</button>
+        <Link onClick={joinGroup} className='user_joingroup'>Join Group</Link>
       </div>
     </div>
       </>
