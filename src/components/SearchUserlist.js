@@ -5,6 +5,7 @@ import {CgProfile} from 'react-icons/cg'
 
 export default function Searchuserlist() {
     const [userList,setuserList]=useState([]);
+    const [userFound,setuserFound]=useState(false);
     const [loading,setLoading]=useState([]);
     async function getUsers(){
         try{
@@ -19,12 +20,14 @@ export default function Searchuserlist() {
                 }
             });
             let data = await res.json();
+            console.log(data);
             setuserList(data.users);
             setLoading(false);
             } catch(error){
             console.error(error);
             setLoading(false);
             }
+
         }
     useEffect(() => {
         getUsers();
@@ -36,10 +39,10 @@ export default function Searchuserlist() {
         <div className='Searchmemberlist'>
             <div>
                 <ul>
-                    {
+                    {userList?
                         userList.map((elem)=>{
                             return <li><Link to={"/user/Homepage/search/useraccount"}><CgProfile size={30}></CgProfile><span>{elem.name}</span></Link></li>
-                        })
+                        }):<></>
                     }
                 </ul>
             </div>

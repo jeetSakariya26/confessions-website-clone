@@ -21,7 +21,7 @@ export default function Navbar(props){
       document.querySelector(".menu_slider").style.width="0vw";
       setmenuSlider(false);
     }else{
-      document.querySelector(".menu_slider").style.width="15vw";
+      document.querySelector(".menu_slider").style.width="200px ";
       setmenuSlider(true);
     }
   }

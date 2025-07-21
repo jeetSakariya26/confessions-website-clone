@@ -50,6 +50,7 @@ body{
     flex-direction: column;
     justify-content: center;
     text-align: left;
+    /* padding: 20px; */
     height:80vh;
     background-image:linear-gradient(to left, rgb(30,212,252), rgb(117,78,231));
     color: rgb(249, 249, 249);
@@ -63,7 +64,9 @@ body{
     animation-delay: 0s;
 }
 .website_info h1{
-    font-size: 50px;
+    width:35vw ;
+    font-size: 45px;
+    text-align: center;
 }
 .website_info p{
     font-size: large;
@@ -107,7 +110,7 @@ body{
 }
 
 .login_data form input{
-    width: 300px;
+    width: 20vw;
     height: 50px;
     border-radius: 20px;
     border: 2px solid black;
@@ -121,7 +124,7 @@ body{
 .login_data form label{
     position: absolute;
     /* top: -100px; */
-    left: 150px;
+    left: 9vw;
     background-color: white;
     z-index: 100;
     width:fit-content;
@@ -260,6 +263,8 @@ body{
 }
 .website_info1 h1{
     font-size: 50px;
+    width: 35vw;
+    text-align: center;
 }
 .website_info1 p{
     font-size: large;
@@ -334,6 +339,8 @@ body{
     margin-bottom: 40px;
     font-size: 25px;
     padding: 0px 10px;
+    text-align: center;
+    width: 30vw;
     /* border-bottom: 2px solid black; */
 }
 .signup_submit{
@@ -466,7 +473,7 @@ body{
     overflow: scroll;
     padding-top:20px;
     padding-bottom:40px ;
-    z-index: 100;
+    z-index: 100000;
     transition: 0.5s ease;    
 }
 .menu_slider div{
@@ -1201,11 +1208,12 @@ body{
     color: black;
 }
 .action_taken{
-    background-color: lightgreen;
+    width: 200px;
+    background-color: red;
     color: white;
 }
 .dismissed{
-    background-color: red;
+    background-color: lightgreen;
     color: white;
 }
 .Report_maincontainer{
@@ -1473,4 +1481,115 @@ body{
 /* Alert css  */
 .Alert{
     width: 200px;
+    height: 40px;   
+}
+
+
+/* Small devices (phones, < 600px) */
+@media only screen and (max-width: 600px) {
+    .login_maincontainer, .signup_container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .website_info, .website_info1, .login_data, .new_account {
+        width: 90vw;
+        left: 5vw;
+        top: auto;
+        position: static;
+        height: auto;
+        margin-top: 5vh;
+        border-radius: 12px;
+    }
+
+    .login_data form input, 
+    .new_account div form input {
+        width: 80vw;
+    }
+
+    .login_data h2, 
+    .signup_heading {
+        font-size: 24px;
+    }
+
+    .navbar_search input {
+        width: 60vw;
+    }
+
+    .navbar_search a {
+        width: auto;
+        font-size: medium;
+        padding: 5px;
+    }
+
+    .homepage_groupContainer {
+        margin: 200px 5vw;
+        justify-content: center;
+    }
+
+    .GroupContainer {
+        width: 80vw;
+        height: auto;
+    }
+
+    .GroupContainer div img {
+        width: 80vw;
+        height: auto;
+    }
+
+    .GroupChat_container {
+        flex-direction: column;
+    }
+
+    .GroupChating_info, .GroupChat_container {
+        width: 90vw;
+    }
+
+    .SendChats_area textarea {
+        width: 70vw;
+    }
+
+    .Account_maincontainer, .Edit_container, .join_container, .Create_container {
+        width: 90vw;
+        left: 5vw;
+    }
+
+    .AccountDetails div {
+        width: 100%;
+    }
+
+    .navbar_container {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .navbar_search {
+        margin-top: 10px;
+    }
+    .group_creation{
+        top: 180px;
+        left: 150px;
+    }
+}
+
+/* Medium devices (tablets, 601px - 1024px) */
+@media only screen and (max-width: 1024px) {
+    .navbar_container{
+        display: flex;
+        flex-direction: column;
+    }
+     .GroupContainer {
+        width: 200px;
+    }
+    .GroupContainer div img{
+        width: 200px;
+    }
+    .navbar_search input {
+        width: 40vw;
+    }
+    .menu_slider{
+        width: 200px;
+    }
 }
