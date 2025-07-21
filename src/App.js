@@ -53,7 +53,7 @@ function App() {
         <Route path='/account' element={<Account token={token} userDetails={userDetails} loading={loading}></Account>}></Route>
         <Route path='/user/creategroup' element={<CreateGroup token={token}></CreateGroup>}></Route>
         <Route path='/user/joingroup' element={<Joingroup token={token}></Joingroup>}></Route>
-        <Route path='/dev/report' element={<Report token={token}></Report>}></Route>
+        <Route path='/user/report' element={<Report token={token}></Report>}></Route>
 
       </Routes>
     </div>
