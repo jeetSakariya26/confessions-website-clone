@@ -148,7 +148,8 @@ export default function Group(props) {
   };
 
   const reportChat = async(elem)=>{
-    localStorage.setItem("reportedChat",elem);
+    console.log(elem._id);
+    localStorage.setItem("reportedChat",JSON.stringify(elem._id));
     window.location.href="http://localhost:3000/user/report";
   }
   return (

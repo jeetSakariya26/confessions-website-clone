@@ -73,7 +73,7 @@ export default function Homepage(props) {
         {props.loading || <div className='homepage_maincontainer'>
           <div className='homepage_groupContainer'>
             {
-              props.userDetails.map((elem)=>{
+              userDetails.map((elem)=>{
                 
                 return <Link to={"/group"} className='GroupContainer' onClick={() => groupDetails(elem)}><div>
                   <div>

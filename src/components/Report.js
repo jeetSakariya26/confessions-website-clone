@@ -8,7 +8,7 @@ export default function Report() {
     setReportdescription(event.target.value);
   }
   const close_reportContainer=()=>{
-    // window.location.href="http://localhost:3000/user/homepage"
+    window.location.href="http://localhost:3000/user/homepage"
   }
   const HandleOnSubmitReport=async()=>{
     let reportReason=document.getElementsByName("reason");
@@ -23,7 +23,7 @@ export default function Report() {
 
     }
     let selectedChat=localStorage.getItem("reportedChat");
-    let group = localStorage.getItem("currGroup");
+    let group = JSON.parse(localStorage.getItem("currGroup"));
 
     if(!selectedChat) {
       alert("Select chat first");
@@ -58,8 +58,8 @@ export default function Report() {
   return (
     <div className='Report_maincontainer'>
       <Navbar></Navbar>
-      <div className='Report_container' onClick={close_reportContainer}>
-            <div className='colse_report'>
+      <div className='Report_container'>
+            <div className='colse_report'  onClick={close_reportContainer}  >
               <ImCross size={25}></ImCross>
             </div>
             <h1>Report</h1>

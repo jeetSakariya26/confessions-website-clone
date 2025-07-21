@@ -51,8 +51,8 @@ function App() {
         <Route path='/user/Homepage' index element={<Homepage token={token} userDetails={userDetails} loading={loading}></Homepage>}></Route>
         <Route path='/group' element={<Group token={token} userDetails={userDetails} loading={loading}></Group>}></Route>
         <Route path='/account' element={<Account token={token} userDetails={userDetails} loading={loading}></Account>}></Route>
-        <Route path='/user/creategroup' element={<CreateGroup token={token}></CreateGroup>}></Route>
-        <Route path='/user/joingroup' element={<Joingroup token={token}></Joingroup>}></Route>
+        <Route path='/user/create' element={<CreateGroup token={token}></CreateGroup>}></Route>
+        <Route path='/user/join' element={<Joingroup token={token}></Joingroup>}></Route>
         <Route path='/user/report' element={<Report token={token}></Report>}></Route>
 
       </Routes>

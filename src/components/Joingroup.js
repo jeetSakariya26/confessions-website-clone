@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {ImCross} from 'react-icons/im'
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 
 export default function Joingroup(props) {
     const  [GroupCode,setGroupCode]=useState("");
@@ -23,11 +24,17 @@ export default function Joingroup(props) {
         alert(data.message || "Error joining group");
       }
     }
-
+    const ClickOnCross=()=>{
+      window.location.href="http://localhost:3000/user/Homepage";
+    }
     return (
+      <>
+      <Navbar></Navbar>
     <div className='join_container'>
       <div>
-        <ImCross size={25} className='join_closeicon' onClick={props.ClickOnCross}></ImCross>
+        <Link>
+          <ImCross size={25} color='black' className='join_closeicon'></ImCross>
+        </Link>
       </div>
       <div>
         <h1>Join Group</h1>
@@ -40,5 +47,6 @@ export default function Joingroup(props) {
         <button onClick={joinGroup}>Join Group</button>
       </div>
     </div>
+      </>
   )
 }

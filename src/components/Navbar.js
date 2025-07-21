@@ -16,85 +16,36 @@ export default function Navbar(props){
   const [joingroup,setjoingroup]=useState(false);
   const [creategroup,setcreategroup]=useState(false);
   const [SearchUser,setSearchUser]=useState("");
-  let userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  const userDetails=[]
+  // let userDetails = JSON.parse(localStorage.getItem('userDetails'));
   // let userDetails= localStorage.getItem('userDetails');
   // for(let i=0;i<userDetails.length;i++){
   //   userDetails[i] = JSON.parse(userDetails[i]);
   // }
 
   const HandleOnCreate=()=>{
-     if(!creategroup && joingroup){
-      console.log(creategroup);
-      setjoingroup(false);
-      setcreategroup(true);
-      document.querySelector(".Create_container").style.display="flex";
-      document.querySelector(".join_container").style.display="none";
-
-    }else if(creategroup){
-      props.createGroup(creategroup);
-      setcreategroup(false);
-      document.querySelector(".Create_container").style.display="none";
-    }else{
-      props.createGroup(creategroup);
-      setcreategroup(true);
-      document.querySelector(".Create_container").style.display="flex";
-      
-    }
+    window.location.href="http://localhost:3000/user/create"
   }
   const HandleOnJoin=()=>{
-    console.log("hii")
-    if(!joingroup && creategroup){
-      console.log(creategroup);
-      // props.joinGroup(joingroup);
-      setjoingroup(true);
-      setcreategroup(false);
-      document.querySelector(".join_container").style.display="flex";
-      document.querySelector(".Create_container").style.display="none";
-    }else if(joingroup){
-      props.joinGroup(joingroup);
-      setjoingroup(false);
-      document.querySelector(".join_container").style.display="none";
-    }else{
-      props.joinGroup(joingroup);
-      setjoingroup(true);
-      document.querySelector(".join_container").style.display="flex";
-    }
+    window.location.href="http://localhost:3000/user/join"
   }
   const handleOnMenu=()=>{
     if(menuSlider){
       document.querySelector(".menu_slider").style.width="0vw";
-      props.menuOnclick(menuSlider);
-      // document.querySelector(".homepage_groupContainer").style.marginLeft="0vw";
       setmenuSlider(false);
     }else{
       document.querySelector(".menu_slider").style.width="15vw";
-      props.menuOnclick(menuSlider);
-      // document.querySelector(".homepage_groupContainer").style.marginLeft="16vw";
       setmenuSlider(true);
     }
   }
   const handleOnAdd=()=>{
     if(addSlider){
-      console.log("1")
       document.querySelector(".group_creation").style.display="none";
       setaddSlider(false);
     }else{
-      console.log("2")
       document.querySelector(".group_creation").style.display="flex";
-
       setaddSlider(true);
     }
-  }
-  const JoinClickOnCross=()=>{
-    document.querySelector(".join_container").style.display="none";
-    props.joinGroup(joingroup);
-    setjoingroup(false)
-
-  }
-  const CreateClickOnCross=()=>{
-    document.querySelector(".Create_container").style.display="none";
-    props.createGroup(creategroup);
-    setcreategroup(false);
   }
   const HandleOnSearch=()=>{
   }
@@ -139,11 +90,10 @@ export default function Navbar(props){
     <div className='menu_slider'>
       <div>
         <ul>
-            <li><Link to={"/user/Homepage"} className='groupNames'>Home</Link></li>
             <li><Link to={`/user/Homepage`} className='groupNames'>Groups</Link></li>
             <li><Link to={`/user/search`} className='groupNames'>Search User</Link></li>
-            <li><Link to={`/`} className='groupNames'>Create Group</Link></li>
-            <li><Link to={`/group`} className='groupNames'>Join Group</Link></li>
+            <li><Link to={`/user/create`} className='groupNames'>Create Group</Link></li>
+            <li><Link to={`/user/join`} className='groupNames'>Join Group</Link></li>
         </ul>
       </div>
       <div>
@@ -151,11 +101,9 @@ export default function Navbar(props){
       </div>
     </div>
     <div className='group_creation'>
-      <button onClick={HandleOnCreate}>Create Group</button>
-      <button onClick={HandleOnJoin}>Join Group</button>
+      <Link to={"/user/create"}>Create Group</Link>
+      <Link to={"/user/join"}>Join Group</Link>
     </div>
-    <Joingroup ClickOnCross={JoinClickOnCross}></Joingroup>
-    <CreateGroup ClickOnCross={CreateClickOnCross}></CreateGroup>
     {/* <SearchUser></SearchUser> */}
     </>
   )

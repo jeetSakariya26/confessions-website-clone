@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ImCross } from 'react-icons/im'
 import { BrowserRouter, Link } from 'react-router-dom'
+import Navbar from './Navbar';
 
 export default function CreateGroup(props) {
     const [GroupName,setGroupName]=useState("");
@@ -26,11 +27,17 @@ export default function CreateGroup(props) {
       }
     window.location.href="http://localhost:3000/user/Homepage";
     }
-
+    const ClickOnCross=()=>{
+      window.location.href="http://localhost:3000/user/Homepage";
+    }
   return (
+    <>
+    <Navbar></Navbar>
     <div className='Create_container'>
       <div>
-        <ImCross size={25} className='join_closeicon' onClick={props.ClickOnCross}></ImCross>
+        <Link to={"/user/Homepage"}>
+        <ImCross size={25} color='black' className='join_closeicon'></ImCross>
+        </Link>
       </div>
       <div>
         <h1>Create Group</h1>
@@ -43,5 +50,6 @@ export default function CreateGroup(props) {
         <button onClick={HandleOnCreate}>Create Group</button>
       </div>
     </div>
+    </>
   )
 }
