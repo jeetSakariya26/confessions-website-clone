@@ -3,6 +3,10 @@ import {Link} from 'react-router-dom';
 import Navbar from './Navbar';
 import {CgProfile} from 'react-icons/cg'
 
+export const handleOnClick = async(username)=>{
+    localStorage.setItem('targetUsername', username);
+}
+
 export default function Searchuserlist() {
     const [userList,setuserList]=useState([]);
     const [userFound,setuserFound]=useState(false);
@@ -41,7 +45,7 @@ export default function Searchuserlist() {
                 <ul>
                     {userList?
                         userList.map((elem)=>{
-                            return <li><Link to={"/user/Homepage/search/useraccount"}><CgProfile size={30}></CgProfile><h4>{elem.nickName}</h4><span>@{elem.username}</span></Link></li>
+                            return <li onClick={()=>handleOnClick(elem.username)}><Link to={"/user/Homepage/search/useraccount"}><CgProfile size={30}></CgProfile><h4>{elem.nickName}</h4><span>@{elem.username}</span></Link></li>
                         }):<></>
                     }
                 </ul>
