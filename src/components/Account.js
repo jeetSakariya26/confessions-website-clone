@@ -110,7 +110,7 @@ export default function Account(props) {
   }
   const HandleOnLogout=()=>{
     localStorage.removeItem('token');
-    window.location.href="http://localhost:3000/"
+    window.location.href="http://localhost:3000/";
   }
   return (
     <>
