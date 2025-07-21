@@ -96,6 +96,7 @@ export const viewReport = async(req,res)=>{
     let report = await Report.findOne({ _id : reportId });
     let chat = await Chat.findOne({ _id :report.chatId });
     let responce = {
+      _id : reportId,
       reportedUser : chat.from,
       reporter : report.reporter,
       chatContent : chat.content,
