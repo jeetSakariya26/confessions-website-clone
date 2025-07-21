@@ -1486,7 +1486,7 @@ body{
 }
 
 
-/* Small devices (phones, < 600px) */
+/* for width(0-600px) */
 @media only screen and (max-width: 600px) {
     .login_maincontainer, .signup_container {
         flex-direction: column;
@@ -1575,7 +1575,7 @@ body{
     }
 }
 
-/* Medium devices (tablets, 601px - 1024px) */
+/* for width (600px-1024px) */
 @media only screen and (max-width: 1024px) {
     .navbar_container{
         display: flex;
